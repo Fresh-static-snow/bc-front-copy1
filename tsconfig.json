@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
+    "sourceMap": true,
+    "baseUrl": "./src",
+    "types": ["vite-plugin-pwa/react"],
+    "paths": {
+      "@/*": ["*"]
+    }
+  },
+  "include": ["src", "vite.config.ts"]
+}

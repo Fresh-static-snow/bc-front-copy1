@@ -1,0 +1,112 @@
+{
+  "name": "broadcast-shift-calendar-spa",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "tsc --noEmit --skipLibCheck && eslint --ext .js,.jsx,.ts,.tsx src --fix",
+    "prepare": "husky install",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test": "vitest --run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@hookform/resolvers": "^3.1.0",
+    "@mui/material": "^5.12.1",
+    "@rails/actioncable": "^7.1.0",
+    "@tanstack/react-query": "^4.29.12",
+    "axios": "^1.3.6",
+    "dayjs": "^1.11.7",
+    "immer": "^10.0.1",
+    "lodash": "^4.17.21",
+    "nanoid": "^4.0.2",
+    "notistack": "^3.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
+    "react-hook-form": "^7.43.9",
+    "react-image-crop": "^10.0.9",
+    "react-router-dom": "^6.10.0",
+    "react-scrollbars-custom": "^4.1.1",
+    "react-transition-group": "^4.4.5",
+    "yup": "^1.1.1",
+    "zustand": "^4.3.7"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.3.1",
+    "@storybook/addon-essentials": "^7.0.12",
+    "@storybook/addon-interactions": "^7.0.12",
+    "@storybook/addon-links": "^7.0.12",
+    "@storybook/blocks": "^7.0.12",
+    "@storybook/manager-api": "^7.0.18",
+    "@storybook/react": "^7.0.12",
+    "@storybook/react-vite": "^7.0.12",
+    "@storybook/testing-library": "^0.0.14-next.2",
+    "@storybook/theming": "^7.0.18",
+    "@testing-library/jest-dom": "^6.2.0",
+    "@testing-library/react": "^14.1.2",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/js-cookie": "^3.0.3",
+    "@types/lodash": "^4.14.194",
+    "@types/node": "^18.16.0",
+    "@types/rails__actioncable": "^6.1.7",
+    "@types/react": "^18.0.38",
+    "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.59.1",
+    "@typescript-eslint/parser": "^5.59.1",
+    "@vitejs/plugin-react": "^4.2.1",
+    "@vitest/coverage-v8": "^1.1.3",
+    "eslint": "^8.39.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-storybook": "^0.6.12",
+    "eslint-plugin-testing-library": "^5.10.3",
+    "husky": "^8.0.3",
+    "jsdom": "^23.2.0",
+    "lint-staged": "^13.2.1",
+    "prettier": "^2.8.8",
+    "prop-types": "^15.8.1",
+    "storybook": "^7.0.12",
+    "typescript": "^5.0.4",
+    "vite": "^5.0.11",
+    "vite-plugin-pwa": "^0.19.0",
+    "vite-plugin-svgr": "^2.4.0",
+    "vitest": "^1.1.3",
+    "vitest-canvas-mock": "^0.3.3",
+    "vitest-mock-extended": "^1.3.1",
+    "vitest-preview": "^0.0.1",
+    "workbox-window": "^7.0.0"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{html,css,less,scss,ejs}": [
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}

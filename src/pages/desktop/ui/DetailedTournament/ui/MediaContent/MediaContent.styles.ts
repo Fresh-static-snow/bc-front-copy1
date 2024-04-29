@@ -1,0 +1,70 @@
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+
+export const Media = styled('div')(
+  () => css`
+    width: 100%;
+    padding: 36px 30px;
+  `,
+);
+
+export const EmptyMedia = styled('div')(
+  ({ theme }) => css`
+    color: ${theme.appColors.secondary_13};
+    font-family: ${theme.appFonts.primary};
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.072px;
+  `,
+);
+
+export const MediaItem = styled('div')(
+  ({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    padding: 14px 0;
+    border-bottom: 1px solid ${theme.appColors.primary_03};
+  `,
+);
+
+export const MediaItemHeader = styled('div')(
+  () => css`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  `,
+);
+
+export const Title = styled('div')(
+  ({ theme }) => css`
+    font-family: ${theme.appFonts.primary};
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 16px;
+    color: ${theme.appColors.primary_02};
+  `,
+);
+
+export const Date = styled('div')(
+  ({ theme }) => css`
+    font-family: ${theme.appFonts.primary};
+    font-size: 13px;
+    line-height: 16px;
+    color: ${theme.appColors.secondary_04};
+  `,
+);
+
+export const MediaItemText = styled('div')(
+  ({ theme }) => css`
+    font-family: ${theme.appFonts.primary};
+    font-size: 13px;
+    line-height: 16px;
+    letter-spacing: 0.004em;
+    color: ${theme.appColors.primary_02};
+    white-space: break-spaces;
+    word-wrap: break-word;
+  `,
+);
