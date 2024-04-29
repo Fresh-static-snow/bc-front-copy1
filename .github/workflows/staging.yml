@@ -29,7 +29,7 @@ jobs:
             if [ ! -d "/home/${{ secrets.SSH_USER }}/${{ secrets.SERVER_APP_FOLDER }}" ]; then
               mkdir /home/${{ secrets.SSH_USER }}/${{ secrets.SERVER_APP_FOLDER }}
               chown ${{ secrets.SSH_USER }}:${{ secrets.SSH_USER }} /home/${{ secrets.SSH_USER }}/${{ secrets.SERVER_APP_FOLDER }}
-              git clone "${{ secrets.SSH_GITHUB_REPOSITORY}}" /home/${{ secrets.SSH_USER }}/${{ secrets.SERVER_APP_FOLDER }}
+              git clone ${{ secrets.SSH_GITHUB_REPOSITORY}} /home/${{ secrets.SSH_USER }}/${{ secrets.SERVER_APP_FOLDER }}
             fi
             cd /home/${{ secrets.SSH_USER }}/${{ secrets.SERVER_APP_FOLDER }}
             git checkout -f staging
