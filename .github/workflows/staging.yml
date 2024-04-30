@@ -35,12 +35,12 @@ jobs:
             git checkout -f staging
             git pull origin staging
 
-            export VITE_API_BASE_URL="https://next-api-crm-copy1.maincast.com/api/v1"
-            export VITE_WEBSOCKET_BASE_URL="wss://next-api-crm-copy1.maincast.com/cable"
+            export VITE_API_BASE_URL='${{ secrets.VITE_API_BASE_URL }}'
+            export VITE_WEBSOCKET_BASE_URL='${{ secrets.VITE_WEBSOCKET_BASE_URL }}'
 
             echo "
-            VITE_API_BASE_URL='https://next-api-crm-copy1.maincast.com/api/v1'
-            VITE_WEBSOCKET_BASE_URL='wss://next-api-crm-copy1.maincast.com/cable'
+            VITE_API_BASE_URL='${{ secrets.VITE_API_BASE_URL }}'
+            VITE_WEBSOCKET_BASE_URL='${{ secrets.VITE_WEBSOCKET_BASE_URL }}'
             " > /home/${{ secrets.SSH_USER }}/${{ secrets.SERVER_APP_FOLDER }}/.env
             pnpm install
             pnpm run build
