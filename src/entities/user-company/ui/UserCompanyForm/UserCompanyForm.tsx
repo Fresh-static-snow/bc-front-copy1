@@ -2,9 +2,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useCallback, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { PrimaryFormFooter, SecondaryFormFooter } from '@/shared/ui/forms';
+import { FormField, PrimaryFormFooter, SecondaryFormFooter } from '@/shared/ui/forms';
 import { PrimaryDropzone, PrimaryInput } from '@/shared/ui/inputs';
-import { FormField } from '@/shared/ui/layouts';
 
 import { userCompanyDefaultValues } from './UserCompanyForm.const';
 import { companySchema } from './UserCompanyForm.schema';

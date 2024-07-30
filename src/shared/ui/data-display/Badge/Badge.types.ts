@@ -1,4 +1,4 @@
-import { CSSColor, CSSSize } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type BadgeProps = {
   text: string;
@@ -7,22 +7,22 @@ export type BadgeProps = {
    * @default secondary_10
    * @description `secondary_10` is the color of the active theme.
    */
-  baseColor?: CSSColor;
+  baseColor?: CSSProperties['color'];
   /**
    * Secondary gradient color layer of the component.
    */
-  secondaryColor: CSSColor;
+  secondaryColor: CSSProperties['color'];
   rotateDeg?: number;
-  height?: CSSSize;
-  right?: CSSSize;
+  height?: CSSProperties['height'];
+  right?: CSSProperties['right'];
 };
 
 export type StyledRootProps = {
-  $height?: CSSSize;
+  $height?: CSSProperties['height'];
 };
 
 export type StyledBodyProps = {
-  $baseColor: CSSColor;
-  $secondaryColor: CSSColor;
-  $right?: CSSSize;
+  $baseColor: CSSProperties['color'];
+  $secondaryColor: CSSProperties['color'];
+  $right?: CSSProperties['right'];
 };

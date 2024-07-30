@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import parse from 'html-react-parser';
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -32,7 +33,9 @@ const MainContent: React.FC = () => {
       mainData?.descriptions?.map((description) => ({
         id: description?.id ?? '',
         title: description?.title ?? '',
-        description: description?.description ?? '',
+        description: description?.description
+          ? (parse(description?.description) as React.ReactNode)
+          : '',
       })) ?? [];
 
     return [
@@ -72,7 +75,7 @@ const MainContent: React.FC = () => {
     return [
       { type: mainData?.main_participants ?? [], label: 'Main Participants' },
       { type: mainData?.media_representatives ?? [], label: 'Media Representatives' },
-      { type: commentators, label: 'Commentators' },
+      { type: commentators, label: 'Casters' },
       { type: analytics, label: 'Analysts' },
       { type: mainData?.staff ?? [], label: 'Staff' },
     ];
@@ -103,7 +106,7 @@ const MainContent: React.FC = () => {
         </SlicedContentLayout.Section>
 
         <SlicedContentLayout.Section fragments={1} borderRight>
-          <Description descriptionItem={descriptionList} />
+          <Description descriptionItems={descriptionList} />
         </SlicedContentLayout.Section>
 
         <SlicedContentLayout.Section fragments={1} borderRight>

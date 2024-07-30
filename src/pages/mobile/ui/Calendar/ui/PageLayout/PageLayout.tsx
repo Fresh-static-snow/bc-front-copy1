@@ -2,7 +2,13 @@ import { Suspense, useCallback } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { useCheckAccess } from '@/shared/lib';
-import { Corporate, GameDiscipline, Match, Tournament } from '@/shared/types/entities.types';
+import {
+  Corporate,
+  GameDiscipline,
+  Match,
+  Segment,
+  Tournament,
+} from '@/shared/types/entities.types';
 import { CircularLoader } from '@/shared/ui/feedback';
 import { CalendarDatesMenu, useDatesMobileMenuStore } from '@/widgets/mobile';
 
@@ -36,12 +42,25 @@ const PageLayout: React.FC = () => {
   );
 
   const onClickMatch = useCallback(
-    (match: Match) => {
-      setEditingRequestType({
-        label: 'Match',
-        value: 'match',
-        additional: String(match.id),
-      });
+    (match: Match | Segment) => {
+      switch (match.type) {
+        case 'Match':
+          setEditingRequestType({
+            label: 'Match',
+            value: 'match',
+            additional: String((match as Match).id),
+          });
+          break;
+        case 'Segment':
+          setEditingRequestType({
+            label: 'Segment',
+            value: 'segment',
+            additional: String((match as Segment).id),
+          });
+          break;
+        default:
+          break;
+      }
     },
     [setEditingRequestType],
   );

@@ -4,50 +4,18 @@ import { Body } from '../Body/Body';
 import { Section } from './Section';
 
 export default {
-  title: 'modules/AppPageParts/Section',
+  title: 'shared/layouts/SlicedContentLayout.Section',
   component: Section,
   tags: ['autodocs'],
   argTypes: {
-    children: {
-      control: {
-        type: null,
-      },
-    },
-    fragments: {
-      control: {
-        type: null,
-      },
-    },
-    scrollActive: {
-      control: {
-        type: null,
-      },
-    },
-    borderLeft: {
-      control: {
-        type: null,
-      },
-    },
-    borderLeftType: {
-      control: {
-        type: null,
-      },
-    },
-    borderRight: {
-      control: {
-        type: null,
-      },
-    },
-    borderRightType: {
-      control: {
-        type: null,
-      },
-    },
-    backgroundColor: {
-      control: {
-        type: null,
-      },
-    },
+    children: { control: { type: null } },
+    fragments: { control: { type: null } },
+    scrollActive: { control: { type: null } },
+    borderLeft: { control: { type: null } },
+    borderLeftType: { control: { type: null } },
+    borderRight: { control: { type: null } },
+    borderRightType: { control: { type: null } },
+    backgroundColor: { control: { type: null } },
   },
 } as Meta<typeof Section>;
 

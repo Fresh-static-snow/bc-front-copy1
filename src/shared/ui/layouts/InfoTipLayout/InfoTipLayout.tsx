@@ -7,6 +7,10 @@ export const InfoTipLayout: React.FC<InfoTipLayoutProps> = ({
   color,
   isVisible = true,
   disabled = false,
+  open = null,
+  arrow = false,
+  followCursor = true,
+  placement = 'bottom-start',
 }) => (
   <S.Root
     title={
@@ -18,8 +22,10 @@ export const InfoTipLayout: React.FC<InfoTipLayoutProps> = ({
     disableFocusListener={disabled}
     disableHoverListener={disabled}
     disableTouchListener={disabled}
-    followCursor
-    placement="bottom-start"
+    followCursor={followCursor}
+    placement={placement}
+    arrow={arrow}
+    {...(open !== null && !disabled ? { open } : {})}
   >
     {children}
   </S.Root>

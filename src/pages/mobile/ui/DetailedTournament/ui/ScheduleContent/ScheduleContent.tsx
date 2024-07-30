@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import { MatchItemMobile } from '@/entities/calendar';
 import { useGetTournament, useGetTournamentSchedule } from '@/entities/tournament';
-import { Match } from '@/shared/types/entities.types';
+import { Match, Segment } from '@/shared/types/entities.types';
 import { BackgroundColor } from '@/shared/ui/data-display';
 import { useTournamentMobileMenuStore } from '@/widgets/mobile';
 
@@ -23,8 +23,25 @@ const ScheduleContent: React.FC = () => {
     (state) => state.setEditingRequestType,
   );
 
-  const onChangeModalStatus = (match: Match) => () => {
-    setEditingRequestType({ label: 'Match', value: 'match', additional: String(match.id) });
+  const onChangeModalStatus = (match: Match | Segment) => () => {
+    switch (match.type) {
+      case 'Match':
+        setEditingRequestType({
+          label: 'Match',
+          value: 'match',
+          additional: String((match as Match).id),
+        });
+        break;
+      case 'Segment':
+        setEditingRequestType({
+          label: 'Segment',
+          value: 'segment',
+          additional: String((match as Segment).id),
+        });
+        break;
+      default:
+        break;
+    }
   };
 
   return (

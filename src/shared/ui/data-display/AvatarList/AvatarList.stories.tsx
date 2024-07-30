@@ -3,19 +3,16 @@ import { Meta, StoryFn, StoryObj } from '@storybook/react';
 import { AvatarList } from './AvatarList';
 
 export default {
-  title: 'elements/AvatarList',
+  title: 'shared/data-display/AvatarList',
   component: AvatarList,
   tags: ['autodocs'],
   argTypes: {
-    color: {
-      control: {
-        type: 'color',
-      },
-    },
-    people: {
-      control: {
-        type: null,
-      },
+    color: { control: { type: 'color' } },
+    people: { control: { type: null } },
+    avatarSize: { control: { type: 'number' } },
+    position: { control: { type: 'select', options: ['left', 'center', 'right'] } },
+    filterList: {
+      control: { type: null },
     },
   },
 } as Meta<typeof AvatarList>;
@@ -82,5 +79,64 @@ export const Simple: Story = {
         `,
       },
     },
+  },
+};
+
+export const Centered: Story = {
+  render: Template,
+  args: {
+    color: '#000',
+    people: [
+      { id: 1, name: 'John Doe', image: 'https://picsum.photos/200' },
+      { id: 2, name: 'Jane Doe', image: 'https://picsum.photos/200' },
+    ],
+    position: 'center',
+  },
+};
+
+export const WithCrownIcons: Story = {
+  render: Template,
+  args: {
+    color: '#000',
+    people: [
+      { id: 1, name: 'John Doe', image: 'https://picsum.photos/200', crownIcon: true },
+      { id: 2, name: 'Jane Doe', image: 'https://picsum.photos/200', crownIcon: true },
+    ],
+  },
+};
+
+export const WithAdditionalBorders: Story = {
+  render: Template,
+  args: {
+    color: '#000',
+    people: [
+      { id: 1, name: 'John Doe', image: 'https://picsum.photos/200', additionalBorder: true },
+      { id: 2, name: 'Jane Doe', image: 'https://picsum.photos/200', additionalBorder: true },
+    ],
+  },
+};
+
+export const CustomSize: Story = {
+  render: Template,
+  args: {
+    color: '#000',
+    people: [
+      { id: 1, name: 'John Doe', image: 'https://picsum.photos/200' },
+      { id: 2, name: 'Jane Doe', image: 'https://picsum.photos/200' },
+    ],
+    avatarSize: 50,
+  },
+};
+
+export const Filtered: Story = {
+  render: Template,
+  args: {
+    color: '#000',
+    people: [
+      { id: '1', name: 'John Doe', image: 'https://picsum.photos/200', crownIcon: true },
+      { id: '2', name: 'Jane Doe', image: 'https://picsum.photos/200' },
+      { id: '3', name: 'Jane Roe', image: 'https://picsum.photos/200', additionalBorder: true },
+    ],
+    filterList: ['1', '2'],
   },
 };

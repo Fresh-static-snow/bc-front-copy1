@@ -1,14 +1,14 @@
-import { CSSIndents, HEX } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type AccordionProps = {
   children?: React.ReactNode;
   summaryLabel: React.ReactNode;
-  summaryColor?: HEX;
+  summaryColor?: CSSProperties['color'];
   reversed?: boolean;
   /**
    * @default '14px 0'
    */
-  padding?: CSSIndents;
+  padding?: CSSProperties['padding'];
   hoverable?: boolean;
   withoutBorder?: boolean;
   dashedBorder?: boolean;
@@ -24,8 +24,8 @@ export type StyledRootProps = {
 
 export type StyledAccordionSummary = {
   $reversed: boolean;
-  $padding: string;
+  $padding: CSSProperties['padding'];
   $hoverable: boolean;
-  $summaryColor: HEX;
+  $summaryColor: CSSProperties['color'];
   $endRotationPositionDeg: number;
 };

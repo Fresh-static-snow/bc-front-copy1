@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react';
 import { useMemo } from 'react';
 import {
   createBrowserRouter,
@@ -17,10 +18,12 @@ import { CalendarRoutes } from './Calendar';
 import { DetailedCorporateRoutes } from './DetailedCorporate';
 import { DetailedTournamentRoutes } from './DetailedTournament';
 
+const sentryCreateBrowserRouter = Sentry.wrapCreateBrowserRouter(createBrowserRouter);
+
 export const MobileRouter: React.FC = () => {
   const authedUser = useAuthStore((state) => state.authedUser);
 
-  const mainRouter = createBrowserRouter(
+  const mainRouter = sentryCreateBrowserRouter(
     createRoutesFromElements(
       <>
         {/* <Route path="telegram/:chatId" element={<Account.TelegramContent />} /> */}
@@ -48,7 +51,7 @@ export const MobileRouter: React.FC = () => {
     ),
   );
 
-  const loginRouter = createBrowserRouter(createRoutesFromElements(LoginRoutes));
+  const loginRouter = sentryCreateBrowserRouter(createRoutesFromElements(LoginRoutes));
   const router = useMemo(() => {
     if (authedUser) {
       return mainRouter;

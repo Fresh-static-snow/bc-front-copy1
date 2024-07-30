@@ -18,6 +18,7 @@ import { CircularLoader, ConfirmationModal } from '@/shared/ui/feedback';
 import { CollapsibleFormHeader } from '@/shared/ui/forms';
 import { PrimaryButton } from '@/shared/ui/inputs';
 
+import { CropUserAvatar } from '../CropUserAvatar/CropUserAvatar';
 import * as S from './UpdateUser.styles';
 import { UpdateUserProps } from './UpdateUser.types';
 
@@ -75,7 +76,6 @@ export const UpdateUser: React.FC<UpdateUserProps> = ({ userId, sendBackPath, de
         { key: 'nick', value: data.username, options: { canBeEmpty: true } },
         { key: 'first_name', value: data.firstName, options: { canBeEmpty: true } },
         { key: 'last_name', value: data.lastName, options: { canBeEmpty: true } },
-        { key: 'avatar', value: data.avatar, options: { type: 'file', canBeEmpty: true } },
         { key: 'email', value: data.email, options: { canBeEmpty: true } },
         { key: 'company_id', value: data.company?.value, options: { canBeEmpty: true } },
         {
@@ -152,8 +152,9 @@ export const UpdateUser: React.FC<UpdateUserProps> = ({ userId, sendBackPath, de
       {!isFetchingUserData && isSuccessUserData ? (
         <>
           <CollapsibleFormHeader
-            avatarName={userData?.display_name}
-            avatarImage={userData?.avatar?.url}
+            AvatarComponent={
+              <CropUserAvatar userData={userData} size="100px" fontSize="40px" buttonGap="5px" />
+            }
             title={`${userData?.first_name} ${userData?.last_name}`}
             subtitle={<S.Nickname>{userData?.nick}</S.Nickname>}
             extendedStatus={extendedStatus}
@@ -177,7 +178,6 @@ export const UpdateUser: React.FC<UpdateUserProps> = ({ userId, sendBackPath, de
                     'username',
                     'firstName',
                     'lastName',
-                    'avatar',
                     'email',
                     'company',
                     'disciplines',
@@ -185,7 +185,7 @@ export const UpdateUser: React.FC<UpdateUserProps> = ({ userId, sendBackPath, de
                     'googleCalendar',
                   ]
             }
-            hiddenFields={extendedStatus ? [] : ['username', 'firstName', 'lastName', 'avatar']}
+            hiddenFields={extendedStatus ? [] : ['username', 'firstName', 'lastName']}
             submitButtonLabel="Update"
             isLoading={isUpdateLoading || isDeleteLoading}
             onSendData={onSendData}

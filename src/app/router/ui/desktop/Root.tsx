@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react';
 import { useMemo } from 'react';
 import {
   createBrowserRouter,
@@ -5,7 +6,6 @@ import {
   Navigate,
   Route,
   RouterProvider,
-  Routes,
 } from 'react-router-dom';
 
 import { Account } from '@/pages/desktop';
@@ -16,14 +16,17 @@ import { AuthedPageLayout } from '@/widgets/desktop';
 import { AccountRoutes } from './Account';
 import { CalendarRoutes } from './Calendar';
 import { DetailedCorporateRoutes } from './DetailedCorporate';
+import { DetailedSegmentRoutes } from './DetailedSegment';
 import { DetailedTournamentRoutes } from './DetailedTournament';
 import { LoginRoutes } from './Login';
 import { ManagementRoutes } from './Management';
 
+const sentryCreateBrowserRouter = Sentry.wrapCreateBrowserRouter(createBrowserRouter);
+
 export const DesktopRouter: React.FC = () => {
   const authedUser = useAuthStore((state) => state.authedUser);
 
-  const mainRouter = createBrowserRouter(
+  const mainRouter = sentryCreateBrowserRouter(
     createRoutesFromElements(
       <>
         <Route path=":botPlatform/:chatId" element={<Account.BotIntegrationContent />} />
@@ -41,6 +44,8 @@ export const DesktopRouter: React.FC = () => {
 
           {DetailedCorporateRoutes}
 
+          {DetailedSegmentRoutes}
+
           {ManagementRoutes}
 
           {AccountRoutes}
@@ -51,7 +56,7 @@ export const DesktopRouter: React.FC = () => {
     ),
   );
 
-  const loginRouter = createBrowserRouter(createRoutesFromElements(LoginRoutes));
+  const loginRouter = sentryCreateBrowserRouter(createRoutesFromElements(LoginRoutes));
   const router = useMemo(() => {
     if (authedUser) {
       return mainRouter;

@@ -69,6 +69,27 @@ export type StudioWithEvents = Pick<
   'id' | 'name' | 'keyword' | 'events_count' | 'related_events'
 >;
 
+export type SetupObject = {
+  id: number;
+  name: string;
+  events_count: number;
+  related_events: RelatedEvent[];
+};
+export type Setup = Pick<SetupObject, 'id' | 'name'>;
+export type SetupWithEvents = Pick<SetupObject, 'id' | 'name' | 'events_count' | 'related_events'>;
+
+export type StreamObject = {
+  id: number;
+  name: string;
+  events_count: number;
+  related_events: RelatedEvent[];
+};
+export type Stream = Pick<StreamObject, 'id' | 'name'>;
+export type StreamWithEvents = Pick<
+  StreamObject,
+  'id' | 'name' | 'events_count' | 'related_events'
+>;
+
 export type AnalyticStudioObject = {
   id: number;
   name: string;
@@ -93,6 +114,26 @@ export type ChannelWithEvents = Pick<
   ChannelObject,
   'id' | 'name' | 'events_count' | 'related_events'
 >;
+
+export type DescriptionObject = {
+  id: number;
+  title: string;
+  description: string;
+};
+
+export type MediaObject = {
+  id: number;
+  title: string;
+  description: string;
+  updated_at: string;
+};
+
+export type GuestObject = {
+  id: number;
+  name: string;
+  social: string;
+  username: string;
+};
 
 export type LanguageObject = {
   id: number;
@@ -130,12 +171,7 @@ export type TournamentType = {
   name: string;
 };
 
-export type MatchType = {
-  name: string;
-  value: number;
-};
-
-export type MatchFormat = {
+export type Format = {
   name: string;
   value: number;
 };
@@ -288,7 +324,9 @@ export type CalendarFilters = {
   game_discipline: GameDiscipline[];
   studio: Studio[];
   analytic_studio: AnalyticStudio[];
+  setup: Setup[];
   channel: Channel[];
+  stream: Stream[];
   managers: UserInCalendarEntity[];
   main_participants: UserInCalendarEntity[];
   media_representatives: UserInCalendarEntity[];
@@ -302,9 +340,11 @@ export type MatchCast = {
   language: Language;
   studio: Studio;
   analytic_studio: AnalyticStudio;
+  setup: Setup;
   channels: Channel[];
+  stream: Stream;
   commentators: UserInCalendarEntity[];
-  backup_commentator: UserInCalendarEntity;
+  backup_commentators: UserInCalendarEntity[];
   analytics: UserInCalendarEntity[];
   host_analytic: UserInCalendarEntity;
   staff_members: UserInCalendarEntity[];
@@ -319,30 +359,84 @@ export type Match = {
   team_two: string;
   format: string;
   visible: boolean;
+  type?: 'Segment' | 'Match';
   match_casts: MatchCast[];
 };
-export type MatchInMatchForm = Pick<
+export type MatchInForm = Pick<
   Match,
   'id' | 'start_time' | 'start_date' | 'end_time' | 'visible' | 'match_casts'
 > & {
   team_one: Team;
   team_two: Team;
-  format: MatchFormat;
+  format: Format;
   tournament: TournamentShort;
 };
 
-export type TournamentDescription = {
+export type Segment = {
   id: number;
+  start_time: string;
+  start_date: string;
+  end_time: string;
+  comments_count: number;
+  format: Format;
   title: string;
-  description: string;
+  cover: ImageSignature;
+  logo: ImageSignature;
+  guests: GuestObject[];
+  descriptions: DescriptionObject[];
+  media: MediaObject[];
+  languages: LanguageObject[];
+  commentators: UserInCalendarEntity[];
+  backup_commentators: UserInCalendarEntity[];
+  analytics: UserInCalendarEntity[];
+  host_analytics: UserInCalendarEntity[];
+  staff_members: UserInCalendarEntity[];
+  visible: boolean;
+  type: 'Segment' | 'Match';
+  match_casts: MatchCast[];
+  game_discipline: GameDiscipline;
+  tournament: TournamentShort;
+  analytic_studios: AnalyticStudio[];
+  studios: Studio[];
+  setups: Setup[];
+  streams: Stream[];
+  channels: Channel[];
 };
-
-export type TournamentMedia = {
-  id: number;
-  title: string;
-  description: string;
-  updated_at: string;
+export type SegmentInForm = Pick<
+  Segment,
+  | 'id'
+  | 'start_time'
+  | 'start_date'
+  | 'end_time'
+  | 'visible'
+  | 'match_casts'
+  | 'format'
+  | 'title'
+  | 'cover'
+  | 'logo'
+  | 'guests'
+  | 'descriptions'
+  | 'media'
+> & {
+  tournament: TournamentShort;
 };
+export type SegmentInCalendarEntity = Pick<
+  Segment,
+  | 'id'
+  | 'cover'
+  | 'logo'
+  | 'descriptions'
+  | 'media'
+  | 'start_date'
+  | 'start_time'
+  | 'end_time'
+  | 'guests'
+  | 'match_casts'
+  | 'title'
+  | 'type'
+  | 'visible'
+>;
+export type SegmentById = Omit<Segment, 'match_casts' | 'media'>;
 
 export type TournamentScheduleElement = {
   start_date: string;
@@ -360,9 +454,9 @@ export type Tournament = {
   comments_count: number;
   teams_count: number;
   cover: ImageSignature;
-  descriptions: TournamentDescription[];
-  media: TournamentMedia[];
-  matches: Match[];
+  descriptions: DescriptionObject[];
+  media: MediaObject[];
+  matches: (Match | SegmentInCalendarEntity)[];
   discipline: GameDiscipline;
   discipline_keyword: string;
   start_date: string;
@@ -498,6 +592,8 @@ export type ManagementItems = {
   Language: number;
   Team: number;
   Sponsor: number;
+  Setup: number;
+  Stream: number;
   'Seasonal branding': number;
   'Deleted items': {
     count: number;
@@ -511,6 +607,7 @@ export type ManagementItems = {
       Language: number;
       Team: number;
       Sponsor: number;
+      Setup: number;
       'Seasonal branding': number;
     };
   };
@@ -525,19 +622,33 @@ export type ItemWithRelatedEvents = {
 
 export type PreDeletedMatch = {
   id: number;
+  type: 'Match' | 'Segment';
   tournament_name: string;
   team_one_name: string;
   team_two_name: string;
 };
 
+export type PreDeletedSegment = {
+  id: number;
+  type: 'Match' | 'Segment';
+  tournament_name: string;
+  title: string;
+};
+
 export type PreDeletedTournament = {
   id: number;
   title: string;
-  matches: PreDeletedMatch[];
+  matches: (PreDeletedMatch | PreDeletedSegment)[];
 };
 
 export type PreDeletedDiscipline = {
   id: number;
   title: string;
   tournaments: PreDeletedTournament[];
+};
+
+export type AccountSettings = {
+  id: number;
+  current_user_filter_enabled: boolean;
+  default_calendar_scope: 'day' | 'week' | 'month' | 'quarter' | 'year';
 };

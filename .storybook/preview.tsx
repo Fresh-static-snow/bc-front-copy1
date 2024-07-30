@@ -6,7 +6,7 @@ import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter } from 'react-router-dom';
 
-import { global, muiTheme, themes } from '../src/app/styles';
+import { global, muiTheme, primaryTheme } from '../src/app/styles';
 import { Global } from '@emotion/react';
 
 const queryClient = new QueryClient();
@@ -15,8 +15,8 @@ export const decorators = [
   (Story) => (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <MuiThemeProvider theme={muiTheme(themes.primaryTheme)}>
-          <ThemeProvider theme={themes.primaryTheme}>
+        <MuiThemeProvider theme={muiTheme(primaryTheme)}>
+          <ThemeProvider theme={primaryTheme}>
             <Global styles={global} />
             <Story />
           </ThemeProvider>
@@ -28,7 +28,6 @@ export const decorators = [
 
 const preview: Preview = {
   parameters: {
-    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -36,6 +35,8 @@ const preview: Preview = {
       },
     },
   },
+
+  tags: ['autodocs'],
 };
 
 export default preview;

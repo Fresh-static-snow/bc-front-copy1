@@ -1,13 +1,13 @@
-import { CSSColor, CSSIndents } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type SubMenuProps = {
   title: string;
   backButtonPrimaryLabel?: string;
   backButtonLabel?: string;
   backButtonLink?: string;
-  buttonPadding?: CSSIndents;
-  backgroundColor?: CSSColor;
-  color?: CSSColor;
+  buttonPadding?: CSSProperties['padding'];
+  backgroundColor?: CSSProperties['backgroundColor'];
+  color?: CSSProperties['color'];
   borderNone?: boolean;
   /**
    * The additional component that will be rendered after the title.
@@ -21,7 +21,7 @@ export type LocationState = {
 };
 
 export type StyledRootProps = {
-  $backgroundColor?: string;
+  $backgroundColor?: CSSProperties['backgroundColor'];
   $borderNone?: boolean;
 };
 

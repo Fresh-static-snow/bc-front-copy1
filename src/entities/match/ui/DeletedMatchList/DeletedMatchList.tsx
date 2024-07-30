@@ -1,6 +1,7 @@
 import { useTheme } from '@emotion/react';
 import { useCallback, useState } from 'react';
 
+import { PreDeletedMatch, PreDeletedSegment } from '@/shared/types/entities.types';
 import { Counter } from '@/shared/ui/data-display';
 import { Checkbox, PrimaryButton } from '@/shared/ui/inputs';
 
@@ -19,12 +20,12 @@ export const DeletedMatchList: React.FC<DeletedMatchListProps> = ({
   const [checkedItems, setCheckedItems] = useState<(number | string)[]>([]);
 
   const onClickDelete = useCallback(() => {
-    onDelete(checkedItems);
-  }, [checkedItems, onDelete]);
+    onDelete(matches.filter((match) => checkedItems.includes(match.id)));
+  }, [checkedItems, matches, onDelete]);
 
   const onClickRestore = useCallback(() => {
-    onRestore(checkedItems);
-  }, [checkedItems, onRestore]);
+    onRestore(matches.filter((match) => checkedItems.includes(match.id)));
+  }, [checkedItems, matches, onRestore]);
 
   const onChangeCheckbox = useCallback(
     (id: number | string) => () => {
@@ -41,18 +42,25 @@ export const DeletedMatchList: React.FC<DeletedMatchListProps> = ({
   return (
     <>
       <S.DeletedMatchList>
-        {matches?.map(({ id, team_one_name, team_two_name }) => (
-          <S.MatchItem key={`${mainKey}-${id}`}>
+        {matches?.map((match) => (
+          <S.MatchItem key={`${mainKey}-${match.id}`}>
             <S.CheckboxWrapper>
               <S.Separator />
-              <Checkbox checked={checkedItems.includes(id)} onChange={onChangeCheckbox(id)} />
+              <Checkbox
+                checked={checkedItems.includes(match.id)}
+                onChange={onChangeCheckbox(match.id)}
+              />
             </S.CheckboxWrapper>
 
-            <S.Teams>
-              {team_one_name}
-              <span> vs </span>
-              {team_two_name}
-            </S.Teams>
+            {match.type === 'Match' && (
+              <S.Teams>
+                {(match as PreDeletedMatch).team_one_name}
+                <span> vs </span>
+                {(match as PreDeletedMatch).team_two_name}
+              </S.Teams>
+            )}
+
+            {match.type === 'Segment' && <S.Teams>{(match as PreDeletedSegment).title}</S.Teams>}
           </S.MatchItem>
         ))}
       </S.DeletedMatchList>

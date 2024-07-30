@@ -2,11 +2,12 @@ import dayjs from 'dayjs';
 import { Fragment, useMemo } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
+import { useGetAccountSettings } from '@/entities/account-setting';
 import { DisciplineItemMobile, useGetCalendarMonth } from '@/entities/calendar';
 import { EmptyContent } from '@/pages/desktop/ui/Calendar/ui/EmptyContent/EmptyContent';
 import { useCustomSearchParams } from '@/shared/lib';
 import { CircularLoader } from '@/shared/ui/feedback';
-import { filterParamsWithUser } from '@/widgets/desktop';
+import { filterParams } from '@/widgets/mobile';
 
 import { CalendarOutletContext } from '../../types';
 
@@ -14,9 +15,10 @@ const MonthContent: React.FC = () => {
   const { onClickTournament, onClickDiscipline, onClickMatch, onClickCorporate } =
     useOutletContext<CalendarOutletContext>();
   const { params } = useCustomSearchParams(['start_at']);
-  const { arrayParams } = useCustomSearchParams(filterParamsWithUser);
+  const { arrayParams } = useCustomSearchParams(filterParams);
+  const { data: accountSettings, isLoading: isLoadingGetAccountSettings } = useGetAccountSettings();
 
-  const formattedWeek = useMemo(() => {
+  const formattedMonth = useMemo(() => {
     const date = dayjs(params.start_at);
 
     if (params.start_at && date.isValid()) {
@@ -29,7 +31,14 @@ const MonthContent: React.FC = () => {
     data: calendarData,
     isFetching: isFetchingCalendarData,
     isSuccess: isCalendarDataSuccess,
-  } = useGetCalendarMonth(formattedWeek, arrayParams);
+  } = useGetCalendarMonth(
+    formattedMonth,
+    {
+      ...arrayParams,
+      current_user: [String(accountSettings?.current_user_filter_enabled ?? false)],
+    },
+    !!formattedMonth && !isLoadingGetAccountSettings,
+  );
 
   return (
     <>

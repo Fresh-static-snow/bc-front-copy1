@@ -332,6 +332,12 @@ export const useUpdateUserAvatar = () => {
       });
     },
     onSuccess: () => {
+      companyKeys.forEach((queryKey) => {
+        queryClient.invalidateQueries([queryKey]);
+      });
+      dashboardKeys.forEach((queryKey) => {
+        queryClient.invalidateQueries([queryKey]);
+      });
       userKeys.forEach((queryKey) => {
         queryClient.invalidateQueries([queryKey]);
       });

@@ -2,8 +2,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useCallback } from 'react';
 import { SubmitHandler, useController, useForm } from 'react-hook-form';
 
+import { FormField } from '@/shared/ui/forms';
 import { Checkbox, PrimaryButton, PrimaryInput } from '@/shared/ui/inputs';
-import { FormField } from '@/shared/ui/layouts';
 
 import { loginSchema } from './LoginForm.schema';
 import * as S from './LoginForm.styles';

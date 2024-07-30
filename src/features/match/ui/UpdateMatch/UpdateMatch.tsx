@@ -5,6 +5,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useGetCastAnalyticStudioOptions } from '@/entities/cast-analytic-studio';
 import { useGetCastChannelOptions } from '@/entities/cast-channel';
 import { useGetCastLanguageOptions } from '@/entities/cast-language';
+import { useGetCastSetupOptions } from '@/entities/cast-setup';
+import { useGetCastStreamOptions } from '@/entities/cast-stream';
 import { useGetCastStudioOptions } from '@/entities/cast-studio';
 import { useGetGameDisciplineOptions } from '@/entities/game-discipline';
 import {
@@ -100,7 +102,7 @@ export const UpdateMatch: React.FC<UpdateMatchProps> = ({
       },
       date: matchData?.start_date ? dayjs(matchData?.start_date).format() : undefined,
       time: [matchData?.start_time ?? undefined, matchData?.end_time ?? undefined],
-      format: matchData?.format
+      format: matchData?.format?.name
         ? {
             label: matchData?.format?.name,
             value: String(matchData?.format?.value),
@@ -132,20 +134,24 @@ export const UpdateMatch: React.FC<UpdateMatchProps> = ({
               value: String(cast?.analytic_studio?.id),
             }
           : undefined,
+        setup: cast?.setup
+          ? { label: cast?.setup?.name, value: String(cast?.setup?.id) }
+          : undefined,
         channels: cast?.channels?.map((channel) => ({
           label: channel?.name,
           value: String(channel?.id),
         })),
+        stream: cast?.stream
+          ? { label: cast?.stream?.name, value: String(cast?.stream?.id) }
+          : undefined,
         commentators: cast?.commentators?.map((commentator) => ({
           label: commentator?.display_name,
           value: String(commentator?.id),
         })),
-        backup_commentator: cast?.backup_commentator
-          ? {
-              label: cast?.backup_commentator?.display_name,
-              value: String(cast?.backup_commentator?.id),
-            }
-          : undefined,
+        backup_commentators: cast?.backup_commentators?.map((commentator) => ({
+          label: commentator?.display_name,
+          value: String(commentator?.id),
+        })),
         analytics: cast?.analytics?.map((analytic) => ({
           label: analytic?.display_name,
           value: String(analytic?.id),
@@ -180,8 +186,10 @@ export const UpdateMatch: React.FC<UpdateMatchProps> = ({
     requestType?.additional,
   );
   const { data: languagesOptions } = useGetCastLanguageOptions();
-  const { data: studiosAnalyticsOptions } = useGetCastAnalyticStudioOptions();
   const { data: studiosOptions } = useGetCastStudioOptions();
+  const { data: studiosAnalyticsOptions } = useGetCastAnalyticStudioOptions();
+  const { data: setupsOptions } = useGetCastSetupOptions();
+  const { data: streamsOptions } = useGetCastStreamOptions();
   const { data: staffOptions } = useGetStaffMemberOptions(
     startDate,
     endDate,
@@ -271,14 +279,24 @@ export const UpdateMatch: React.FC<UpdateMatchProps> = ({
               options: { canBeEmpty: true },
             },
             {
+              key: `match_casts_attributes[${index}][cast_setup_id]`,
+              value: language.setup?.value,
+              options: { canBeEmpty: true },
+            },
+            {
+              key: `match_casts_attributes[${index}][cast_stream_id]`,
+              value: language.stream?.value,
+              options: { canBeEmpty: true },
+            },
+            {
               key: `match_casts_attributes[${index}][commentator_ids][]`,
               value: language.commentators?.map((commentator) => commentator.value),
               options: { type: 'list' as const, canBeEmpty: true },
             },
             {
-              key: `match_casts_attributes[${index}][match_backup_commentator_attributes][user_id]`,
-              value: language.backup_commentator?.value,
-              options: { canBeEmpty: true },
+              key: `match_casts_attributes[${index}][backup_commentator_ids][]`,
+              value: language.backup_commentators?.map((commentator) => commentator.value),
+              options: { type: 'list' as const, canBeEmpty: true },
             },
             {
               key: `match_casts_attributes[${index}][analytic_ids][]`,
@@ -312,7 +330,7 @@ export const UpdateMatch: React.FC<UpdateMatchProps> = ({
 
   useEffect(() => {
     if (commentatorsList?.length > 0) {
-      enqueueSnackbar('One or more commentators have an event scheduled for the specified time.', {
+      enqueueSnackbar('One or more casters have an event scheduled for the specified time.', {
         variant: 'warning',
       });
     }
@@ -329,7 +347,7 @@ export const UpdateMatch: React.FC<UpdateMatchProps> = ({
   useEffect(() => {
     if (analyticsList?.length > 0) {
       enqueueSnackbar(
-        'One or more analytics users have an event scheduled for the specified time.',
+        'One or more analysts users have an event scheduled for the specified time.',
         {
           variant: 'warning',
         },
@@ -357,11 +375,13 @@ export const UpdateMatch: React.FC<UpdateMatchProps> = ({
           commentatorsOptions={commentatorsOptions}
           formatsOptions={formatsOptions}
           languagesOptions={languagesOptions}
-          studiosAnalyticsOptions={studiosAnalyticsOptions}
           studiosOptions={studiosOptions}
+          studiosAnalyticsOptions={studiosAnalyticsOptions}
+          setupsOptions={setupsOptions}
           teamsOptions={teamsOptions}
           tournamentOptions={tournamentOptions}
           staffOptions={staffOptions}
+          streamsOptions={streamsOptions}
           contentPaddings={isMobile ? '20px' : '30px'}
           fieldsDirection={isMobile ? 'column' : 'row'}
           footerType="primary"

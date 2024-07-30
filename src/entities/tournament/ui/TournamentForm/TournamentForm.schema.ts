@@ -2,41 +2,15 @@ import dayjs from 'dayjs';
 import * as Yup from 'yup';
 
 import { getFileExtension } from '@/shared/lib';
+import { FormDescriptionSection } from '@/shared/ui/forms';
 
-import { FormDescriptionListSchema, TournamentFormSchema } from './TournamentForm.types';
+import { TournamentFormSchema } from './TournamentForm.types';
 
 const selectSchema = Yup.object({
   label: Yup.string(),
   value: Yup.string(),
   additional: Yup.string().nullable(),
 });
-
-const formDescriptionsListSchema = Yup.array().of(
-  Yup.object<FormDescriptionListSchema>({
-    title: Yup.string().test({
-      name: 'description-block-title',
-      message: 'Both fields must be filled',
-      test: (value, { parent }) => {
-        const { description } = parent as FormDescriptionListSchema;
-        if (value || description) {
-          return !!value;
-        }
-        return true;
-      },
-    }),
-    description: Yup.string().test({
-      name: 'description-block-description',
-      message: 'Both fields must be filled',
-      test: (value, { parent }) => {
-        const { title } = parent as FormDescriptionListSchema;
-        if (value || title) {
-          return !!value;
-        }
-        return true;
-      },
-    }),
-  }),
-);
 
 export const tournamentSchema = Yup.object<TournamentFormSchema>({
   discipline: selectSchema.required('Discipline is a required field'),
@@ -73,8 +47,8 @@ export const tournamentSchema = Yup.object<TournamentFormSchema>({
       test: (file: File | string | null | undefined) =>
         !file || typeof file === 'string' || file?.size < 60 * 1000 * 1024,
     }),
-  descriptions: formDescriptionsListSchema.nullable(),
-  medias: formDescriptionsListSchema.nullable(),
+  descriptions: FormDescriptionSection.schema.nullable(),
+  medias: FormDescriptionSection.schema.nullable(),
   visible: Yup.boolean(),
   anotherOne: Yup.boolean(),
 });

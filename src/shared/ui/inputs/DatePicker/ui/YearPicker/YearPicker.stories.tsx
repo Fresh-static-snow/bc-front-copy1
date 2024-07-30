@@ -5,20 +5,12 @@ import { useState } from 'react';
 import { YearPicker } from './YearPicker';
 
 export default {
-  title: 'modules/DatePickers/YearPicker',
+  title: 'shared/inputs/DatePicker.Year',
   component: YearPicker,
   tags: ['autodocs'],
   argTypes: {
-    activeDate: {
-      control: {
-        type: null,
-      },
-    },
-    onChangeActiveDate: {
-      control: {
-        type: null,
-      },
-    },
+    activeDate: { control: { type: null } },
+    onChangeActiveDate: { control: { type: null } },
   },
 } as Meta<typeof YearPicker>;
 

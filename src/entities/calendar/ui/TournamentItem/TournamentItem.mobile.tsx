@@ -49,7 +49,7 @@ export const TournamentItemMobile: React.FC<TournamentItemMobileProps> = memo(
     });
 
     const refTournamentFirstMatch = useRef<ElementRef<'li'>>();
-    const isVisibleTournamenFirstMatch = useOnScreen(refTournamentFirstMatch, {
+    const isVisibleTournamentFirstMatch = useOnScreen(refTournamentFirstMatch, {
       threshold: 1,
       rootMargin: `-${matchWeek ? 168 : 124}px 0px 0px 0px`,
     });
@@ -97,7 +97,7 @@ export const TournamentItemMobile: React.FC<TournamentItemMobileProps> = memo(
         isVisibleTournamentTitle &&
         tournamentInScreenOrHigher &&
         isVisibleTournamentMatches &&
-        isVisibleTournamenFirstMatch;
+        isVisibleTournamentFirstMatch;
 
       if (renderTitle) {
         setDisciplineTitle(discipline?.title ?? '---');
@@ -109,7 +109,7 @@ export const TournamentItemMobile: React.FC<TournamentItemMobileProps> = memo(
       tournament?.title,
       tournamentInScreenOrHigher,
       isVisibleTournamentMatches,
-      isVisibleTournamenFirstMatch,
+      isVisibleTournamentFirstMatch,
     ]);
 
     return (

@@ -14,14 +14,14 @@ export const Body: React.FC<BodyProps> = ({ activeTemplate }) => {
     [activeTemplate.type],
   );
 
-  const { data } = activeTemplate.useGetItems();
+  const { data: activeTemplateData } = activeTemplate.useGetItems();
 
   const { mutateAsync: onDeleteItem, isLoading: isDeleteLoading } = activeTemplate.useDelete();
   const { mutateAsync: onRestoreItem, isLoading: isRestoreLoading } = activeTemplate.useRestore();
 
   const {
-    confirmDeleteId,
-    confirmRestoreId,
+    confirmDeleteData,
+    confirmRestoreData,
     onOpenDeleteModal,
     onCloseDeleteModal,
     onOpenRestoreModal,
@@ -29,14 +29,18 @@ export const Body: React.FC<BodyProps> = ({ activeTemplate }) => {
     onDelete,
     onRestore,
   } = useConfirmationActions<string | number>({
-    onDeleteItem,
-    onRestoreItem,
+    onDeleteItem: (data) => {
+      onDeleteItem({ id: data });
+    },
+    onRestoreItem: (data) => {
+      onRestoreItem({ id: data });
+    },
   });
 
   return (
     <>
       <ConfirmationModal
-        isOpen={!!confirmDeleteId}
+        isOpen={!!confirmDeleteData}
         isLoading={isDeleteLoading}
         onClose={onCloseDeleteModal}
         onConfirm={onDelete}
@@ -46,15 +50,15 @@ export const Body: React.FC<BodyProps> = ({ activeTemplate }) => {
         maxWidth="400px"
         additionalContent={
           <RelatedEventsContentById
-            entityId={confirmDeleteId}
-            data={data}
+            entityId={confirmDeleteData}
+            data={activeTemplateData}
             withoutBackMessage={activeTemplate.type === 'simple'}
           />
         }
       />
 
       <ConfirmationModal
-        isOpen={!!confirmRestoreId}
+        isOpen={!!confirmRestoreData}
         isLoading={isRestoreLoading}
         onClose={onCloseRestoreModal}
         onConfirm={onRestore}
@@ -64,8 +68,8 @@ export const Body: React.FC<BodyProps> = ({ activeTemplate }) => {
         maxWidth="400px"
         additionalContent={
           <RelatedEventsContentById
-            entityId={confirmRestoreId}
-            data={data}
+            entityId={confirmRestoreData}
+            data={activeTemplateData}
             withoutBackMessage={activeTemplate.type === 'simple'}
           />
         }
@@ -74,7 +78,7 @@ export const Body: React.FC<BodyProps> = ({ activeTemplate }) => {
       <SlicedContentLayout.Section width="608px" borderRight>
         <ActiveContent
           mainKey={activeTemplate.mainKey}
-          dataList={data}
+          dataList={activeTemplateData}
           onDelete={onOpenDeleteModal}
           onRestore={onOpenRestoreModal}
           isLoading={isDeleteLoading || isRestoreLoading}

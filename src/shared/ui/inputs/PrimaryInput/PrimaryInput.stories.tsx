@@ -5,26 +5,15 @@ import { useForm } from 'react-hook-form';
 import { PrimaryInput } from './PrimaryInput';
 
 export default {
-  title: 'ui/PrimaryInput',
+  title: 'shared/inputs/PrimaryInput',
   component: PrimaryInput,
   tags: ['autodocs'],
   argTypes: {
-    type: {
-      options: ['text', 'password'],
-      control: { type: 'radio' },
-    },
-    placeholder: {
-      control: { type: 'text' },
-    },
-    disabled: {
-      control: { type: 'boolean' },
-    },
-    control: {
-      control: { type: null },
-    },
-    name: {
-      control: { type: null },
-    },
+    type: { options: ['text', 'password'], control: { type: 'select' } },
+    placeholder: { control: { type: 'text' } },
+    disabled: { control: { type: 'boolean' } },
+    control: { control: { type: null } },
+    name: { control: { type: null } },
   },
 } as Meta<typeof PrimaryInput>;
 

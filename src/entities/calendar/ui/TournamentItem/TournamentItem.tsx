@@ -1,18 +1,20 @@
 import { useTheme } from '@emotion/react';
-import { memo, useCallback, useMemo } from 'react';
+import { Fragment, memo, useCallback, useMemo } from 'react';
 
 import { matchItemEmpty } from '@/entities/calendar/const';
+import { Match, Segment } from '@/shared/types/entities.types';
 import { InfoTipLayout } from '@/shared/ui/layouts';
 
 import { MatchItem } from '../MatchItem/MatchItem';
 import { PeopleInfo } from '../PeopleInfo/PeopleInfo';
+import { SegmentItem } from '../SegmentItem/SegmentItem';
 import { TournamentTitle } from '../TournamentTitle/TournamentTitle';
 import { UsersCategoriesInfoTipContent } from '../UsersCategoriesInfoTipContent/UsersCategoriesInfoTipContent';
 import * as S from './TournamentItem.styles';
 import { TournamentItemProps } from './TournamentItem.types';
 
 export const TournamentItem: React.FC<TournamentItemProps> = memo(
-  ({ tournament, filters, onClickTournament, onClickMatch }) => {
+  ({ discipline, tournament, filters, onClickTournament, onClickMatch }) => {
     const theme = useTheme();
     const color = useMemo(
       () => tournament.ui_template?.primary || theme.appColors.palette_01,
@@ -68,13 +70,26 @@ export const TournamentItem: React.FC<TournamentItemProps> = memo(
 
         <S.MatchList>
           {tournamentMatches?.map((match) => (
-            <MatchItem
-              key={match.id}
-              match={match}
-              color={color}
-              filters={filters}
-              onClickMatch={onClickMatch}
-            />
+            <Fragment key={match.id}>
+              {match.type === 'Match' && (
+                <MatchItem
+                  match={match as Match}
+                  color={color}
+                  filters={filters}
+                  onClickMatch={onClickMatch}
+                />
+              )}
+              {match.type === 'Segment' && (
+                <SegmentItem
+                  discipline={discipline}
+                  tournament={tournament}
+                  segment={match as Segment}
+                  color={color}
+                  filters={filters}
+                  onClickSegment={onClickMatch}
+                />
+              )}
+            </Fragment>
           ))}
         </S.MatchList>
 

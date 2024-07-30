@@ -1,5 +1,8 @@
 export { AvatarBadge } from './AvatarBadge/AvatarBadge';
 export { CollapsibleFormHeader } from './CollapsibleFormHeader/CollapsibleFormHeader';
+export { CopyBlock } from './CopyBlock/CopyBlock';
+export { FormDescriptionSection } from './FormDescriptionSection';
+export { FormField } from './FormField/FormField';
 export { FormListTitle } from './FormListTitle/FormListTitle';
 export { LangBadge } from './LangBadge/LangBadge';
 export { PrimaryFormFooter } from './PrimaryFormFooter/PrimaryFormFooter';

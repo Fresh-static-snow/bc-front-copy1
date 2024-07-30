@@ -23,7 +23,7 @@ export const entityTypes: NotificationEntityTypes = {
     link: [''],
   },
   Tournament: {
-    text: 'tournament',
+    text: 'event',
     link: ['/calendar', 'tournament', null, 'main'],
   },
   Corporate: {
@@ -31,7 +31,7 @@ export const entityTypes: NotificationEntityTypes = {
     link: ['/calendar', 'corporate', null, 'main'],
   },
   Match: {
-    text: 'match',
+    text: 'segment',
     link: ['/calendar', 'tournament', null, 'schedule'],
   },
   User: {

@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import { editorStyles } from '@/shared/const';
+
 export const Root = styled('div')(
   () => css`
     width: 100%;
@@ -32,6 +34,8 @@ export const DescriptionItem = styled('div')(
     &:not(:last-of-type) > div:first-of-type {
       border-bottom: 1px dashed ${theme.appColors.primary_03};
     }
+
+    ${editorStyles}
   `,
 );
 

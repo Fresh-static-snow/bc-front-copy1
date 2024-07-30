@@ -27,7 +27,6 @@ export const DisciplineItemMobile: React.FC<DisciplineItemMobileProps> = memo(
     const location = useLocation();
     const matchWeek = matchPath('/calendar/week', location.pathname);
     const matchMonth = matchPath('/calendar/month', location.pathname);
-    const matchDay = matchPath('/calendar/day', location.pathname);
 
     const refDisciplineTitle = useRef();
     const isVisibleDisciplineTitle = useOnScreen(refDisciplineTitle, {

@@ -4,20 +4,13 @@ import { useForm } from 'react-hook-form';
 import { DatePickerInput } from './DatePickerInput';
 
 export default {
-  title: 'elements/DatePickerInput',
+  title: 'shared/inputs/DatePickerInput',
   component: DatePickerInput,
   tags: ['autodocs'],
   argTypes: {
-    type: {
-      options: ['day', 'range'],
-      control: { type: 'radio' },
-    },
-    control: {
-      control: { type: null },
-    },
-    name: {
-      control: { type: null },
-    },
+    type: { options: ['day', 'range'], control: { type: 'select' } },
+    control: { control: { type: null } },
+    name: { control: { type: null } },
   },
 } as Meta<typeof DatePickerInput>;
 

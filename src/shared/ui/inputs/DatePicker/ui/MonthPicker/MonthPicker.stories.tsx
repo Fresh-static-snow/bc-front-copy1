@@ -5,20 +5,12 @@ import { useState } from 'react';
 import { MonthPicker } from './MonthPicker';
 
 export default {
-  title: 'modules/DatePickers/MonthPicker',
+  title: 'shared/inputs/DatePicker.Month',
   component: MonthPicker,
   tags: ['autodocs'],
   argTypes: {
-    activeDate: {
-      control: {
-        type: null,
-      },
-    },
-    onChangeActiveDate: {
-      control: {
-        type: null,
-      },
-    },
+    activeDate: { control: { type: null } },
+    onChangeActiveDate: { control: { type: null } },
   },
 } as Meta<typeof MonthPicker>;
 

@@ -38,14 +38,14 @@ export const CorporateItemMobile: React.FC<CorporateItemMobileProps> = memo(
           setOpen={onChangeInfoDrawer}
           isVisible={corporate?.visible}
           color={color}
-          discipline={discipline}
+          discipline={{ item: discipline }}
           eventName={corporate?.name}
           date={corporate?.start_date}
           time={`${corporate?.start_time ?? ''}${
             corporate?.end_time ? ` - ${corporate?.end_time}` : ''
           }`}
           location={corporate?.location}
-          mainParticipant={corporate?.main_participants?.[0]}
+          mainParticipant={{ item: corporate?.main_participants[0] }}
         />
 
         <S.RootMobile>

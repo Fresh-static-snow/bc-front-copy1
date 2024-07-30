@@ -8,7 +8,9 @@ export type EntityTemplatesKeys =
   | 'role'
   | 'studio'
   | 'analytic_studio'
+  | 'setup'
   | 'channel'
+  | 'stream'
   | 'team'
   | 'sponsor'
   | 'language';

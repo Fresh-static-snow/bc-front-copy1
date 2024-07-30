@@ -1,9 +1,14 @@
-import { useGetAuthenticatedUser, useUpdateUserAvatar } from '@/entities/user';
+import { useUpdateUserAvatar } from '@/entities/user';
 
+import { CropUserAvatarProps } from './CropUserAvatar.types';
 import { UserAvatar } from './ui/UserAvatar/UserAvatar';
 
-export const CropUserAvatar: React.FC = () => {
-  const { data: userData } = useGetAuthenticatedUser();
+export const CropUserAvatar: React.FC<CropUserAvatarProps> = ({
+  userData,
+  size,
+  fontSize,
+  buttonGap,
+}) => {
   const { mutate: updateAvatar } = useUpdateUserAvatar();
 
   const onUpdateAvatar = (file: File) => {
@@ -18,6 +23,9 @@ export const CropUserAvatar: React.FC = () => {
     <UserAvatar
       image={userData?.avatar?.url}
       name={userData?.display_name}
+      size={size}
+      fontSize={fontSize}
+      buttonGap={buttonGap}
       onUpdateAvatar={onUpdateAvatar}
     />
   );

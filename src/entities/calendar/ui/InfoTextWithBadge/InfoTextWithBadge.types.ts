@@ -1,11 +1,15 @@
 import { HEX } from '@/shared/types/styles.types';
 
+export type Row = {
+  key?: string;
+  text: string;
+  filter?: boolean;
+};
+
 export type InfoTextWithBadgeProps = {
-  firstText: string;
-  secondText: string;
-  badgeText: string;
+  rows?: Row[];
+  withBadge?: boolean;
+  badgeText?: string;
   color?: HEX;
   isVisible?: boolean;
-  firstTextFilter?: boolean;
-  secondTextFilter?: boolean;
 };

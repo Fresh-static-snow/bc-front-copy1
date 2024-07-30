@@ -4,7 +4,7 @@ import { useCallback, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { IconUsersSvg } from '@/shared/assets';
-import { AvatarBadge, PrimaryFormFooter, SecondaryFormFooter } from '@/shared/ui/forms';
+import { AvatarBadge, FormField, PrimaryFormFooter, SecondaryFormFooter } from '@/shared/ui/forms';
 import {
   Autocomplete,
   DatePickerInput,
@@ -13,7 +13,6 @@ import {
   PrimaryTextarea,
   TimePickerInput,
 } from '@/shared/ui/inputs';
-import { FormField } from '@/shared/ui/layouts';
 
 import { corporateFormDefaultValues } from './CorporateForm.const';
 import { corporateSchema } from './CorporateForm.schema';

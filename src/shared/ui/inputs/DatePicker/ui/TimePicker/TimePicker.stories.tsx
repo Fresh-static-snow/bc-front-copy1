@@ -8,20 +8,12 @@ import { TimePicker } from './TimePicker';
 dayjs.extend(isSameOrBefore);
 
 export default {
-  title: 'modules/DatePickers/TimePicker',
+  title: 'shared/inputs/DatePicker.Time',
   component: TimePicker,
   tags: ['autodocs'],
   argTypes: {
-    activeRange: {
-      control: {
-        type: null,
-      },
-    },
-    onChangeActiveTime: {
-      control: {
-        type: null,
-      },
-    },
+    activeRange: { control: { type: null } },
+    onChangeActiveTime: { control: { type: null } },
   },
 } as Meta<typeof TimePicker>;
 

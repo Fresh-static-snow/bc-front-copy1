@@ -17,31 +17,39 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.BC_DEPLOY_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
+          ssh-keyscan -H 195.201.193.151 >> ~/.ssh/known_hosts
 
       - name: Deploy to server
         run: |
-          ssh -T -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} <<-EOF
+          ssh -T -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null crmtools@195.201.193.151 <<-EOF
             eval `ssh-agent -s`
-            ssh-add ~/.ssh/${{ secrets.SSH_ID_RSA_NAME}}
-            if [ ! -d "/home/${{ secrets.SSH_USER }}/${{ secrets.SERVER_APP_FOLDER }}" ]; then
-              mkdir /home/${{ secrets.SSH_USER }}/${{ secrets.SERVER_APP_FOLDER }}
-              chown ${{ secrets.SSH_USER }}:${{ secrets.SSH_USER }} /home/${{ secrets.SSH_USER }}/${{ secrets.SERVER_APP_FOLDER }}
-              git clone ${{ secrets.SSH_GITHUB_REPOSITORY}} /home/${{ secrets.SSH_USER }}/${{ secrets.SERVER_APP_FOLDER }}
+            ssh-add ~/.ssh/id_rsa_front
+            if [ ! -d "/home/crmtools/next-front" ]; then
+              mkdir /home/crmtools/next-front
+              chown crmtools:crmtools /home/crmtools/next-front
+              git clone git@github-front:masterwebcompany/broadcast-shift-calendar-front.git /home/crmtools/next-front
             fi
-            cd /home/${{ secrets.SSH_USER }}/${{ secrets.SERVER_APP_FOLDER }}
-            git checkout -f staging
+            cd /home/crmtools/next-front
+            git checkout staging
             git pull origin staging
 
-            export VITE_API_BASE_URL='${{ secrets.VITE_API_BASE_URL }}'
-            export VITE_WEBSOCKET_BASE_URL='${{ secrets.VITE_WEBSOCKET_BASE_URL }}'
+            export VITE_API_BASE_URL="https://next-api-crm.maincast.com/api/v1"
+            export VITE_WEBSOCKET_BASE_URL="wss://next-api-crm.maincast.com/cable"
+            export VITE_TELEGRAM_BOT_URL="https://t.me/main_cast_calendar_bot"
+            export VITE_SENTRY_DSN="${{ secrets.VITE_SENTRY_DSN }}"
+            export VITE_SENTRY_PROPAGATION_TARGETS="${{ secrets.VITE_SENTRY_PROPAGATION_TARGETS }}"
+            export VITE_ENVIRONMENT="staging"
 
             echo "
-            VITE_API_BASE_URL='${{ secrets.VITE_API_BASE_URL }}'
-            VITE_WEBSOCKET_BASE_URL='${{ secrets.VITE_WEBSOCKET_BASE_URL }}'
-            " > /home/${{ secrets.SSH_USER }}/${{ secrets.SERVER_APP_FOLDER }}/.env
+            VITE_API_BASE_URL='https://next-api-crm.maincast.com/api/v1'
+            VITE_WEBSOCKET_BASE_URL='wss://next-api-crm.maincast.com/cable'
+            VITE_TELEGRAM_BOT_URL='https://t.me/main_cast_calendar_bot'
+            VITE_SENTRY_DSN='${{ secrets.VITE_SENTRY_DSN }}'
+            VITE_SENTRY_PROPAGATION_TARGETS='${{ secrets.VITE_SENTRY_PROPAGATION_TARGETS }}'
+            VITE_ENVIRONMENT="staging"
+            " > /home/crmtools/next-front/.env
             pnpm install
             pnpm run build
 

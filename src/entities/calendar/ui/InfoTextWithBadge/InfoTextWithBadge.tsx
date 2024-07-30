@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { Fragment, memo } from 'react';
 
 import { BackgroundColor, Badge } from '@/shared/ui/data-display';
 import { MarkedText, TextColor } from '@/shared/ui/typography';
@@ -7,45 +7,38 @@ import * as S from './InfoTextWithBadge.styles';
 import { InfoTextWithBadgeProps } from './InfoTextWithBadge.types';
 
 export const InfoTextWithBadge: React.FC<InfoTextWithBadgeProps> = memo(
-  ({
-    firstText,
-    secondText,
-    badgeText,
-    color,
-    isVisible = true,
-    firstTextFilter,
-    secondTextFilter,
-  }) => (
+  ({ rows, withBadge = true, badgeText, color, isVisible = true }) => (
     <BackgroundColor
       baseColor={color}
       stripes={!isVisible}
-      borderWrapper={firstTextFilter || secondTextFilter}
+      borderWrapper={!!rows?.find((row) => row.filter)}
     >
       <S.Root>
-        <S.BadgeWrapper>
-          <Badge text={badgeText} secondaryColor={color} />
-        </S.BadgeWrapper>
+        <S.Space />
+
+        {withBadge && (
+          <>
+            <div>
+              <Badge text={badgeText} secondaryColor={color} />
+            </div>
+            <S.Space />
+          </>
+        )}
 
         <S.TextList>
-          {firstText && (
-            <>
-              {firstTextFilter ? (
-                <MarkedText>{firstText}</MarkedText>
-              ) : (
-                <TextColor text={firstText} secondaryColor={color} />
+          {rows?.map(({ key, text, filter }, index) => (
+            <Fragment key={key ?? text ?? index}>
+              {text && (
+                <>
+                  {filter ? (
+                    <MarkedText>{text}</MarkedText>
+                  ) : (
+                    <TextColor text={text} secondaryColor={color} />
+                  )}
+                </>
               )}
-            </>
-          )}
-
-          {secondText && (
-            <>
-              {secondTextFilter ? (
-                <MarkedText>{secondText}</MarkedText>
-              ) : (
-                <TextColor text={secondText} secondaryColor={color} />
-              )}
-            </>
-          )}
+            </Fragment>
+          ))}
         </S.TextList>
       </S.Root>
     </BackgroundColor>

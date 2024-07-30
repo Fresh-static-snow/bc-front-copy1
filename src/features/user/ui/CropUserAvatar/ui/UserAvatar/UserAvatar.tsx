@@ -9,7 +9,14 @@ import { AvatarEditModal } from '../AvatarEditModal/AvatarEditModal';
 import * as S from './UserAvatar.styles';
 import { UserAvatarProps } from './UserAvatar.types';
 
-export const UserAvatar: React.FC<UserAvatarProps> = ({ name, image, onUpdateAvatar }) => {
+export const UserAvatar: React.FC<UserAvatarProps> = ({
+  name,
+  image,
+  size = '300px',
+  fontSize = '150px',
+  buttonGap = '20px',
+  onUpdateAvatar,
+}) => {
   const theme = useTheme();
 
   const [avatarFile, setAvatarFile] = useState<File>();
@@ -42,8 +49,8 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({ name, image, onUpdateAva
       <S.Root>
         <S.AvatarWrapper>
           <Avatar
-            size="300px"
-            fontSize="150px"
+            size={size}
+            fontSize={fontSize}
             backgroundColor={theme.appColors.primary_04}
             textColor={theme.appColors.secondary_04}
             fontWeight="400"
@@ -51,7 +58,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({ name, image, onUpdateAva
             image={image}
           />
 
-          <S.EditButtonWrapper>
+          <S.EditButtonWrapper $bottom={buttonGap}>
             <PrimaryButton
               variant="primary"
               IconComponent={IconEditSvg}

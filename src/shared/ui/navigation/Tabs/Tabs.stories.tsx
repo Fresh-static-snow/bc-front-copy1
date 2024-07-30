@@ -7,19 +7,13 @@ import { Counter } from '../../data-display';
 import { Tabs } from './Tabs';
 
 export default {
-  title: 'ui/Tabs',
+  title: 'shared/navigation/Tabs',
   component: Tabs,
   tags: ['autodocs'],
   argTypes: {
-    activeTab: {
-      control: { type: null },
-    },
-    setActiveTab: {
-      control: { type: null },
-    },
-    tabList: {
-      control: { type: null },
-    },
+    activeTab: { control: { type: null } },
+    setActiveTab: { control: { type: null } },
+    tabList: { control: { type: null } },
   },
 } as Meta<typeof Tabs>;
 
@@ -85,6 +79,104 @@ export const Additional: Story = {
     { label: 'Tab 3', value: 'Tab 3', additional: <IconSmileSvg /> },
     { label: 'Tab 4', value: 'Tab 4', additional: <Counter count={5} /> },
   ]}
+/>
+        `,
+      },
+    },
+  },
+};
+
+export const ColoredTabs: Story = {
+  render: Template,
+  args: {
+    tabList: [
+      { label: 'Tab 1', value: 'Tab 1' },
+      { label: 'Tab 2', value: 'Tab 2' },
+      { label: 'Tab 3', value: 'Tab 3' },
+      { label: 'Tab 4', value: 'Tab 4' },
+    ],
+    color: '#F4252D',
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Tabs
+  activeTab={activeTab}
+  setActiveTab={setActiveTab}
+  tabList={[
+    { label: 'Tab 1', value: 'Tab 1' },
+    { label: 'Tab 2', value: 'Tab 2' },
+    { label: 'Tab 3', value: 'Tab 3' },
+    { label: 'Tab 4', value: 'Tab 4' },
+  ]}
+  color="#F4252D"
+/>
+        `,
+      },
+    },
+  },
+};
+
+export const WithoutFocusColors: Story = {
+  render: Template,
+  args: {
+    tabList: [
+      { label: 'Tab 1', value: 'Tab 1' },
+      { label: 'Tab 2', value: 'Tab 2' },
+      { label: 'Tab 3', value: 'Tab 3' },
+      { label: 'Tab 4', value: 'Tab 4' },
+    ],
+    withoutFocusColors: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Tabs
+  activeTab={activeTab}
+  setActiveTab={setActiveTab}
+  tabList={[
+    { label: 'Tab 1', value: 'Tab 1' },
+    { label: 'Tab 2', value: 'Tab 2' },
+    { label: 'Tab 3', value: 'Tab 3' },
+    { label: 'Tab 4', value: 'Tab 4' },
+  ]}
+  withoutFocusColors
+/>
+        `,
+      },
+    },
+  },
+};
+
+export const FullCustomization: Story = {
+  render: Template,
+  args: {
+    tabList: [
+      { label: 'Tab 1', value: 'Tab 1', additional: <IconAlertSvg /> },
+      { label: 'Tab 2', value: 'Tab 2', additional: <IconClockSvg /> },
+      { label: 'Tab 3', value: 'Tab 3', additional: <IconSmileSvg /> },
+      { label: 'Tab 4', value: 'Tab 4', additional: <Counter count={5} /> },
+    ],
+    color: '#F4252D',
+    withoutFocusColors: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<Tabs
+  activeTab={activeTab}
+  setActiveTab={setActiveTab}
+  tabList={[
+    { label: 'Tab 1', value: 'Tab 1', additional: <IconAlertSvg /> },
+    { label: 'Tab 2', value: 'Tab 2', additional: <IconClockSvg /> },
+    { label: 'Tab 3', value: 'Tab 3', additional: <IconSmileSvg /> },
+    { label: 'Tab 4', value: 'Tab 4', additional: <Counter count={5} /> },
+  ]}
+  color="#F4252D"
+  withoutFocusColors
 />
         `,
       },

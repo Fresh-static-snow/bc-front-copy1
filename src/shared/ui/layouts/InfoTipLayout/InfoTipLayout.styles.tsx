@@ -8,7 +8,7 @@ export const Root = styled(({ className, ...props }: TooltipProps) => (
   <TooltipMui {...props} classes={{ popper: className }} />
 ))(
   ({ theme }) => css`
-    & * {
+    & *:not(.MuiTooltip-arrow) {
       transition: all ${theme.appTransitions.primary}ms;
     }
 
@@ -18,6 +18,14 @@ export const Root = styled(({ className, ...props }: TooltipProps) => (
       background: ${theme.appColors.primary_05};
       border-radius: 4px;
       box-shadow: ${theme.appShadows.primary};
+    }
+
+    & .MuiTooltip-arrow {
+      font-size: 22px;
+    }
+
+    & .MuiTooltip-arrow::before {
+      background: ${theme.appColors.primary_05};
     }
   `,
 );

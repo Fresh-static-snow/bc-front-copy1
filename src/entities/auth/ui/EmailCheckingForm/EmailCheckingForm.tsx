@@ -2,8 +2,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useCallback } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
+import { FormField } from '@/shared/ui/forms';
 import { PrimaryButton, PrimaryInput } from '@/shared/ui/inputs';
-import { FormField } from '@/shared/ui/layouts';
 
 import { emailSchema } from './EmailCheckingForm.schema';
 import * as S from './EmailCheckingForm.styles';

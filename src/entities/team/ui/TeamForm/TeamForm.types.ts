@@ -1,4 +1,5 @@
-import { CSSIndents } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
+
 import { PrimarySelectableValue } from '@/shared/types/values.types';
 
 export type TeamFormSchema = {
@@ -13,7 +14,7 @@ export type TeamFormProps = {
   disciplineOptions: PrimarySelectableValue[];
 
   FooterCustomComponent?: React.ReactNode;
-  contentPaddings?: CSSIndents;
+  contentPaddings?: CSSProperties['padding'];
   /**
    * @default 'row'
    */
@@ -38,6 +39,6 @@ export type TeamFormProps = {
 };
 
 export type StyledContentProps = {
-  $padding: CSSIndents;
+  $padding: CSSProperties['padding'];
   $fieldsDirection: 'row' | 'column';
 };

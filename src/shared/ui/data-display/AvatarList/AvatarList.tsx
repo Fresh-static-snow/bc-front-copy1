@@ -48,7 +48,7 @@ export const AvatarList: React.FC<AvatarListProps> = memo(
       <S.Root ref={containerRef} $position={position}>
         {visiblePeople?.map(({ id, name, image, additionalBorder, crownIcon }) => (
           <Avatar
-            key={name}
+            key={String(id) + name}
             name={name}
             image={image}
             size={`${avatarSize}px`}

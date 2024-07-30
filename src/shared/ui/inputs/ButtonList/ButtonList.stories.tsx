@@ -6,30 +6,14 @@ import { SelectableValue } from '@/shared/types/values.types';
 import { ButtonList } from './ButtonList';
 
 export default {
-  title: 'elements/ButtonList',
+  title: 'shared/inputs/ButtonList',
   component: ButtonList,
   tags: ['autodocs'],
   argTypes: {
-    width: {
-      control: {
-        type: 'text',
-      },
-    },
-    buttonList: {
-      control: {
-        type: null,
-      },
-    },
-    activeButton: {
-      control: {
-        type: null,
-      },
-    },
-    onChangeActiveButton: {
-      control: {
-        type: null,
-      },
-    },
+    width: { control: { type: 'text' } },
+    buttonList: { control: { type: null } },
+    activeButton: { control: { type: null } },
+    onChangeActiveButton: { control: { type: null } },
   },
 } as Meta<typeof ButtonList>;
 

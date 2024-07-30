@@ -30,7 +30,7 @@ export const CalendarRoutes: React.ReactElement = (
         <Navigate
           to={{
             pathname: '/calendar/day',
-            search: `start_at=${dayjs().format('YYYY-MM-DD')}&current_user=true`,
+            search: `start_at=${dayjs().format('YYYY-MM-DD')}`,
           }}
           replace
         />
@@ -46,7 +46,7 @@ export const CalendarRoutes: React.ReactElement = (
             <Navigate
               to={{
                 pathname: '/calendar/week',
-                search: `start_at=${dayjs().format('YYYY-MM-DD')}&current_user=true`,
+                search: `start_at=${dayjs().format('YYYY-MM-DD')}`,
               }}
               replace
             />
@@ -66,7 +66,7 @@ export const CalendarRoutes: React.ReactElement = (
             <Navigate
               to={{
                 pathname: '/calendar/month',
-                search: `start_at=${dayjs().format('YYYY-MM-DD')}&current_user=true`,
+                search: `start_at=${dayjs().format('YYYY-MM-DD')}`,
               }}
               replace
             />
@@ -86,7 +86,7 @@ export const CalendarRoutes: React.ReactElement = (
             <Navigate
               to={{
                 pathname: '/calendar/quarter',
-                search: `start_at=${dayjs().format('YYYY-MM-DD')}&current_user=true`,
+                search: `start_at=${dayjs().format('YYYY-MM-DD')}`,
               }}
               replace
             />
@@ -106,7 +106,7 @@ export const CalendarRoutes: React.ReactElement = (
             <Navigate
               to={{
                 pathname: '/calendar/year',
-                search: `start_at=${dayjs().format('YYYY-MM-DD')}&current_user=true`,
+                search: `start_at=${dayjs().format('YYYY-MM-DD')}`,
               }}
               replace
             />
@@ -126,7 +126,7 @@ export const CalendarRoutes: React.ReactElement = (
             <Navigate
               to={{
                 pathname: '/calendar/day',
-                search: `start_at=${dayjs().format('YYYY-MM-DD')}&current_user=true`,
+                search: `start_at=${dayjs().format('YYYY-MM-DD')}`,
               }}
               replace
             />

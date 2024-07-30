@@ -1,4 +1,5 @@
-import { CSSIndents } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
+
 import {
   CascaderMixedValue,
   CascaderPrimaryValue,
@@ -25,7 +26,7 @@ export type CorporateFormProps = {
   mainParticipantsOptions: CascaderPrimaryValue[];
 
   FooterCustomComponent?: React.ReactNode;
-  contentPaddings?: CSSIndents;
+  contentPaddings?: CSSProperties['padding'];
   /**
    * @default 'row'
    */
@@ -50,6 +51,6 @@ export type CorporateFormProps = {
 };
 
 export type StyledContentProps = {
-  $padding: CSSIndents;
+  $padding: CSSProperties['padding'];
   $fieldsDirection: 'row' | 'column';
 };

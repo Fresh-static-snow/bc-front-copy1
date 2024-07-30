@@ -1,0 +1,57 @@
+name: Main
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.BC_DEPLOY_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 195.201.193.151 >> ~/.ssh/known_hosts
+
+      - name: Deploy to server
+        run: |
+          ssh -T -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null crmtools@195.201.193.151 <<-EOF
+            eval `ssh-agent -s`
+            ssh-add ~/.ssh/id_rsa_front
+            if [ ! -d "/home/crmtools/front" ]; then
+              mkdir /home/crmtools/front
+              chown crmtools:crmtools /home/crmtools/front
+              git clone git@github-front:masterwebcompany/broadcast-shift-calendar-front.git /home/crmtools/front
+            fi
+            cd /home/crmtools/front
+            git checkout main
+            git pull origin main
+
+            export VITE_API_BASE_URL="${{ secrets.VITE_API_BASE_URL }}"
+            export VITE_WEBSOCKET_BASE_URL="${{ secrets.VITE_WEBSOCKET_BASE_URL}}"
+            export VITE_TELEGRAM_BOT_URL="${{ secrets.VITE_TELEGRAM_BOT_URL }}"
+            export VITE_SENTRY_DSN="${{ secrets.VITE_SENTRY_DSN }}"
+            export VITE_SENTRY_PROPAGATION_TARGETS="${{ secrets.VITE_SENTRY_PROPAGATION_TARGETS }}"
+            export VITE_ENVIRONMENT="production"
+
+            echo "
+            VITE_API_BASE_URL='${{ secrets.VITE_API_BASE_URL }}'
+            VITE_WEBSOCKET_BASE_URL='${{ secrets.VITE_WEBSOCKET_BASE_URL}}'
+            VITE_TELEGRAM_BOT_URL='${{ secrets.VITE_TELEGRAM_BOT_URL }}'
+            VITE_SENTRY_DSN='${{ secrets.VITE_SENTRY_DSN }}'
+            VITE_SENTRY_PROPAGATION_TARGETS='${{ secrets.VITE_SENTRY_PROPAGATION_TARGETS }}'
+            VITE_ENVIRONMENT='production'
+            " > /home/crmtools/front/.env
+
+            pnpm install
+            pnpm run build
+
+          EOF

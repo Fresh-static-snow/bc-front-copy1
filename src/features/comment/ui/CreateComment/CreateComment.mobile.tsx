@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useCreateComment } from '@/entities/comment';
-import { IconArrowUpCircle, IconFilePlusSvg, IconSmileSvg } from '@/shared/assets';
+import { IconArrowUpCircleSvg, IconFilePlusSvg, IconSmileSvg } from '@/shared/assets';
 import { PrimaryButton } from '@/shared/ui/inputs';
 
 import * as S from './CreateComment.styles';
@@ -64,7 +64,7 @@ export const CreateCommentMobile: React.FC<CreateCommentProps> = ({ entityType }
       />
 
       <PrimaryButton
-        IconComponent={IconArrowUpCircle}
+        IconComponent={IconArrowUpCircleSvg}
         variant="custom"
         customStyles={{ iconColor: theme.appColors.primary_01 }}
         padding="5px"

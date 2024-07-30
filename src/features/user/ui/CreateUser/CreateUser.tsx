@@ -33,7 +33,6 @@ export const CreateUser: React.FC<CreateUserProps> = ({ id, setEntityModal }) =>
         { key: 'nick', value: data.username },
         { key: 'first_name', value: data.firstName },
         { key: 'last_name', value: data.lastName },
-        { key: 'avatar', value: data.avatar, options: { type: 'file' } },
         { key: 'email', value: data.email },
         { key: 'company_id', value: data.company?.value },
         {

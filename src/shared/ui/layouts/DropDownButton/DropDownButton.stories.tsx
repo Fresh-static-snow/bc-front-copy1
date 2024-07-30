@@ -8,45 +8,17 @@ import { DropDownChevron } from '@/shared/ui/misc';
 import { DropDownButton } from './DropDownButton';
 
 export default {
-  title: 'elements/DropDownButton',
+  title: 'shared/layouts/DropDownButton',
   component: DropDownButton,
   tags: ['autodocs'],
   argTypes: {
-    anchorEl: {
-      control: {
-        type: null,
-      },
-    },
-    ButtonComponent: {
-      control: {
-        type: null,
-      },
-    },
-    ContentComponent: {
-      control: {
-        type: null,
-      },
-    },
-    isOpen: {
-      control: {
-        type: null,
-      },
-    },
-    onClose: {
-      control: {
-        type: null,
-      },
-    },
-    anchorOrigin: {
-      control: {
-        type: null,
-      },
-    },
-    transformOrigin: {
-      control: {
-        type: null,
-      },
-    },
+    anchorEl: { control: { type: null } },
+    ButtonComponent: { control: { type: null } },
+    ContentComponent: { control: { type: null } },
+    isOpen: { control: { type: null } },
+    onClose: { control: { type: null } },
+    anchorOrigin: { control: { type: null } },
+    transformOrigin: { control: { type: null } },
   },
 } as Meta<typeof DropDownButton>;
 

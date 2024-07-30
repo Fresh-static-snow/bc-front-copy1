@@ -1,9 +1,9 @@
-import { PreDeletedMatch } from '@/shared/types/entities.types';
+import { PreDeletedMatch, PreDeletedSegment } from '@/shared/types/entities.types';
 
 export type DeletedMatchListProps = {
   mainKey: string;
-  matches: PreDeletedMatch[];
+  matches: (PreDeletedMatch | PreDeletedSegment)[];
   isLoading?: boolean;
-  onRestore: (ids: (number | string)[]) => void;
-  onDelete: (ids: (number | string)[]) => void;
+  onRestore: (items: (PreDeletedMatch | PreDeletedSegment)[]) => void;
+  onDelete: (items: (PreDeletedMatch | PreDeletedSegment)[]) => void;
 };

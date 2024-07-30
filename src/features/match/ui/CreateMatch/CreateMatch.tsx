@@ -5,6 +5,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useGetCastAnalyticStudioOptions } from '@/entities/cast-analytic-studio';
 import { useGetCastChannelOptions } from '@/entities/cast-channel';
 import { useGetCastLanguageOptions } from '@/entities/cast-language';
+import { useGetCastSetupOptions } from '@/entities/cast-setup';
+import { useGetCastStreamOptions } from '@/entities/cast-stream';
 import { useGetCastStudioOptions } from '@/entities/cast-studio';
 import { useGetGameDisciplineOptions } from '@/entities/game-discipline';
 import {
@@ -73,8 +75,10 @@ export const CreateMatch: React.FC<CreateMatchProps> = ({ setEntityModal }) => {
   const { data: channelsOptions } = useGetCastChannelOptions();
   const { data: commentatorsOptions } = useGetCommentatorsOptions(startDate, endDate);
   const { data: languagesOptions } = useGetCastLanguageOptions();
-  const { data: studiosAnalyticsOptions } = useGetCastAnalyticStudioOptions();
   const { data: studiosOptions } = useGetCastStudioOptions();
+  const { data: studiosAnalyticsOptions } = useGetCastAnalyticStudioOptions();
+  const { data: setupsOptions } = useGetCastSetupOptions();
+  const { data: streamsOptions } = useGetCastStreamOptions();
   const { data: staffOptions } = useGetStaffMemberOptions(startDate, endDate);
 
   const { mutateAsync: onCreateMatch, isLoading } = useCreateMatch();
@@ -123,13 +127,22 @@ export const CreateMatch: React.FC<CreateMatchProps> = ({ setEntityModal }) => {
             value: language.studio_analytics?.value,
           },
           {
+            key: `match_casts_attributes[${index}][cast_setup_id]`,
+            value: language.setup?.value,
+          },
+          {
+            key: `match_casts_attributes[${index}][cast_stream_id]`,
+            value: language.stream?.value,
+          },
+          {
             key: `match_casts_attributes[${index}][commentator_ids][]`,
             value: language.commentators?.map((commentator) => commentator.value),
             options: { type: 'list' as const },
           },
           {
-            key: `match_casts_attributes[${index}][match_backup_commentator_attributes][user_id]`,
-            value: language.backup_commentator?.value,
+            key: `match_casts_attributes[${index}][backup_commentator_ids][]`,
+            value: language.backup_commentators?.map((commentator) => commentator.value),
+            options: { type: 'list' as const },
           },
           {
             key: `match_casts_attributes[${index}][analytic_ids][]`,
@@ -155,7 +168,7 @@ export const CreateMatch: React.FC<CreateMatchProps> = ({ setEntityModal }) => {
 
   useEffect(() => {
     if (commentatorsList?.length > 0) {
-      enqueueSnackbar('One or more commentators have an event scheduled for the specified time.', {
+      enqueueSnackbar('One or more casters have an event scheduled for the specified time.', {
         variant: 'warning',
       });
     }
@@ -172,7 +185,7 @@ export const CreateMatch: React.FC<CreateMatchProps> = ({ setEntityModal }) => {
   useEffect(() => {
     if (analyticsList?.length > 0) {
       enqueueSnackbar(
-        'One or more analytics users have an event scheduled for the specified time.',
+        'One or more analysts users have an event scheduled for the specified time.',
         {
           variant: 'warning',
         },
@@ -188,8 +201,10 @@ export const CreateMatch: React.FC<CreateMatchProps> = ({ setEntityModal }) => {
       commentatorsOptions={commentatorsOptions}
       formatsOptions={formatsOptions}
       languagesOptions={languagesOptions}
-      studiosAnalyticsOptions={studiosAnalyticsOptions}
       studiosOptions={studiosOptions}
+      studiosAnalyticsOptions={studiosAnalyticsOptions}
+      setupsOptions={setupsOptions}
+      streamsOptions={streamsOptions}
       teamsOptions={teamsOptions}
       tournamentOptions={tournamentOptions}
       staffOptions={staffOptions}

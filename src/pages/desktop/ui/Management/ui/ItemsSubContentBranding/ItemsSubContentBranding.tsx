@@ -20,9 +20,11 @@ const ItemsSubContentBranding: React.FC = () => {
     useChangeBrandingStatus();
   const { mutateAsync: onDeleteBranding, isLoading: isDeleteLoading } = usePreDeleteBranding();
 
-  const { confirmDeleteId, onOpenDeleteModal, onCloseDeleteModal, onDelete } =
+  const { confirmDeleteData, onOpenDeleteModal, onCloseDeleteModal, onDelete } =
     useConfirmationActions<string | number>({
-      onDeleteItem: onDeleteBranding,
+      onDeleteItem: (data) => {
+        onDeleteBranding({ id: data });
+      },
     });
 
   const onSwitch = useCallback(
@@ -49,7 +51,7 @@ const ItemsSubContentBranding: React.FC = () => {
   return (
     <>
       <ConfirmationModal
-        isOpen={!!confirmDeleteId}
+        isOpen={!!confirmDeleteData}
         isLoading={isDeleteLoading || isChangeLoading}
         onClose={onCloseDeleteModal}
         onConfirm={onDelete}

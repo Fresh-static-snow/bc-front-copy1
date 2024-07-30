@@ -6,25 +6,14 @@ import { MatchDetailsTitles } from '../MatchDetailsTitles/MatchDetailsTitles';
 import { MatchDetailsItem } from './MatchDetailsItem';
 
 export default {
-  title: 'modules/ScheduleParts/MatchDetailsItem',
+  title: 'entities/calendar/MatchDetailsItem',
   component: MatchDetailsItem,
   tags: ['autodocs'],
   argTypes: {
-    matchDetails: {
-      control: {
-        type: null,
-      },
-    },
-    color: {
-      control: {
-        type: 'color',
-      },
-    },
-    isVisible: {
-      control: {
-        type: 'boolean',
-      },
-    },
+    matchDetails: { control: { type: null } },
+    color: { control: { type: 'color' } },
+    isVisible: { control: { type: 'boolean' } },
+    filters: { control: { type: null } },
   },
 } as Meta<typeof MatchDetailsItem>;
 
@@ -64,8 +53,24 @@ const matchDetails: MatchCast = {
       avatar: { url: '' },
     },
   ],
-  host_analytic: null,
-  backup_commentator: null,
+  host_analytic: {
+    id: 3,
+    display_name: 'Graham Connelly',
+    nick: 'Some_Nick',
+    first_name: 'Graham',
+    last_name: 'Connelly',
+    avatar: { url: '' },
+  },
+  backup_commentators: [
+    {
+      id: 3,
+      display_name: 'Graham Connelly',
+      nick: 'Some_Nick',
+      first_name: 'Graham',
+      last_name: 'Connelly',
+      avatar: { url: '' },
+    },
+  ],
   staff_members: [
     {
       id: 3,
@@ -85,6 +90,14 @@ const matchDetails: MatchCast = {
     id: 1,
     name: 'Cast 9.1',
     keyword: 'cast_9_1',
+  },
+  setup: {
+    id: 1,
+    name: 'Setup 1',
+  },
+  stream: {
+    id: 1,
+    name: 'Stream 1',
   },
 };
 
@@ -133,6 +146,42 @@ export const Titles: Story = {
   </div>
 
   <MatchDetailsItem matchDetails={matchDetails} color="#00CC6A" />
+</>
+        `,
+      },
+    },
+  },
+};
+
+export const WithFilters: Story = {
+  render: TitlesTemplate,
+  args: {
+    color: '#00CC6A',
+    isVisible: true,
+    filters: {
+      staff_members: ['3'],
+      channel: ['1'],
+      commentators: ['2'],
+    },
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<>
+  <div style={{ padding: '15px 0' }}>
+    <MatchDetailsTitles />
+  </div>
+
+  <MatchDetailsItem
+    matchDetails={matchDetails}
+    color="#00CC6A"
+    filters={
+      staff_members: ['3'],
+      channel: ['1'],
+      commentators: ['2'],
+    }
+  />
 </>
         `,
       },

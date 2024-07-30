@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import { editorStyles } from '@/shared/const';
+
 export const Root = styled('div')(
   () => css`
     width: 100%;
@@ -26,6 +28,8 @@ export const MediaItem = styled('div')(
     width: 100%;
     padding: 14px 0;
     border-bottom: 1px solid ${theme.appColors.primary_03};
+
+    ${editorStyles}
   `,
 );
 

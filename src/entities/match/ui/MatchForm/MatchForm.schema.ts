@@ -17,24 +17,28 @@ const formLanguagesListSchema = Yup.array().of(
       test: (value, { parent }) => {
         const {
           language,
+          commentators,
+          backup_commentators,
+          analytics,
+          host_analytic,
           studio,
           studio_analytics,
+          setup,
           channels,
-          commentators,
-          analytics,
+          stream,
           staff,
-          host_analytic,
-          backup_commentator,
         } = parent as FormLanguageListSchema;
         if (
           !language &&
-          (studio ||
-            studio_analytics ||
-            host_analytic ||
-            backup_commentator ||
-            channels?.length > 0 ||
-            commentators?.length > 0 ||
+          (commentators?.length > 0 ||
+            backup_commentators?.length > 0 ||
             analytics?.length > 0 ||
+            host_analytic ||
+            studio ||
+            studio_analytics ||
+            setup ||
+            channels?.length > 0 ||
+            stream ||
             staff?.length > 0)
         ) {
           return false;
@@ -42,20 +46,22 @@ const formLanguagesListSchema = Yup.array().of(
         return true;
       },
     }),
-    studio: selectSchema.nullable(),
-    studio_analytics: selectSchema.nullable(),
-    channels: Yup.array().of(selectSchema).nullable(),
     commentators: Yup.array().of(selectSchema).nullable(),
-    backup_commentator: selectSchema.nullable(),
+    backup_commentators: Yup.array().of(selectSchema).nullable(),
     analytics: Yup.array().of(selectSchema).nullable(),
     host_analytic: selectSchema.nullable(),
+    studio: selectSchema.nullable(),
+    studio_analytics: selectSchema.nullable(),
+    setup: selectSchema.nullable(),
+    channels: Yup.array().of(selectSchema).nullable(),
+    stream: selectSchema.nullable(),
     staff: Yup.array().of(selectSchema).nullable(),
   }),
 );
 
 export const matchSchema = Yup.object<MatchFormSchema>({
   discipline: selectSchema.required('Discipline is a required field'),
-  tournament: selectSchema.required('Tournament is a required field'),
+  tournament: selectSchema.required('Event is a required field'),
   date: Yup.string()
     .required('Date is a required field')
     .test({

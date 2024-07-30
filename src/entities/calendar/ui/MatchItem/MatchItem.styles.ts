@@ -36,7 +36,7 @@ export const RootMobile = styled('li')(
     list-style: none;
     overflow: hidden;
 
-    &:not(:first-child) {
+    &:not(:first-of-type) {
       border-top-left-radius: 6px;
       border-top-right-radius: 6px;
     }
@@ -54,7 +54,7 @@ export const MatchDetailsListMobile = styled('ul')(
   `,
 );
 
-export const TeamsHeaderMobile = styled('div')(
+export const TitleHeaderMobile = styled('div')(
   ({ theme, color }) => css`
     display: flex;
     margin-inline: 20px;
@@ -64,7 +64,7 @@ export const TeamsHeaderMobile = styled('div')(
   `,
 );
 
-export const TeamsHeaderTextMobile = styled('div')(
+export const TitleHeaderTextMobile = styled('div')(
   () => css`
     display: flex;
     align-items: center;

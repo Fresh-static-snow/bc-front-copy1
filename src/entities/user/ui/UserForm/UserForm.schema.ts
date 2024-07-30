@@ -50,22 +50,6 @@ export const userSchema = Yup.object<UserFormSchema>({
         return true;
       },
     }),
-  avatar: Yup.mixed()
-    .nullable()
-    .test({
-      name: 'type-check',
-      message: 'Please provide a supported file types .jpeg, .jpg, .png',
-      test: (file: File | string | null | undefined) =>
-        !file ||
-        typeof file === 'string' ||
-        ['png', 'jpeg', 'jpg'].includes(getFileExtension(file?.name)),
-    })
-    .test({
-      name: 'size-check',
-      message: 'Please provide a file smaller than 1MB',
-      test: (file: File | string | null | undefined) =>
-        !file || typeof file === 'string' || file?.size < 1000 * 1024,
-    }),
   email: Yup.string().required('Email is required').email('Email is invalid'),
   company: selectSchema.nullable(),
   disciplines: Yup.array().of(selectSchema).nullable(),

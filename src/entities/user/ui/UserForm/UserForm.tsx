@@ -2,15 +2,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useCallback, useEffect } from 'react';
 import { SubmitHandler, useController, useForm } from 'react-hook-form';
 
-import { PrimaryFormFooter, SecondaryFormFooter } from '@/shared/ui/forms';
-import {
-  Autocomplete,
-  Checkbox,
-  PrimaryButton,
-  PrimaryDropzone,
-  PrimaryInput,
-} from '@/shared/ui/inputs';
-import { FormField } from '@/shared/ui/layouts';
+import { FormField, PrimaryFormFooter, SecondaryFormFooter } from '@/shared/ui/forms';
+import { Autocomplete, Checkbox, PrimaryButton, PrimaryInput } from '@/shared/ui/inputs';
 
 import { userFormDefaultValues } from './UserForm.const';
 import { userSchema } from './UserForm.schema';
@@ -126,17 +119,6 @@ export const UserForm: React.FC<UserFormProps> = ({
               name="lastName"
               control={control}
               disabled={disabledFields.includes('lastName')}
-            />
-          </FormField>
-        )}
-
-        {!hiddenFields.includes('avatar') && (
-          <FormField direction={fieldsDirection} label="Avatar">
-            <PrimaryDropzone
-              control={control}
-              name="avatar"
-              types={['jpg', 'png']}
-              disabled={disabledFields.includes('avatar')}
             />
           </FormField>
         )}

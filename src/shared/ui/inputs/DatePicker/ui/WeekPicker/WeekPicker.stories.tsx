@@ -5,20 +5,12 @@ import { useState } from 'react';
 import { WeekPicker } from './WeekPicker';
 
 export default {
-  title: 'modules/DatePickers/WeekPicker',
+  title: 'shared/inputs/DatePicker.Week',
   component: WeekPicker,
   tags: ['autodocs'],
   argTypes: {
-    activeDate: {
-      control: {
-        type: null,
-      },
-    },
-    onChangeActiveDate: {
-      control: {
-        type: null,
-      },
-    },
+    activeDate: { control: { type: null } },
+    onChangeActiveDate: { control: { type: null } },
   },
 } as Meta<typeof WeekPicker>;
 

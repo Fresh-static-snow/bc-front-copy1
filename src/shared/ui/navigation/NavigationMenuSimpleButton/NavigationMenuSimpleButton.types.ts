@@ -1,17 +1,17 @@
-import { CSSIndents, CSSSize, CSSWeight } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type NavigationMenuSimpleButtonProps = {
   children?: React.ReactNode;
   linkPath: string;
   activePathExact?: boolean;
   variant?: 'base' | 'primary' | 'secondary' | 'colored' | 'avatar';
-  padding?: CSSIndents;
-  fontSize?: CSSSize;
-  fontWeight?: CSSWeight;
+  padding?: CSSProperties['padding'];
+  fontSize?: CSSProperties['fontSize'];
+  fontWeight?: CSSProperties['fontWeight'];
   count?: number | string;
 };
 
 export type StyledContentProps = {
-  $fontSize: CSSSize;
-  $fontWeight: CSSWeight;
+  $fontSize: CSSProperties['fontSize'];
+  $fontWeight: CSSProperties['fontWeight'];
 };

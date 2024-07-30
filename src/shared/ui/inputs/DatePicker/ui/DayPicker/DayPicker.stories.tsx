@@ -5,20 +5,12 @@ import { useState } from 'react';
 import { DayPicker } from './DayPicker';
 
 export default {
-  title: 'modules/DatePickers/DayPicker',
+  title: 'shared/inputs/DatePicker.Day',
   component: DayPicker,
   tags: ['autodocs'],
   argTypes: {
-    activeDate: {
-      control: {
-        type: null,
-      },
-    },
-    onChangeActiveDate: {
-      control: {
-        type: null,
-      },
-    },
+    activeDate: { control: { type: null } },
+    onChangeActiveDate: { control: { type: null } },
   },
 } as Meta<typeof DayPicker>;
 

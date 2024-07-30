@@ -12,9 +12,9 @@ export const Root = styled('div')(
   `,
 );
 
-export const BadgeWrapper = styled('div')(
+export const Space = styled('div')(
   () => css`
-    margin: 0 10px;
+    margin: 0 10px 0 0;
   `,
 );
 

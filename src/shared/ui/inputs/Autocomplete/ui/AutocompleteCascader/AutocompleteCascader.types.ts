@@ -1,6 +1,6 @@
+import { CSSProperties } from 'react';
 import { Control, FieldValues } from 'react-hook-form';
 
-import { CSSColor } from '@/shared/types/styles.types';
 import { CascaderPrimaryValue } from '@/shared/types/values.types';
 
 import { AdditionalElementProps } from '../../types';
@@ -33,7 +33,7 @@ export type AutocompleteCascaderProps = {
    * @default primary_02
    * @description `primary_02` is the color of the active theme.
    */
-  popupIconColor?: CSSColor;
+  popupIconColor?: CSSProperties['color'];
   /**
    * If `true`, options will be displayed with checkboxes.
    * @default false

@@ -1,4 +1,4 @@
-import { CSSIndents } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type GameDisciplineFormSchema = {
   name?: string;
@@ -10,7 +10,7 @@ type FieldsNames = keyof GameDisciplineFormSchema;
 
 export type GameDisciplineFormProps = {
   FooterCustomComponent?: React.ReactNode;
-  contentPaddings?: CSSIndents;
+  contentPaddings?: CSSProperties['padding'];
   /**
    * @default 'row'
    */
@@ -35,6 +35,6 @@ export type GameDisciplineFormProps = {
 };
 
 export type StyledContentProps = {
-  $padding: CSSIndents;
+  $padding: CSSProperties['padding'];
   $fieldsDirection: 'row' | 'column';
 };

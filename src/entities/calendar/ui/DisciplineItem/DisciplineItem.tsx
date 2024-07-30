@@ -40,6 +40,7 @@ export const DisciplineItem: React.FC<DisciplineItemProps> = memo(
           {tournaments?.map((tournament) => (
             <TournamentItem
               key={tournament.id}
+              discipline={discipline}
               tournament={tournament}
               filters={filters}
               onClickTournament={onClickTournament}

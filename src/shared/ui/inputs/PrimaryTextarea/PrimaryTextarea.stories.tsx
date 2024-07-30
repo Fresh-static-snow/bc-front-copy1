@@ -5,22 +5,14 @@ import { useForm } from 'react-hook-form';
 import { PrimaryTextarea } from './PrimaryTextarea';
 
 export default {
-  title: 'ui/PrimaryTextarea',
+  title: 'shared/inputs/PrimaryTextarea',
   component: PrimaryTextarea,
   tags: ['autodocs'],
   argTypes: {
-    placeholder: {
-      control: { type: 'text' },
-    },
-    control: {
-      control: { type: null },
-    },
-    name: {
-      control: { type: null },
-    },
-    disabled: {
-      control: { type: 'boolean' },
-    },
+    placeholder: { control: { type: 'text' } },
+    control: { control: { type: null } },
+    name: { control: { type: null } },
+    disabled: { control: { type: 'boolean' } },
   },
 } as Meta<typeof PrimaryTextarea>;
 

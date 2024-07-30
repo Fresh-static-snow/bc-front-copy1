@@ -1,4 +1,4 @@
-import { CSSIndents } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type BrandingFormSchema = {
   name?: string;
@@ -11,7 +11,7 @@ type FieldsNames = keyof BrandingFormSchema;
 
 export type BrandingFormProps = {
   FooterCustomComponent?: React.ReactNode;
-  contentPaddings?: CSSIndents;
+  contentPaddings?: CSSProperties['padding'];
   /**
    * @default 'row'
    */
@@ -36,6 +36,6 @@ export type BrandingFormProps = {
 };
 
 export type StyledContentProps = {
-  $padding: CSSIndents;
+  $padding: CSSProperties['padding'];
   $fieldsDirection: 'row' | 'column';
 };

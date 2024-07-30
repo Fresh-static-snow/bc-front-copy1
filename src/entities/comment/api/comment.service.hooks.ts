@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useSnackbar } from 'notistack';
 
-import { CORPORATES, TOURNAMENTS } from '@/shared/api';
+import { CORPORATES, SEGMENTS, TOURNAMENTS } from '@/shared/api';
 import { formatArrayToMessages } from '@/shared/lib';
 import { AxiosErrorContent } from '@/shared/types/services.types';
 
@@ -10,6 +10,7 @@ import * as commentsService from './comment.service';
 
 const tournamentKeys = [TOURNAMENTS.MAIN, TOURNAMENTS.COMMENTS];
 const corporateKeys = [CORPORATES.MAIN, CORPORATES.COMMENTS];
+const segmentKeys = [SEGMENTS.MAIN, SEGMENTS.COMMENTS];
 
 export const useCreateComment = () => {
   const queryClient = useQueryClient();
@@ -27,6 +28,9 @@ export const useCreateComment = () => {
         queryClient.invalidateQueries([queryKey]);
       });
       corporateKeys.forEach((queryKey) => {
+        queryClient.invalidateQueries([queryKey]);
+      });
+      segmentKeys.forEach((queryKey) => {
         queryClient.invalidateQueries([queryKey]);
       });
     },
@@ -49,6 +53,9 @@ export const useUpdateComment = () => {
         queryClient.invalidateQueries([queryKey]);
       });
       corporateKeys.forEach((queryKey) => {
+        queryClient.invalidateQueries([queryKey]);
+      });
+      segmentKeys.forEach((queryKey) => {
         queryClient.invalidateQueries([queryKey]);
       });
     },

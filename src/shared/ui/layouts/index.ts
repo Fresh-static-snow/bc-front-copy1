@@ -1,6 +1,6 @@
 export { DropDownButton } from './DropDownButton/DropDownButton';
 export { DropDownInput } from './DropDownInput/DropDownInput';
-export { FormField } from './FormField/FormField';
+export { Hint } from './Hint/Hint';
 export { InfinityScrollbar } from './InfinityScrollbar/InfinityScrollbar';
 export { InfoTipLayout } from './InfoTipLayout/InfoTipLayout';
 export { Rotate } from './Rotate/Rotate';

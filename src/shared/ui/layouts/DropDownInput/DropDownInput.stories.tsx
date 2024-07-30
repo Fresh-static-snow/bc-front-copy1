@@ -11,40 +11,16 @@ import { DropDownInput } from './DropDownInput';
 dayjs.extend(isSameOrBefore);
 
 export default {
-  title: 'elements/DropDownInput',
+  title: 'shared/layouts/DropDownInput',
   component: DropDownInput,
   tags: ['autodocs'],
   argTypes: {
-    InputIcon: {
-      control: {
-        type: null,
-      },
-    },
-    InputComponent: {
-      control: {
-        type: null,
-      },
-    },
-    ContentComponent: {
-      control: {
-        type: null,
-      },
-    },
-    anchorOrigin: {
-      control: {
-        type: null,
-      },
-    },
-    transformOrigin: {
-      control: {
-        type: null,
-      },
-    },
-    error: {
-      control: {
-        type: null,
-      },
-    },
+    InputIcon: { control: { type: null } },
+    InputComponent: { control: { type: null } },
+    ContentComponent: { control: { type: null } },
+    anchorOrigin: { control: { type: null } },
+    transformOrigin: { control: { type: null } },
+    error: { control: { type: null } },
   },
 } as Meta<typeof DropDownInput>;
 
@@ -58,7 +34,7 @@ const Template: StoryTemplate = (args) => {
     <DropDownInput
       InputIcon={<IconClockSvg />}
       InputComponent={
-        <div style={{ width: '100px ' }}>
+        <div style={{ width: '100px', display: 'flex', justifyContent: 'center' }}>
           {activeTime?.[0]}
           {activeTime?.[1] && ` — ${activeTime?.[1]}`}
         </div>
@@ -81,7 +57,7 @@ export const Simple: Story = {
 <DropDownInput
   InputIcon={<IconClockSvg />}
   InputComponent={
-    <div style={{ width: '100px ' }}>
+    <div style={{ width: '100px', display: 'flex', justifyContent: 'center' }}>
       {activeTime?.[0]}
       {activeTime?.[1] && \` — \${activeTime?.[1]}\`}
     </div>
@@ -115,7 +91,7 @@ export const Origin: Story = {
 <DropDownInput
   InputIcon={<IconClockSvg />}
   InputComponent={
-    <div style={{ width: '100px ' }}>
+    <div style={{ width: '100px', display: 'flex', justifyContent: 'center' }}>
       {activeTime?.[0]}
       {activeTime?.[1] && \` — \${activeTime?.[1]}\`}
     </div>

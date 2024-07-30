@@ -74,7 +74,7 @@ export const InfoDrawerMatch = styled('div')(
   `,
 );
 
-export const InfoDrawerTeams = styled('div')(
+export const InfoDrawerTitle = styled('div')(
   ({ theme }) => css`
     color: ${theme.appColors.primary_02};
     font-family: ${theme.appFonts.primary};

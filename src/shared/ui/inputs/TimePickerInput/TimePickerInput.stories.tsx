@@ -4,16 +4,14 @@ import { useForm } from 'react-hook-form';
 import { TimePickerInput } from './TimePickerInput';
 
 export default {
-  title: 'elements/TimePickerInput',
+  title: 'shared/inputs/TimePickerInput',
   component: TimePickerInput,
   tags: ['autodocs'],
   argTypes: {
-    control: {
-      control: { type: null },
-    },
-    name: {
-      control: { type: null },
-    },
+    width: { control: { type: 'text' } },
+    disabled: { control: { type: 'boolean' } },
+    control: { control: { type: null } },
+    name: { control: { type: null } },
   },
 } as Meta<typeof TimePickerInput>;
 
@@ -36,6 +34,46 @@ export const Simple: Story = {
 <TimePickerInput
   control={control}
   name="default"
+/>
+        `,
+      },
+    },
+  },
+};
+
+export const Disabled: Story = {
+  render: Template,
+  args: {
+    disabled: true,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<TimePickerInput
+  control={control}
+  name="default"
+  disabled
+/>
+        `,
+      },
+    },
+  },
+};
+
+export const CustomWidth: Story = {
+  render: Template,
+  args: {
+    width: '300px',
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<TimePickerInput
+  control={control}
+  name="default"
+  width="300px"
 />
         `,
       },

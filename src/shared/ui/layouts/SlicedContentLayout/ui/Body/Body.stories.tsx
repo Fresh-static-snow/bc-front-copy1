@@ -3,20 +3,12 @@ import { Meta, StoryFn, StoryObj } from '@storybook/react';
 import { Body } from './Body';
 
 export default {
-  title: 'modules/AppPageParts/Body',
+  title: 'shared/layouts/SlicedContentLayout.Body',
   component: Body,
   tags: ['autodocs'],
   argTypes: {
-    children: {
-      control: {
-        type: null,
-      },
-    },
-    scrollActive: {
-      control: {
-        type: null,
-      },
-    },
+    children: { control: { type: null } },
+    scrollActive: { control: { type: null } },
   },
 } as Meta<typeof Body>;
 

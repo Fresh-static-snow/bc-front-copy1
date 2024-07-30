@@ -3,13 +3,12 @@ import { Meta, StoryFn, StoryObj } from '@storybook/react';
 import { FieldErrorMessage } from './FieldErrorMessage';
 
 export default {
-  title: 'ui/FieldErrorMessage',
+  title: 'shared/feedback/FieldErrorMessage',
   component: FieldErrorMessage,
   tags: ['autodocs'],
   argTypes: {
-    errorMessage: {
-      control: { type: 'text' },
-    },
+    errorMessage: { control: { type: 'text' } },
+    position: { control: { type: 'select', options: ['relative', 'absolute'] } },
   },
 } as Meta<typeof FieldErrorMessage>;
 

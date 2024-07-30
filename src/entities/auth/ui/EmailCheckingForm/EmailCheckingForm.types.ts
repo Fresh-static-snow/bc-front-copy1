@@ -1,4 +1,4 @@
-import { CSSIndents } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type EmailCheckingFormSchema = {
   email?: string;
@@ -8,7 +8,7 @@ export type EmailCheckingFormProps = {
   additionalLinkText?: string;
   additionalLinkPath?: string;
 
-  contentPaddings?: CSSIndents;
+  contentPaddings?: CSSProperties['padding'];
   /**
    * @default 'row'
    */
@@ -18,5 +18,5 @@ export type EmailCheckingFormProps = {
 };
 
 export type StyledContentProps = {
-  $padding: CSSIndents;
+  $padding: CSSProperties['padding'];
 };

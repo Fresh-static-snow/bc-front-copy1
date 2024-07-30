@@ -1,7 +1,6 @@
 import { UseQueryResult } from '@tanstack/react-query';
 import { render } from '@testing-library/react';
 import dayjs from 'dayjs';
-import { DeepPartial } from 'react-hook-form';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { mock } from 'vitest-mock-extended';
 
@@ -31,7 +30,15 @@ vi.mock('@/entities/calendar', async () => {
                     {
                       title: 'Lorem',
                       start_date: 'Dolor',
-                      matches: [{ id: 1, team_one: 'Team1', team_two: 'Team2', visible: true }],
+                      matches: [
+                        {
+                          id: 1,
+                          type: 'Match',
+                          team_one: 'Team1',
+                          team_two: 'Team2',
+                          visible: true,
+                        },
+                      ],
                     },
                   ],
                 },

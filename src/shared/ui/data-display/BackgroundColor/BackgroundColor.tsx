@@ -18,7 +18,6 @@ export const BackgroundColor: React.FC<BackgroundColorProps> = ({
     $borderRadius={borderRadius}
     style={customStyles}
   >
-    {borderWrapper && <S.BorderWrapper />}
     {!borderWrapper && colorIndicator && <S.ColorIndicator $baseColor={baseColor} />}
     {children}
   </S.Root>

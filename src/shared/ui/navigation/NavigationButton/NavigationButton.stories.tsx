@@ -5,10 +5,24 @@ import { Avatar } from '@/shared/ui/data-display';
 import { NavigationButton } from './NavigationButton';
 
 export default {
-  title: 'ui/NavigationButton',
+  title: 'shared/navigation/NavigationButton',
   component: NavigationButton,
   tags: ['autodocs'],
-  argTypes: {},
+  argTypes: {
+    children: { control: { type: null } },
+    variant: {
+      control: { type: 'select', options: ['base', 'primary', 'secondary', 'colored', 'avatar'] },
+    },
+    tag: { control: { type: 'select', options: ['button', 'link'] } },
+    href: { control: { type: 'text' } },
+    activePathString: { control: { type: 'text' } },
+    activePathExact: { control: { type: 'boolean' } },
+    padding: { control: { type: 'text' } },
+    width: { control: { type: 'text' } },
+    height: { control: { type: 'text' } },
+    innerBorder: { control: { type: 'boolean' } },
+    onClick: { control: { type: null } },
+  },
 } as Meta<typeof NavigationButton>;
 
 type Story = StoryObj<typeof NavigationButton>;
@@ -30,7 +44,7 @@ export const Primary: Story = {
   },
 };
 
-export const WithAvatar: Story = {
+export const LikeAvatar: Story = {
   args: {
     children: (
       <Avatar
@@ -55,6 +69,16 @@ export const Secondary: Story = {
   args: {
     children: <div>NavigationButton</div>,
     variant: 'secondary',
+    activePathString: '/',
+    activePathExact: true,
+  },
+};
+
+export const LinkButton: Story = {
+  args: {
+    children: <div>Link NavigationButton</div>,
+    tag: 'link',
+    href: '#',
     activePathString: '/',
     activePathExact: true,
   },

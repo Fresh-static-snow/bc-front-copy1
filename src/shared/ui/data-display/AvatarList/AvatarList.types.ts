@@ -1,4 +1,4 @@
-import { CSSColor } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type Person = {
   id: number | string;
@@ -9,7 +9,7 @@ export type Person = {
 };
 
 export type AvatarListProps = {
-  color: CSSColor;
+  color: CSSProperties['color'];
   people: Person[];
   avatarSize?: number;
   position?: 'left' | 'center' | 'right';

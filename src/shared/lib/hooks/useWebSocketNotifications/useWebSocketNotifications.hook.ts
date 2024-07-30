@@ -20,8 +20,7 @@ export const useWebSocketNotifications = () => {
   // * Subscribe to user notifications.
   useWebSocket<InfiniteData<UserNotificationPage>, UserNotification>({
     enabled: !!userNotificationsData,
-    webSocketURL:
-      (import.meta.env.VITE_WEBSOCKET_BASE_URL as string) ?? 'ws://localhost:3000/cable',
+    webSocketURL: import.meta.env.VITE_WEBSOCKET_BASE_URL ?? 'ws://localhost:3000/cable',
     subscriptionOptions: {
       channel: 'NotifyCalendarChannel',
     },
@@ -39,8 +38,7 @@ export const useWebSocketNotifications = () => {
   // * Subscribe to management dashboard notifications.
   useWebSocket<InfiniteData<UserNotificationPage>, UserNotification>({
     enabled: !!managementNotificationsData,
-    webSocketURL:
-      (import.meta.env.VITE_WEBSOCKET_BASE_URL as string) ?? 'ws://localhost:3000/cable',
+    webSocketURL: import.meta.env.VITE_WEBSOCKET_BASE_URL ?? 'ws://localhost:3000/cable',
     subscriptionOptions: {
       channel: 'NotifyDashboardChannel',
     },

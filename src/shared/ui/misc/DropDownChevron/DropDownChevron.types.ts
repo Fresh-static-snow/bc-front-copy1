@@ -1,14 +1,14 @@
-import { CSSSize } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type DropDownChevronProps = {
   active?: boolean;
   /**
    * @default '12px'
    */
-  size?: CSSSize;
+  size?: CSSProperties['height'] | CSSProperties['width'];
 };
 
 export type StyledRootProps = {
   $active: boolean;
-  $size: CSSSize;
+  $size: CSSProperties['height'] | CSSProperties['width'];
 };

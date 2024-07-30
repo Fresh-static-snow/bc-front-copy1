@@ -1,5 +1,6 @@
 import './config/axiosInterceptors';
 import './config/dayJsPlugins';
+import './config/sentry';
 
 import { Global, ThemeProvider } from '@emotion/react';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';

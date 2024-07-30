@@ -5,16 +5,12 @@ import { IconArrowLeftSvg } from '@/shared/assets';
 import { Rotate } from './Rotate';
 
 export default {
-  title: 'ui/RotatingWrapper',
+  title: 'shared/layouts/Rotate',
   component: Rotate,
   tags: ['autodocs'],
   argTypes: {
-    children: {
-      control: { type: null },
-    },
-    rotateDeg: {
-      control: { type: 'number' },
-    },
+    children: { control: { type: null } },
+    rotateDeg: { control: { type: 'number' } },
   },
 } as Meta<typeof Rotate>;
 

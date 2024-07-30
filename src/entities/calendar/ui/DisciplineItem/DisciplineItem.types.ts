@@ -2,6 +2,7 @@ import {
   CorporateInCalendarEntity,
   GameDiscipline,
   Match,
+  SegmentInCalendarEntity,
   TournamentInCalendarEntity,
 } from '@/shared/types/entities.types';
 
@@ -15,7 +16,7 @@ export type DisciplineItemProps = {
   onClickDiscipline?: (discipline: GameDiscipline) => void;
   onClickTournament?: (tournament: TournamentInCalendarEntity) => void;
   onClickCorporate?: (corporate: CorporateInCalendarEntity) => void;
-  onClickMatch?: (match: Match) => void;
+  onClickMatch?: (match: Match | SegmentInCalendarEntity) => void;
 };
 
 export type DisciplineItemMobileProps = DisciplineItemProps & {

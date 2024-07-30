@@ -1,7 +1,8 @@
-import { memo, useCallback, useMemo, useState } from 'react';
+import { Fragment, memo, useCallback, useMemo, useState } from 'react';
 
+import { Match, Segment } from '@/shared/types/entities.types';
 import { BackgroundColor } from '@/shared/ui/data-display';
-import { TextColor } from '@/shared/ui/typography';
+import { MarkedText, TextColor } from '@/shared/ui/typography';
 
 import { CalendarPerson } from '../../types';
 import { InfoDrawer } from '../InfoDrawer/InfoDrawer';
@@ -28,56 +29,52 @@ export const MatchDetailsItemMobile: React.FC<MatchCastsItemMobileProps> = memo(
         ? `${matchDetails?.language?.keyword.toUpperCase()}: `
         : '';
 
-      const studioName = matchDetails?.studio?.name?.length ? matchDetails?.studio?.name : '';
-      const point =
-        !!matchDetails?.studio?.name?.length && !!matchDetails?.analytic_studio?.name?.length
-          ? ' • '
-          : '';
-      const analyticStudioName = matchDetails?.analytic_studio?.name?.length
-        ? matchDetails?.analytic_studio?.name
-        : '';
+      const elements = [
+        { item: matchDetails?.studio, filter: filters?.studio },
+        { item: matchDetails?.analytic_studio, filter: filters?.analytics },
+        { item: matchDetails?.setup, filter: filters?.setup },
+      ].filter(({ item }) => Boolean(item?.id));
 
-      const title = `${lang}${studioName}${point}${analyticStudioName}`;
-
-      return title?.length ? (
-        <div>
-          <strong style={{ fontWeight: 700 }}>{lang}</strong>
-          {studioName}
-          {point}
-          {analyticStudioName}
-        </div>
-      ) : (
-        '---'
-      );
+      return {
+        length: lang.length + elements.map((e) => e.item.name).join().length,
+        lang,
+        elements,
+      };
     }, [
-      matchDetails?.studio?.name,
+      filters?.analytics,
+      filters?.setup,
+      filters?.studio,
+      matchDetails?.analytic_studio,
       matchDetails?.language?.keyword,
-      matchDetails?.analytic_studio?.name,
+      matchDetails?.setup,
+      matchDetails?.studio,
     ]);
 
     const channelsText = useMemo(() => {
       const channels = matchDetails?.channels?.map((channel) => channel.name);
-      return channels?.length ? channels.join(', ') : '---';
-    }, [matchDetails?.channels]);
+      const stream = matchDetails?.stream?.name;
+      const result = [...channels, stream].filter(Boolean);
+
+      return result?.length ? result.join(', ') : '---';
+    }, [matchDetails?.channels, matchDetails?.stream?.name]);
 
     const commentators: CalendarPerson[] = useMemo(() => {
       const filteredCommentators =
         matchDetails.commentators?.filter(
-          (commentator) => commentator.id !== matchDetails.backup_commentator?.id,
+          (commentator) =>
+            !matchDetails?.backup_commentators?.find((backup) => backup.id === commentator.id),
         ) || [];
 
-      const backupCommentator = matchDetails.backup_commentator
-        ? {
-            ...matchDetails.backup_commentator,
-            additionalBorder: true,
-            additionalText: '[backup]',
-          }
-        : null;
+      const backupCommentators = matchDetails.backup_commentators?.map((backupCommentator) => ({
+        ...backupCommentator,
+        additionalBorder: true,
+        additionalText: '[backup]',
+      }));
 
-      return backupCommentator
-        ? [...filteredCommentators, backupCommentator]
+      return backupCommentators?.length > 0
+        ? [...filteredCommentators, ...backupCommentators]
         : filteredCommentators;
-    }, [matchDetails.backup_commentator, matchDetails.commentators]);
+    }, [matchDetails.backup_commentators, matchDetails.commentators]);
 
     const analytics: CalendarPerson[] = useMemo(() => {
       const filteredAnalytics =
@@ -100,8 +97,8 @@ export const MatchDetailsItemMobile: React.FC<MatchCastsItemMobileProps> = memo(
       const sources = [
         tournament?.main_participants,
         tournament?.media_representatives,
-        analytics,
         commentators,
+        analytics,
         matchDetails?.staff_members,
       ];
 
@@ -238,54 +235,87 @@ export const MatchDetailsItemMobile: React.FC<MatchCastsItemMobileProps> = memo(
           setOpen={onChangeInfoDrawer}
           isVisible={match?.visible}
           color={color}
-          discipline={discipline}
+          discipline={{ item: discipline, filterList: filters?.game_discipline }}
           eventName={tournament?.title}
-          teamOne={match?.team_one}
-          teamTwo={match?.team_two}
+          title={match?.type === 'Segment' ? (match as Segment)?.title : null}
+          teamOne={match?.type === 'Match' ? (match as Match)?.team_one : null}
+          teamTwo={match?.type === 'Match' ? (match as Match)?.team_two : null}
           date={match?.start_date}
           time={`${match?.start_time ?? ''}${match?.end_time ? ` - ${match?.end_time}` : ''}`}
           location={
             <>
-              <strong style={{ fontWeight: 700 }}>
-                {matchDetails?.language?.keyword
-                  ? matchDetails?.language?.keyword?.toUpperCase()
-                  : ''}
-              </strong>
-              {matchDetails?.language?.keyword &&
-              (matchDetails?.studio?.name || matchDetails?.analytic_studio?.name)
-                ? ': '
-                : ''}
-              {matchDetails?.studio?.name ?? ''}
-              {matchDetails?.studio?.name && matchDetails?.analytic_studio?.name ? ' | ' : ''}
-              {matchDetails?.analytic_studio?.name ?? ''}
+              {studioTitle?.length && (
+                <div>
+                  <strong style={{ fontWeight: 700 }}>{studioTitle.lang}</strong>
+
+                  {studioTitle?.elements?.map((element, index) => (
+                    <Fragment key={`${element.item?.id ?? ''}${element.item?.name ?? ''}` ?? index}>
+                      {element.filter?.includes(String(element.item?.id)) ? (
+                        <MarkedText>{element.item?.name}</MarkedText>
+                      ) : (
+                        element.item?.name
+                      )}
+
+                      {studioTitle.elements.length - 1 !== index && ' | '}
+                    </Fragment>
+                  ))}
+                </div>
+              )}
             </>
           }
-          format={match?.format}
-          channels={matchDetails?.channels}
-          mainParticipant={tournament?.main_participants?.[0]}
-          mediaRepresentative={tournament?.media_representatives?.[0]}
-          commentators={infoCommentators}
-          analytics={infoAnalytics}
-          staff={matchDetails?.staff_members}
-          disciplineFilterList={filters?.game_discipline}
-          commentatorsFilterList={filters?.commentators ?? []}
-          analyticsFilterList={filters?.analytics ?? []}
-          staffFilterList={filters?.staff_members ?? []}
-          mainParticipantFilterList={filters?.main_participants}
-          mediaRepresentativeFilterList={filters?.media_representatives}
-          channelFilterList={filters?.channel}
+          format={match?.type === 'Match' ? (match as Match)?.format : null}
+          channels={{ items: matchDetails?.channels, filterList: filters?.channel }}
+          streams={{ items: [matchDetails?.stream], filterList: filters?.stream }}
+          mainParticipant={{
+            item: tournament?.main_participants?.[0],
+            filterList: filters?.main_participants,
+          }}
+          mediaRepresentative={{
+            item: tournament?.media_representatives?.[0],
+            filterList: filters?.media_representatives,
+          }}
+          commentators={{ items: infoCommentators, filterList: filters?.commentators }}
+          analytics={{ items: infoAnalytics, filterList: filters?.analytics }}
+          staff={{ items: matchDetails?.staff_members, filterList: filters?.staff_members }}
           onClickEdit={onEditMatch ? onClickEditButton : null}
         />
 
         <BackgroundColor borderRadius={false} baseColor={color} stripes={!isVisible}>
           <S.RootMobile onClick={() => onChangeInfoDrawer(true)}>
             <S.TimeWrapperMobile id="tournament-match-time">
-              <Time startTime={match.start_time} endTime={match.end_time} color={color} />
+              <Time
+                startTime={match?.start_time ?? ''}
+                endTime={match?.end_time ?? ''}
+                color={color}
+              />
             </S.TimeWrapperMobile>
 
             <S.DetailsWrapperMobile>
               <S.DetailWrapperMobile $alignItems="start">
-                <TextColor text={studioTitle} fontWeight="400" secondaryColor={color} />
+                <TextColor
+                  text={
+                    <>
+                      {studioTitle?.length ? (
+                        <div>
+                          <strong style={{ fontWeight: 700 }}>{studioTitle.lang}</strong>
+
+                          {studioTitle?.elements?.map((element, index) => (
+                            <Fragment
+                              key={`${element.item?.id ?? ''}${element.item?.name ?? ''}` ?? index}
+                            >
+                              {element.item?.name}
+                              {studioTitle.elements.length - 1 !== index && ' • '}
+                            </Fragment>
+                          ))}
+                        </div>
+                      ) : (
+                        '---'
+                      )}
+                    </>
+                  }
+                  fontWeight="400"
+                  secondaryColor={color}
+                />
               </S.DetailWrapperMobile>
 
               <S.DetailWrapperMobile>

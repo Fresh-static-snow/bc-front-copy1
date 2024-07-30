@@ -42,6 +42,20 @@ export const CAST_STUDIOS = {
   FORM: 'cast-studios/form',
 };
 
+export const CAST_SETUPS = {
+  OPTIONS: 'cast-setups/options',
+  ITEMS_WITH_HISTORY: 'cast-setups/items-with-history',
+  ITEMS_PRE_DELETED: 'cast-setups/items-pre-deleted',
+  FORM: 'cast-setups/form',
+};
+
+export const CAST_STREAMS = {
+  OPTIONS: 'cast-streams/options',
+  ITEMS_WITH_HISTORY: 'cast-streams/items-with-history',
+  ITEMS_PRE_DELETED: 'cast-streams/items-pre-deleted',
+  FORM: 'cast-streams/form',
+};
+
 export const COMMENTS = {};
 
 export const COMPANIES = {
@@ -77,6 +91,15 @@ export const MATCHES = {
   TYPE_OPTIONS: 'matches/type-options',
   ITEMS_PRE_DELETED: 'matches/items-pre-deleted',
   FORM: 'matches/form',
+};
+
+export const SEGMENTS = {
+  MAIN: 'segments/main',
+  MEDIA: 'segments/media',
+  COMMENTS: 'segments/comments',
+  TYPE_OPTIONS: 'segments/type-options',
+  ITEMS_PRE_DELETED: 'segments/items-pre-deleted',
+  FORM: 'segments/form',
 };
 
 export const REGIONS = {
@@ -129,4 +152,8 @@ export const USERS = {
   USER_NOTIFICATIONS: 'users/user-notifications',
   USER_ACCOUNT_NOTIFICATIONS: 'users/user-account-notifications',
   USER_NOTIFICATIONS_COUNT: 'users/user-notifications-count',
+};
+
+export const ACCOUNT_SETTINGS = {
+  MAIN_CONFIG: 'account-settings/main-config',
 };

@@ -1,9 +1,4 @@
-import {
-  Match,
-  MatchInMatchForm,
-  MatchType,
-  PreDeletedTournament,
-} from '@/shared/types/entities.types';
+import { Format, Match, MatchInForm, PreDeletedTournament } from '@/shared/types/entities.types';
 
 // * Params.
 export type Scope = 'only_deleted' | string;
@@ -30,7 +25,7 @@ export type RestorePreDeletedMatchParams = {
 };
 
 export type RestorePreDeletedMatchListParams = {
-  id: (number | string)[];
+  ids: (number | string)[];
 };
 
 export type PreDeleteMatchParams = {
@@ -38,7 +33,7 @@ export type PreDeleteMatchParams = {
 };
 
 export type PreDeleteMatchListParams = {
-  id: (number | string)[];
+  ids: (number | string)[];
 };
 
 export type DeleteMatchParams = {
@@ -46,7 +41,7 @@ export type DeleteMatchParams = {
 };
 
 export type DeleteMatchListParams = {
-  id: (number | string)[];
+  ids: (number | string)[];
 };
 
 export type SearchMatchesParams<T extends Scope> = {
@@ -56,10 +51,10 @@ export type SearchMatchesParams<T extends Scope> = {
 // * Responses.
 export type GetMatchResponse = Match;
 
-export type GetMatchTypesResponse = MatchType[];
+export type GetMatchTypesResponse = Format[];
 
 export type GetSearchMatchesResponse<T extends Scope> = T extends 'only_deleted'
   ? PreDeletedTournament[]
   : Match[];
 
-export type GetMatchFormResponse = MatchInMatchForm;
+export type GetMatchFormResponse = MatchInForm;

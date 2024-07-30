@@ -3,29 +3,19 @@ import { Meta, StoryFn, StoryObj } from '@storybook/react';
 import { TextColor } from './TextColor';
 
 export default {
-  title: 'ui/TextColor',
+  title: 'shared/typography/TextColor',
   component: TextColor,
   tags: ['autodocs'],
   argTypes: {
-    text: {
-      control: { type: 'text' },
-    },
+    text: { control: { type: 'text' } },
     fontWeight: {
       options: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
       control: { type: 'select' },
     },
-    fontSize: {
-      control: { type: 'text' },
-    },
-    baseColor: {
-      control: { type: 'color' },
-    },
-    secondaryColor: {
-      control: { type: 'color' },
-    },
-    limitedWidth: {
-      control: { type: 'boolean' },
-    },
+    fontSize: { control: { type: 'text' } },
+    baseColor: { control: { type: 'color' } },
+    secondaryColor: { control: { type: 'color' } },
+    limitedWidth: { control: { type: 'boolean' } },
   },
 } as Meta<typeof TextColor>;
 

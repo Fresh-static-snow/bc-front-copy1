@@ -24,7 +24,7 @@ export const appendFormValue = (
     return;
   }
 
-  if (!value?.length && canBeEmpty) {
+  if (!(value instanceof File) && !value?.length && canBeEmpty) {
     formData.append(key, '');
   }
 };

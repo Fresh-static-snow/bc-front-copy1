@@ -1,31 +1,29 @@
-import { ReactNode } from 'react';
-
-import { CSSColor, CSSSize, CSSWeight } from '@/shared/types/styles.types';
+import { CSSProperties, ReactNode } from 'react';
 
 export type TextColorProps = {
   text: ReactNode;
   /**
    * @default 400
    */
-  fontWeight?: CSSWeight;
+  fontWeight?: CSSProperties['fontWeight'];
   /**
    * @default 15px
    */
-  lineHeight?: CSSSize;
+  lineHeight?: CSSProperties['lineHeight'];
   /**
    * @default 12px
    */
-  fontSize?: CSSSize;
+  fontSize?: CSSProperties['fontSize'];
   /**
    * Base gradient color layer of the component.
    * @default secondary_10
    * @description `secondary_10` is the color of the active theme.
    */
-  baseColor?: CSSColor;
+  baseColor?: CSSProperties['color'];
   /**
    * Secondary gradient color layer of the component.
    */
-  secondaryColor: CSSColor;
+  secondaryColor: CSSProperties['color'];
   /**
    * If true, the text will be limited by width.
    * @default false
@@ -34,10 +32,10 @@ export type TextColorProps = {
 };
 
 export type StyledRootProps = {
-  $fontWeight: CSSWeight;
-  $fontSize: CSSSize;
-  $lineHeight: CSSSize;
-  $baseColor: CSSColor;
-  $secondaryColor: CSSColor;
+  $fontWeight: CSSProperties['fontWeight'];
+  $fontSize: CSSProperties['fontSize'];
+  $lineHeight: CSSProperties['lineHeight'];
+  $baseColor: CSSProperties['color'];
+  $secondaryColor: CSSProperties['color'];
   $limitedWidth: boolean;
 };

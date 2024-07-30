@@ -1,10 +1,16 @@
 import { useRegisterSW } from 'virtual:pwa-register/react';
 
+import { useSessionStorage } from '@/shared/lib';
 import { PrimaryButton } from '@/shared/ui/inputs';
 
 import * as S from './ReloadPrompt.styles';
 
 export const ReloadPrompt: React.FC = () => {
+  const [, , removeMatchTalents] = useSessionStorage('copied-match-form-talents', null);
+  const [, , removeMatchStaff] = useSessionStorage('copied-match-form-staff', null);
+  const [, , removeSegmentTalents] = useSessionStorage('copied-segment-form-talents', null);
+  const [, , removeSegmentStaff] = useSessionStorage('copied-segment-form-staff', null);
+
   const {
     needRefresh: [needRefresh],
     updateServiceWorker,
@@ -18,6 +24,10 @@ export const ReloadPrompt: React.FC = () => {
   });
 
   const update = () => {
+    removeMatchTalents();
+    removeMatchStaff();
+    removeSegmentTalents();
+    removeSegmentStaff();
     updateServiceWorker(true);
   };
 

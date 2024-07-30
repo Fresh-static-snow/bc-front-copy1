@@ -1,6 +1,5 @@
 import { PopoverOrigin } from '@mui/material';
-
-import { CSSIndents } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type NavigationDropDownProps = {
   ButtonContentComponent: React.ReactNode;
@@ -8,7 +7,7 @@ export type NavigationDropDownProps = {
   activePathString: string;
   buttonVariant?: 'primary' | 'avatar' | 'base' | 'secondary';
   buttonInnerBorder?: boolean;
-  buttonPadding?: CSSIndents;
+  buttonPadding?: CSSProperties['padding'];
   anchorOrigin?: PopoverOrigin;
   transformOrigin?: PopoverOrigin;
 };

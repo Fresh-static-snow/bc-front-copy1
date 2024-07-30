@@ -2,9 +2,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useCallback } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { PrimaryFormFooter, SecondaryFormFooter } from '@/shared/ui/forms';
+import { FormField, PrimaryFormFooter, SecondaryFormFooter } from '@/shared/ui/forms';
 import { PrimaryInput } from '@/shared/ui/inputs';
-import { FormField } from '@/shared/ui/layouts';
 
 import { changePasswordSchema } from './ChangePasswordForm.schema';
 import * as S from './ChangePasswordForm.styles';

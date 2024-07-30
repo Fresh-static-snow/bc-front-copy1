@@ -1,29 +1,29 @@
-import { CSSColor, CSSIndents, CSSSize } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type CircularLoaderProps = {
   /**
    * @default '20px'
    */
-  size?: CSSSize;
+  size?: CSSProperties['width'] | CSSProperties['height'];
   /**
    * @default secondary_07
    * @description `secondary_07` is the color of the active theme.
    */
-  color?: CSSColor;
-  width?: CSSSize;
-  height?: CSSSize;
-  padding?: CSSIndents;
+  color?: CSSProperties['color'];
+  width?: CSSProperties['width'];
+  height?: CSSProperties['height'];
+  padding?: CSSProperties['padding'];
   position?: 'start' | 'center' | 'end';
 };
 
 export type StyledRootProps = {
-  $width: CSSSize;
-  $height: CSSSize;
-  $padding: CSSIndents;
+  $width: CSSProperties['width'];
+  $height: CSSProperties['height'];
+  $padding: CSSProperties['padding'];
   $position: 'start' | 'center' | 'end';
 };
 
 export type StyledCircularProgressProps = {
-  $size: CSSSize;
-  $color: CSSColor;
+  $size: CSSProperties['width'] | CSSProperties['height'];
+  $color: CSSProperties['color'];
 };

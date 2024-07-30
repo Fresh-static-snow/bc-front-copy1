@@ -1,22 +1,22 @@
-import { CSSSize } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type ModalProps = {
   children: React.ReactNode;
   isMobile?: boolean;
-  width?: CSSSize;
-  maxWidth?: CSSSize;
-  maxHeight?: CSSSize;
+  width?: CSSProperties['width'];
+  maxWidth?: CSSProperties['maxWidth'];
+  maxHeight?: CSSProperties['maxHeight'];
   verticalAlign?: 'top' | 'center' | 'bottom';
-  borderRadius?: CSSSize;
+  borderRadius?: CSSProperties['borderRadius'];
   isOpen: boolean;
   onClose: () => void;
 };
 
 export type StyledDialogProps = {
   $isMobile: boolean;
-  $width: CSSSize;
-  $maxWidth: CSSSize;
-  $maxHeight: CSSSize;
+  $width: CSSProperties['width'];
+  $maxWidth: CSSProperties['maxWidth'];
+  $maxHeight: CSSProperties['maxHeight'];
   $verticalAlign: 'top' | 'center' | 'bottom';
-  $borderRadius: CSSSize;
+  $borderRadius: CSSProperties['borderRadius'];
 };

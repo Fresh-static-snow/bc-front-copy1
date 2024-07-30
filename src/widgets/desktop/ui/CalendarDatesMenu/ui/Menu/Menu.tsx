@@ -2,26 +2,30 @@ import dayjs from 'dayjs';
 import { useCallback, useEffect, useMemo } from 'react';
 import { matchPath, useLocation } from 'react-router-dom';
 
+import { useGetAccountSettings, useUpdateAccountSettings } from '@/entities/account-setting';
 import { useGetCalendarFilters } from '@/entities/calendar';
 import { IconPlusSvg, IconUserCheckSvg } from '@/shared/assets';
-import { useCheckAccess, useCustomSearchParams, useNavigateWithParams } from '@/shared/lib';
+import {
+  useCheckAccess,
+  useCustomSearchParams,
+  useNavigateWithParams,
+  useUpdateEffect,
+} from '@/shared/lib';
 import {
   AnalyticStudio,
   Channel,
   GameDiscipline,
+  Setup,
+  Stream,
   Studio,
   UserOption,
 } from '@/shared/types/entities.types';
-import {
-  SelectableValue,
-  SelectableValueWithChildren,
-  SelectableValueWithParent,
-} from '@/shared/types/values.types';
+import { SelectableValue, SelectableValueWithChildren } from '@/shared/types/values.types';
 import { CreateEntityModal, EditEntityModal } from '@/shared/ui/feedback';
 import { PrimaryButton } from '@/shared/ui/inputs';
 import { AccessControl } from '@/shared/ui/misc';
 
-import { filterParams, filterParamsWithUser, formatButtons, requestButtons } from '../../const';
+import { filterParams, formatButtons, requestButtons } from '../../const';
 import { filterOptionFormatter } from '../../lib';
 import { useDatesMenuStore } from '../../model/datesMenuStore/datesMenuStore.store';
 import { createFormTemplates, editFormTemplates } from './Menu.const';
@@ -33,7 +37,7 @@ import { FilterDropDown } from './ui/FilterDropDown/FilterDropDown';
 import { FormatDropDown } from './ui/FormatDropDown/FormatDropDown';
 
 export const Menu: React.FC = () => {
-  const navigate = useNavigateWithParams(filterParamsWithUser);
+  const navigate = useNavigateWithParams(filterParams);
   const location = useLocation();
   const checkAccess = useCheckAccess();
 
@@ -43,14 +47,18 @@ export const Menu: React.FC = () => {
   const setEditingRequestType = useDatesMenuStore((state) => state.setEditingRequestType);
 
   const { params, setParam } = useCustomSearchParams(['start_at']);
-  const { arrayParams: arrayParamsWithoutUser } = useCustomSearchParams(filterParams);
-  const { arrayParams, setArrayParams, removeParam } = useCustomSearchParams(filterParamsWithUser);
+  const { arrayParams, setArrayParams, removeParam } = useCustomSearchParams(filterParams);
 
   const { data: calendarFilters } = useGetCalendarFilters();
 
+  const { data: accountSettings, isFetching: isFetchingGetAccountSettings } =
+    useGetAccountSettings();
+  const { mutate: onUpdateAccountSettings, isLoading: isLoadingUpdateAccountSettings } =
+    useUpdateAccountSettings();
+
   const calendarFiltersCount = useMemo(
-    () => Object.values(arrayParamsWithoutUser).reduce((acc, item) => acc + item.length, 0),
-    [arrayParamsWithoutUser],
+    () => Object.values(arrayParams).reduce((acc, item) => acc + item.length, 0),
+    [arrayParams],
   );
 
   // * Create filter options for filter dropdown.
@@ -67,13 +75,15 @@ export const Menu: React.FC = () => {
         'title',
       ),
       filterOptionFormatter<AnalyticStudio>(
-        'Analytic Studio',
+        'Analyst Studio',
         'analytic_studio',
         calendarFilters.analytic_studio,
         'name',
       ),
       filterOptionFormatter<Studio>('Studio', 'studio', calendarFilters.studio, 'name'),
+      filterOptionFormatter<Setup>('Setup', 'setup', calendarFilters.setup, 'name'),
       filterOptionFormatter<Channel>('Channel', 'channel', calendarFilters.channel, 'name'),
+      filterOptionFormatter<Stream>('Stream', 'stream', calendarFilters.stream, 'name'),
       filterOptionFormatter<UserOption>(
         'Main participants',
         'main_participants',
@@ -87,13 +97,13 @@ export const Menu: React.FC = () => {
         'display_name',
       ),
       filterOptionFormatter<UserOption>(
-        'Commentators',
+        'Casters',
         'commentators',
         calendarFilters.commentators,
         'display_name',
       ),
       filterOptionFormatter<UserOption>(
-        'Analytics',
+        'Analysts',
         'analytics',
         calendarFilters.analytics,
         'display_name',
@@ -138,12 +148,15 @@ export const Menu: React.FC = () => {
 
   // * Callback that set current user filter option or remove it.
   const onClickCurrentUserButton = useCallback(() => {
-    if (arrayParams?.current_user?.[0] === 'true') {
-      setArrayParams('current_user', ['false']);
-    } else {
-      setArrayParams('current_user', ['true']);
-    }
-  }, [arrayParams?.current_user, setArrayParams]);
+    const formData = new FormData();
+
+    formData.append(
+      'current_user_filter_enabled',
+      accountSettings?.current_user_filter_enabled ? 'false' : 'true',
+    );
+
+    onUpdateAccountSettings({ formData });
+  }, [accountSettings?.current_user_filter_enabled, onUpdateAccountSettings]);
 
   useEffect(() => {
     // * If the start_at parameter is not specified, then set the current date.
@@ -157,21 +170,15 @@ export const Menu: React.FC = () => {
       calendarFormat &&
       dayjs(params.start_at).startOf(calendarFormat).format('YYYY-MM-DD') !== params.start_at
     ) {
-      setParam(
-        'start_at',
-        dayjs(params.start_at).startOf(calendarFormat).format('YYYY-MM-DD'),
-        true,
-      );
+      setParam('start_at', dayjs().startOf(calendarFormat).format('YYYY-MM-DD'), true);
     }
-  }, [calendarFormat, params.start_at, setParam]);
+  }, [params.start_at, setParam]);
 
-  useEffect(() => {
-    if (arrayParams?.current_user) {
-      return;
+  useUpdateEffect(() => {
+    if (calendarFormat) {
+      setParam('start_at', dayjs().startOf(calendarFormat).format('YYYY-MM-DD'), true);
     }
-
-    setArrayParams('current_user', ['true'], true);
-  }, [arrayParams?.current_user, setArrayParams]);
+  }, [calendarFormat]);
 
   // * Effect that filter options in array params if they are not in filter options.
   useEffect(() => {
@@ -180,17 +187,8 @@ export const Menu: React.FC = () => {
       return;
     }
 
-    // * Combine filter options with current user filter option.
-    const combinedFiltersOptions = [
-      ...calendarFiltersOptions,
-      {
-        value: 'current_user',
-        children: [{ value: arrayParams?.current_user?.[0] } as SelectableValueWithParent],
-      } as SelectableValueWithChildren, // * Add current user filter option.
-    ];
-
     for (const filterName in arrayParams) {
-      const filterOption = combinedFiltersOptions.find((item) => item.value === filterName);
+      const filterOption = calendarFiltersOptions.find((item) => item.value === filterName);
 
       // * If there is no filter option, then remove the parameter.
       if (!filterOption) {
@@ -238,8 +236,9 @@ export const Menu: React.FC = () => {
 
                 <PrimaryButton
                   IconComponent={IconUserCheckSvg}
-                  variant={arrayParams?.current_user?.[0] === 'true' ? 'primary' : 'outlined'}
+                  variant={accountSettings?.current_user_filter_enabled ? 'primary' : 'outlined'}
                   onClick={onClickCurrentUserButton}
+                  isLoading={isFetchingGetAccountSettings || isLoadingUpdateAccountSettings}
                 />
               </S.Filters>
 

@@ -1,6 +1,5 @@
 import { CSSProperties } from 'react';
 
-import { CSSColor, CSSIndents, CSSSize, CSSWeight } from '@/shared/types/styles.types';
 import { ButtonType } from '@/shared/types/values.types';
 
 type ButtonBaseProps = {
@@ -8,7 +7,7 @@ type ButtonBaseProps = {
   /**
    * @default '13px'
    */
-  fontSize?: CSSSize;
+  fontSize?: CSSProperties['fontSize'];
   /**
    * SVG element placed before the children.
    */
@@ -33,15 +32,15 @@ type ButtonBaseProps = {
   /**
    * @default '16px'
    */
-  iconWidth?: CSSSize;
+  iconWidth?: CSSProperties['width'];
   /**
    * @default '16px'
    */
-  iconHeight?: CSSSize;
+  iconHeight?: CSSProperties['height'];
   /**
    * @default '7px 10px'
    */
-  padding?: CSSIndents;
+  padding?: CSSProperties['padding'];
   disabled?: boolean;
   /**
    * @default 'button'
@@ -50,7 +49,7 @@ type ButtonBaseProps = {
   isLoading?: boolean;
   onClick?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
   'data-testid'?: string;
-  $iconColor?: CSSColor;
+  $iconColor?: CSSProperties['color'];
 };
 
 export type ButtonTemplates = ButtonBaseProps & {
@@ -76,81 +75,81 @@ export type ButtonCustom = ButtonBaseProps & {
     /**
      * @default '400'
      */
-    fontWeight?: CSSWeight;
+    fontWeight?: CSSProperties['fontWeight'];
     /**
      * @default primary_02
      * @description `primary_02` is the color of the active theme.
      */
-    color?: CSSColor;
+    color?: CSSProperties['color'];
     /**
      * @description The default value is not set and will be inherited from `color`.
      */
-    colorHovered?: CSSColor;
+    colorHovered?: CSSProperties['color'];
     /**
      * Active or focused button font color property.
      * @description The default value is not set and will be inherited from `color`.
      */
-    colorActive?: CSSColor;
+    colorActive?: CSSProperties['color'];
     /**
      * @description The default value is not set and will be inherited from `color`.
      */
-    colorDisabled?: CSSColor;
+    colorDisabled?: CSSProperties['color'];
     /**
      * @default 'transparent'
      */
-    backgroundColor?: CSSColor;
+    backgroundColor?: CSSProperties['backgroundColor'];
     /**
      * @description The default value is not set and will be inherited from `backgroundColor`.
      */
-    backgroundColorHovered?: CSSColor;
+    backgroundColorHovered?: CSSProperties['backgroundColor'];
     /**
      * Active or focused button background color property.
      * @description The default value is not set and will be inherited from `backgroundColor`.
      */
-    backgroundColorActive?: CSSColor;
+    backgroundColorActive?: CSSProperties['backgroundColor'];
     /**
      * @description The default value is not set and will be inherited from `backgroundColor`.
      */
-    backgroundColorDisabled?: CSSColor;
+    backgroundColorDisabled?: CSSProperties['backgroundColor'];
     /**
      * @default '4px'
      */
-    borderRadius?: CSSSize;
+    borderRadius?: CSSProperties['borderRadius'];
     /**
      * @default 'transparent'
      */
-    borderColor?: CSSColor;
+    borderColor?: CSSProperties['borderColor'];
     /**
      * @description The default value is not set and will be inherited from `borderColor`.
      */
-    borderColorHovered?: CSSColor;
+    borderColorHovered?: CSSProperties['borderColor'];
     /**
      * Active or focused button border color property.
      * @description The default value is not set and will be inherited from `borderColor`.
      */
-    borderColorActive?: CSSColor;
+    borderColorActive?: CSSProperties['borderColor'];
     /**
      * @description The default value is not set and will be inherited from `borderColor`.
      */
-    borderColorDisabled?: CSSColor;
+    borderColorDisabled?: CSSProperties['borderColor'];
     /**
      * @description The default value is not set and will be inherited from SVG.
      */
-    iconColor?: CSSColor;
+    iconColor?: CSSProperties['color'];
     /**
      * @description The default value is not set and will be inherited from SVG.
      */
-    iconColorHovered?: CSSColor;
+    iconColorHovered?: CSSProperties['color'];
     /**
      * Active or focused button SVG icons color property.
      * @description The default value is not set and will be inherited from SVG.
      */
-    iconColorActive?: CSSColor;
+    iconColorActive?: CSSProperties['color'];
     /**
      * @description The default value is not set and will be inherited from SVG.
      */
-    iconColorDisabled?: CSSColor;
-    disabledOpacity?: string;
+    iconColorDisabled?: CSSProperties['color'];
+    disabledOpacity?: CSSProperties['opacity'];
   };
 };
 
@@ -159,40 +158,40 @@ export type PrimaryButtonProps = ButtonTemplates | ButtonCustom;
 export type Variant = 'base' | 'primary' | 'secondary' | 'mixed' | 'outlined' | 'custom';
 
 export type CustomVariant = {
-  fontWeight?: CSSWeight;
-  color?: CSSColor;
-  colorHovered?: CSSColor;
-  colorActive?: CSSColor;
-  colorDisabled?: CSSColor;
-  backgroundColor?: CSSColor;
-  backgroundColorHovered?: CSSColor;
-  backgroundColorActive?: CSSColor;
-  backgroundColorDisabled?: CSSColor;
-  borderRadius?: CSSSize;
-  borderColor?: CSSColor;
-  borderColorHovered?: CSSColor;
-  borderColorActive?: CSSColor;
-  borderColorDisabled?: CSSColor;
-  iconColor?: CSSColor;
-  iconColorHovered?: CSSColor;
-  iconColorActive?: CSSColor;
-  iconColorDisabled?: CSSColor;
-  disabledOpacity?: string;
+  fontWeight?: CSSProperties['fontWeight'];
+  color?: CSSProperties['color'];
+  colorHovered?: CSSProperties['color'];
+  colorActive?: CSSProperties['color'];
+  colorDisabled?: CSSProperties['color'];
+  backgroundColor?: CSSProperties['backgroundColor'];
+  backgroundColorHovered?: CSSProperties['backgroundColor'];
+  backgroundColorActive?: CSSProperties['backgroundColor'];
+  backgroundColorDisabled?: CSSProperties['backgroundColor'];
+  borderRadius?: CSSProperties['borderRadius'];
+  borderColor?: CSSProperties['borderColor'];
+  borderColorHovered?: CSSProperties['borderColor'];
+  borderColorActive?: CSSProperties['borderColor'];
+  borderColorDisabled?: CSSProperties['borderColor'];
+  iconColor?: CSSProperties['color'];
+  iconColorHovered?: CSSProperties['color'];
+  iconColorActive?: CSSProperties['color'];
+  iconColorDisabled?: CSSProperties['color'];
+  disabledOpacity?: CSSProperties['opacity'];
 };
 
 export type StyledRootProps = {
   $variant: Variant;
   $customStyles: CustomVariant;
-  $padding: CSSIndents;
+  $padding: CSSProperties['padding'];
   $width?: CSSProperties['width'];
   $contentPosition: 'left' | 'center' | 'right' | 'between';
 };
 
 export type StyledIconProps = {
-  $width: string;
-  $height: string;
+  $width: CSSProperties['width'];
+  $height: CSSProperties['height'];
 };
 
 export type StyledLabelProps = {
-  $fontSize: CSSSize;
+  $fontSize: CSSProperties['fontSize'];
 };

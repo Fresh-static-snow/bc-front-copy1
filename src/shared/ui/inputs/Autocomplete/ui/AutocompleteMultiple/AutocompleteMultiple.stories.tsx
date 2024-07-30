@@ -10,43 +10,21 @@ import { Avatar } from '@/shared/ui/data-display';
 import { AutocompleteMultiple } from './AutocompleteMultiple';
 
 export default {
-  title: 'modules/Autocomplete/AutocompleteMultiple',
+  title: 'shared/inputs/Autocomplete.Multiple',
   component: AutocompleteMultiple,
   tags: ['autodocs'],
   argTypes: {
-    options: {
-      control: { type: null },
-    },
-    name: {
-      control: { type: null },
-    },
-    control: {
-      control: { type: null },
-    },
-    disabled: {
-      control: { type: 'boolean' },
-    },
-    placeholder: {
-      control: { type: 'text' },
-    },
-    AdditionalElement: {
-      control: { type: null },
-    },
-    CustomPopupIcon: {
-      control: { type: null },
-    },
-    popupIconColor: {
-      control: { type: 'color' },
-    },
-    optionCheckbox: {
-      control: { type: 'boolean' },
-    },
-    disablePopupIconRotation: {
-      control: { type: 'boolean' },
-    },
-    withOptionCreation: {
-      control: { type: 'boolean' },
-    },
+    options: { control: { type: null } },
+    name: { control: { type: null } },
+    control: { control: { type: null } },
+    disabled: { control: { type: 'boolean' } },
+    placeholder: { control: { type: 'text' } },
+    AdditionalElement: { control: { type: null } },
+    CustomPopupIcon: { control: { type: null } },
+    popupIconColor: { control: { type: 'color' } },
+    optionCheckbox: { control: { type: 'boolean' } },
+    disablePopupIconRotation: { control: { type: 'boolean' } },
+    withOptionCreation: { control: { type: 'boolean' } },
   },
 } as Meta<typeof AutocompleteMultiple>;
 

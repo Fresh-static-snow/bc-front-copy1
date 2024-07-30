@@ -6,12 +6,13 @@ import { PixelCrop } from 'react-image-crop';
  * @param {HTMLImageElement} image The image to be cropped.
  * @param {PixelCrop} cropData The cropping dimensions and position.
  */
+
 const getCroppedCanvas = (image: HTMLImageElement, cropData: PixelCrop) => {
   const canvas = document.createElement('canvas');
   const scaleX = image.naturalWidth / image.width;
   const scaleY = image.naturalHeight / image.height;
-  canvas.width = cropData.width;
-  canvas.height = cropData.height;
+  canvas.width = cropData.width * scaleX;
+  canvas.height = cropData.height * scaleY;
   const ctx = canvas.getContext('2d');
 
   ctx.drawImage(
@@ -22,8 +23,8 @@ const getCroppedCanvas = (image: HTMLImageElement, cropData: PixelCrop) => {
     cropData.height * scaleY,
     0,
     0,
-    cropData.width,
-    cropData.height,
+    cropData.width * scaleX,
+    cropData.height * scaleY,
   );
 
   return canvas;

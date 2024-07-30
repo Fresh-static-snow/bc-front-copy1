@@ -1,5 +1,0 @@
-export type DrawerProps = {
-  children: React.ReactNode;
-  isOpen: boolean;
-  onClose: () => void;
-};

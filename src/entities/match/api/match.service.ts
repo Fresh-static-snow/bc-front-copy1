@@ -44,18 +44,18 @@ export const restorePreDeletedMatch = async ({
 };
 
 export const restorePreDeletedMatchList = async ({
-  id,
+  ids,
 }: RestorePreDeletedMatchListParams): Promise<void> => {
-  await axiosInstance.put(`matches/restore`, {}, { params: { ids: id } });
+  await axiosInstance.put(`matches/restore`, {}, { params: { ids } });
 };
 
 export const preDeleteMatch = async ({ id }: PreDeleteMatchParams): Promise<void> => {
   await axiosInstance.delete(`matches/${id}/soft_destroy`);
 };
 
-export const preDeleteMatchList = async ({ id }: PreDeleteMatchListParams): Promise<void> => {
+export const preDeleteMatchList = async ({ ids }: PreDeleteMatchListParams): Promise<void> => {
   await axiosInstance.delete(`matches/soft_destroy`, {
-    params: { ids: id },
+    params: { ids },
   });
 };
 
@@ -63,9 +63,9 @@ export const deleteMatch = async ({ id }: DeleteMatchParams): Promise<void> => {
   await axiosInstance.delete(`matches/${id}`);
 };
 
-export const deleteMatchList = async ({ id }: DeleteMatchListParams): Promise<void> => {
+export const deleteMatchList = async ({ ids }: DeleteMatchListParams): Promise<void> => {
   await axiosInstance.delete(`matches/destroy`, {
-    params: { ids: id },
+    params: { ids },
   });
 };
 

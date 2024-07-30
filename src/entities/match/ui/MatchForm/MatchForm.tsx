@@ -6,9 +6,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { IconUsersSvg } from '@/shared/assets';
 import { mobileMedia } from '@/shared/const';
 import { useMediaQuery } from '@/shared/lib';
-import { PrimaryFormFooter, SecondaryFormFooter } from '@/shared/ui/forms';
+import { FormField, PrimaryFormFooter, SecondaryFormFooter } from '@/shared/ui/forms';
 import { Autocomplete, DatePickerInput, TimePickerInput } from '@/shared/ui/inputs';
-import { FormField } from '@/shared/ui/layouts';
 
 import { matchFormDefaultValues } from './MatchForm.const';
 import { matchSchema } from './MatchForm.schema';
@@ -24,10 +23,12 @@ export const MatchForm: React.FC<MatchFormProps> = ({
   languagesOptions,
   studiosOptions,
   studiosAnalyticsOptions,
+  setupsOptions,
   channelsOptions,
   commentatorsOptions,
   analyticsOptions,
   staffOptions,
+  streamsOptions,
 
   FooterCustomComponent,
   contentPaddings,
@@ -133,7 +134,7 @@ export const MatchForm: React.FC<MatchFormProps> = ({
           )}
 
           {!hiddenFields.includes('tournament') && (
-            <FormField direction={fieldsDirection} label="Tournament" required>
+            <FormField direction={fieldsDirection} label="Event" required>
               <Autocomplete.Single
                 options={filteredTournaments}
                 control={control}
@@ -202,6 +203,7 @@ export const MatchForm: React.FC<MatchFormProps> = ({
         {!hiddenFields.includes('languages') && (
           <FormLanguageList
             control={control}
+            name="languages"
             watch={watch}
             setValue={setValue}
             disabled={disabledFields.includes('languages')}
@@ -209,10 +211,12 @@ export const MatchForm: React.FC<MatchFormProps> = ({
             languageOptions={languagesOptions}
             studioOptions={studiosOptions}
             studioAnalyticsOptions={studiosAnalyticsOptions}
+            setupOptions={setupsOptions}
             channelsOptions={channelsOptions}
             commentatorsOptions={commentatorsOptions}
             analyticsOptions={analyticsOptions}
             staffOptions={staffOptions}
+            streamsOptions={streamsOptions}
           />
         )}
       </S.Content>

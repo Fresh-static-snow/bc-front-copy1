@@ -1,4 +1,4 @@
-import { CSSIndents } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type NavigationItemProps = {
   linkPath: string;
@@ -7,5 +7,5 @@ export type NavigationItemProps = {
   AdditionalComponent?: React.ReactNode;
   activePathExact?: boolean;
   variant?: 'base' | 'primary' | 'secondary' | 'colored' | 'avatar';
-  padding?: CSSIndents;
+  padding?: CSSProperties['padding'];
 };

@@ -1,4 +1,5 @@
-import { CSSColor } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
+
 import { CascaderMixedValue, PrimarySelectableValue } from '@/shared/types/values.types';
 
 export type AdditionalElementProps = {
@@ -27,7 +28,7 @@ export type OptionWithAutocompleteProps = CascaderMixedValue & {
 export type StyledAutocompleteProps = {
   $error: boolean;
   $disablePopupIconRotation: boolean;
-  $popupIconColor: CSSColor;
+  $popupIconColor: CSSProperties['color'];
 };
 
 export type OptionWithInputValue = PrimarySelectableValue & {

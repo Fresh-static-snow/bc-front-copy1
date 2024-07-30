@@ -70,7 +70,7 @@ export const UpdateGameDiscipline: React.FC<UpdateGameDisciplineProps> = ({
         onConfirm={onDelete}
         icon={<IconTriangleAlertSvg />}
         title="Are you sure?"
-        message="Would you like to remove this discipline? If you delete this discipline, all tournaments and matches associated with it will be deleted."
+        message="Would you like to remove this discipline? If you delete this discipline, all events and segments associated with it will be deleted."
       />
 
       {!isFetchingGameDisciplineData && isSuccessGameDisciplineData ? (

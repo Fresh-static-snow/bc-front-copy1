@@ -1,4 +1,5 @@
-import { CSSIndents } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
+
 import { PrimarySelectableValue } from '@/shared/types/values.types';
 
 export type FormLanguageListSchema = {
@@ -6,13 +7,15 @@ export type FormLanguageListSchema = {
   elemId?: string;
   removed?: boolean;
   language?: PrimarySelectableValue;
-  studio?: PrimarySelectableValue;
-  studio_analytics?: PrimarySelectableValue;
-  channels?: PrimarySelectableValue[];
   commentators?: PrimarySelectableValue[];
-  backup_commentator?: PrimarySelectableValue;
+  backup_commentators?: PrimarySelectableValue[];
   analytics?: PrimarySelectableValue[];
   host_analytic?: PrimarySelectableValue;
+  studio?: PrimarySelectableValue;
+  studio_analytics?: PrimarySelectableValue;
+  setup?: PrimarySelectableValue;
+  channels?: PrimarySelectableValue[];
+  stream?: PrimarySelectableValue;
   staff?: PrimarySelectableValue[];
 };
 
@@ -38,13 +41,15 @@ export type MatchFormProps = {
   languagesOptions: PrimarySelectableValue[];
   studiosOptions: PrimarySelectableValue[];
   studiosAnalyticsOptions: PrimarySelectableValue[];
+  setupsOptions: PrimarySelectableValue[];
   channelsOptions: PrimarySelectableValue[];
   commentatorsOptions: PrimarySelectableValue[];
   analyticsOptions: PrimarySelectableValue[];
   staffOptions: PrimarySelectableValue[];
+  streamsOptions: PrimarySelectableValue[];
 
   FooterCustomComponent?: React.ReactNode;
-  contentPaddings?: CSSIndents;
+  contentPaddings?: CSSProperties['padding'];
   /**
    * @default 'row'
    */
@@ -69,7 +74,7 @@ export type MatchFormProps = {
 };
 
 export type StyledContentProps = {
-  $padding: CSSIndents;
+  $padding: CSSProperties['padding'];
 };
 
 export type StyledStaticFieldsProps = {

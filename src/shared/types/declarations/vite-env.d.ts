@@ -3,6 +3,11 @@
 
 interface ImportMetaEnv {
   readonly VITE_API_BASE_URL: string;
+  readonly VITE_WEBSOCKET_BASE_URL: string;
+  readonly VITE_TELEGRAM_BOT_URL: string;
+  readonly VITE_SENTRY_DSN: string;
+  readonly VITE_SENTRY_PROPAGATION_TARGETS: string;
+  readonly VITE_ENVIRONMENT: 'development' | 'production' | 'staging';
 }
 
 interface ImportMeta {

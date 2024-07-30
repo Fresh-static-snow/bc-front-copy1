@@ -2,11 +2,12 @@ import dayjs from 'dayjs';
 import { Fragment, useMemo } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
+import { useGetAccountSettings } from '@/entities/account-setting';
 import { DisciplineItemMobile, useGetCalendarWeek } from '@/entities/calendar';
 import { EmptyContent } from '@/pages/desktop/ui/Calendar/ui/EmptyContent/EmptyContent';
 import { useCustomSearchParams } from '@/shared/lib';
 import { CircularLoader } from '@/shared/ui/feedback';
-import { filterParamsWithUser } from '@/widgets/desktop';
+import { filterParams } from '@/widgets/mobile';
 
 import { CalendarOutletContext } from '../../types';
 import * as S from './WeekContent.styles';
@@ -15,7 +16,8 @@ const WeekContent: React.FC = () => {
   const { onClickTournament, onClickDiscipline, onClickMatch, onClickCorporate } =
     useOutletContext<CalendarOutletContext>();
   const { params } = useCustomSearchParams(['start_at']);
-  const { arrayParams } = useCustomSearchParams(filterParamsWithUser);
+  const { arrayParams } = useCustomSearchParams(filterParams);
+  const { data: accountSettings, isLoading: isLoadingGetAccountSettings } = useGetAccountSettings();
 
   const formattedWeek = useMemo(() => {
     const date = dayjs(params.start_at);
@@ -30,7 +32,14 @@ const WeekContent: React.FC = () => {
     data: calendarData,
     isFetching: isFetchingCalendarData,
     isSuccess: isCalendarDataSuccess,
-  } = useGetCalendarWeek(formattedWeek, arrayParams);
+  } = useGetCalendarWeek(
+    formattedWeek,
+    {
+      ...arrayParams,
+      current_user: [String(accountSettings?.current_user_filter_enabled ?? false)],
+    },
+    !!formattedWeek && !isLoadingGetAccountSettings,
+  );
 
   return (
     <S.Root>

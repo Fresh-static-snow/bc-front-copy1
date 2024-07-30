@@ -61,7 +61,7 @@ describe('features/user/CropUserAvatar', () => {
   it('render CropUserAvatar', async () => {
     const { getByText, getByTestId, queryByText } = render(
       <TestProvider>
-        <CropUserAvatar />
+        <CropUserAvatar userData={undefined} />
       </TestProvider>,
     );
     expect(getByText('Edit')).toBeVisible();

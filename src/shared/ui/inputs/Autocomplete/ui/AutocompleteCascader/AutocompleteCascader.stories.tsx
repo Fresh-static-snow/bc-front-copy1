@@ -10,40 +10,20 @@ import { Avatar } from '@/shared/ui/data-display';
 import { AutocompleteCascader } from './AutocompleteCascader';
 
 export default {
-  title: 'modules/Autocomplete/AutocompleteCascader',
+  title: 'shared/inputs/Autocomplete.Cascader',
   component: AutocompleteCascader,
   tags: ['autodocs'],
   argTypes: {
-    options: {
-      control: { type: null },
-    },
-    name: {
-      control: { type: null },
-    },
-    control: {
-      control: { type: null },
-    },
-    disabled: {
-      control: { type: 'boolean' },
-    },
-    placeholder: {
-      control: { type: 'text' },
-    },
-    AdditionalElement: {
-      control: { type: null },
-    },
-    CustomPopupIcon: {
-      control: { type: null },
-    },
-    popupIconColor: {
-      control: { type: 'color' },
-    },
-    optionCheckbox: {
-      control: { type: 'boolean' },
-    },
-    disablePopupIconRotation: {
-      control: { type: 'boolean' },
-    },
+    options: { control: { type: null } },
+    name: { control: { type: null } },
+    control: { control: { type: null } },
+    disabled: { control: { type: 'boolean' } },
+    placeholder: { control: { type: 'text' } },
+    AdditionalElement: { control: { type: null } },
+    CustomPopupIcon: { control: { type: null } },
+    popupIconColor: { control: { type: 'color' } },
+    optionCheckbox: { control: { type: 'boolean' } },
+    disablePopupIconRotation: { control: { type: 'boolean' } },
   },
 } as Meta<typeof AutocompleteCascader>;
 

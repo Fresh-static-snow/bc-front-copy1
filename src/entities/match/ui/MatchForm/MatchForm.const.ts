@@ -6,11 +6,15 @@ export const languageItem = {
     label: 'Ukrainian',
     additional: 'uk',
   },
+  commentators: [],
+  backup_commentators: [],
+  analytics: [],
+  host_analytic: null,
   studio: null,
   studio_analytics: null,
-  channel: null,
-  commentators: [],
-  analytics: [],
+  setup: null,
+  channels: [],
+  stream: null,
   staff: [],
 };
 

@@ -1,4 +1,4 @@
-import { CSSSize } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type ConfirmationModalProps = {
   icon?: React.ReactNode;
@@ -11,7 +11,7 @@ export type ConfirmationModalProps = {
   additionalButtonLabel?: string;
   closeButtonLabel?: string;
   withAdditionalButton?: boolean;
-  maxWidth?: CSSSize;
+  maxWidth?: CSSProperties['maxWidth'];
   onConfirm: () => void;
   onClickAdditionalButton?: () => void;
   onClose: () => void;

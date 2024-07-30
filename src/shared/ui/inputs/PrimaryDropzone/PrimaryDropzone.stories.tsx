@@ -5,22 +5,14 @@ import { useForm } from 'react-hook-form';
 import { PrimaryDropzone } from './PrimaryDropzone';
 
 export default {
-  title: 'ui/PrimaryDropzone',
+  title: 'shared/inputs/PrimaryDropzone',
   component: PrimaryDropzone,
   tags: ['autodocs'],
   argTypes: {
-    control: {
-      control: { type: null },
-    },
-    name: {
-      control: { type: null },
-    },
-    types: {
-      control: { type: null },
-    },
-    disabled: {
-      control: { type: 'boolean' },
-    },
+    control: { control: { type: null } },
+    name: { control: { type: null } },
+    types: { control: { type: null } },
+    disabled: { control: { type: 'boolean' } },
   },
 } as Meta<typeof PrimaryDropzone>;
 

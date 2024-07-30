@@ -43,7 +43,7 @@ export const UpdateAuthedUser: React.FC = () => {
   }, [navigate]);
 
   const onClickConnectTelegramBot = useCallback(() => {
-    window.open('https://t.me/main_cast_calendar_bot', '_blank');
+    window.open(import.meta.env.VITE_TELEGRAM_BOT_URL, '_blank');
   }, []);
 
   const onClickRefreshGoogleCalendar = useCallback(() => {
@@ -89,7 +89,7 @@ export const UpdateAuthedUser: React.FC = () => {
           footerType="secondary"
           defaultFormData={defaultFormData}
           disabledFields={['disciplines', 'company', 'email']}
-          hiddenFields={['avatar', 'role']}
+          hiddenFields={['role']}
           submitButtonLabel="Update"
           isLoading={isLoading}
           withGoogleCalendarRefresh={userData?.google_calendar?.status}

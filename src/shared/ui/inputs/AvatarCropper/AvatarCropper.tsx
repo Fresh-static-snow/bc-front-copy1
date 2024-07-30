@@ -3,8 +3,6 @@ import 'react-image-crop/dist/ReactCrop.css';
 import { useEffect, useRef, useState } from 'react';
 import ReactCrop, { Crop, PercentCrop, PixelCrop } from 'react-image-crop';
 
-import { FieldErrorMessage } from '@/shared/ui/feedback/FieldErrorMessage/FieldErrorMessage';
-
 import { PrimaryButton } from '../PrimaryButton/PrimaryButton';
 import * as S from './AvatarCropper.styles';
 import { AvatarCropperProps } from './AvatarCropper.types';
@@ -18,7 +16,6 @@ export const AvatarCropper: React.FC<AvatarCropperProps> = ({
   onUpdateAvatar = () => {},
 }) => {
   const [previewImage, setPreviewImage] = useState<string>('');
-  const [imageError, setImageError] = useState<string>('');
   const [crop, setCrop] = useState<Crop>();
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
 
@@ -46,12 +43,6 @@ export const AvatarCropper: React.FC<AvatarCropperProps> = ({
       }
 
       const file = new File([blob], 'new_avatar', { type: blob.type });
-
-      if (file?.size > 1000 * 1024) {
-        setImageError('File size must be less than 1MB');
-        return;
-      }
-      setImageError('');
 
       onUpdateAvatar(file);
       onCancel();
@@ -85,7 +76,6 @@ export const AvatarCropper: React.FC<AvatarCropperProps> = ({
       </S.Content>
 
       <S.Footer>
-        <FieldErrorMessage errorMessage={imageError} position="relative" />
         <PrimaryButton label="Cancel" variant="secondary" onClick={onCancel} />
         <PrimaryButton label="Update" variant="primary" onClick={onSendAvatar} />
       </S.Footer>

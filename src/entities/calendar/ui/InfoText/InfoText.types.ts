@@ -1,10 +1,12 @@
 import { HEX } from '@/shared/types/styles.types';
 
+export type Item = {
+  name: string;
+  marked?: boolean;
+};
+
 export type InfoTextProps = {
-  text?: string;
-  textList?: string[];
+  itemList?: Item[];
   color?: HEX;
   isVisible?: boolean;
-  marked?: boolean;
-  markedItems?: string[];
 };

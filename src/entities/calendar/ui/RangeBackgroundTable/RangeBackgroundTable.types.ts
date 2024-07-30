@@ -1,8 +1,8 @@
-import { CSSIndents } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type RangeBackgroundTableProps = {
   tableHeight?: string;
-  tablePaddings?: CSSIndents;
+  tablePaddings?: CSSProperties['padding'];
   columnsCount: number;
   children?: React.ReactNode;
   isMobile?: boolean;
@@ -10,7 +10,7 @@ export type RangeBackgroundTableProps = {
 
 export type StyledRootProps = {
   $height?: string;
-  $padding?: CSSIndents;
+  $padding?: CSSProperties['padding'];
   $isMobile?: boolean;
 };
 

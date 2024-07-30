@@ -1,16 +1,7 @@
-import {
-  ElementRef,
-  forwardRef,
-  memo,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { ElementRef, forwardRef, memo, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { matchDetailsItemEmpty } from '@/entities/calendar/const';
-import { MatchCast } from '@/shared/types/entities.types';
+import { Match, MatchCast, Segment } from '@/shared/types/entities.types';
 import { BackgroundColor, Badge } from '@/shared/ui/data-display';
 import { TextColor } from '@/shared/ui/typography';
 
@@ -48,21 +39,44 @@ export const MatchItemMobile = memo(
             customStyles={{ height: 30 }}
           />
           <BackgroundColor baseColor={color} borderRadius={false}>
-            <S.TeamsHeaderMobile>
-              <S.TeamsHeaderTextMobile
+            <S.TitleHeaderMobile>
+              <S.TitleHeaderTextMobile
                 ref={teamsRef}
                 style={{ overflow: teamsOverflow ? 'hidden' : 'initial' }}
               >
-                <TextColor secondaryColor={color} fontWeight="500" text={match.team_one} />
-                <TextColor secondaryColor={color} fontWeight="500" text="vs" />
-                <TextColor secondaryColor={color} fontWeight="500" text={match.team_two} />
-                {teamsOverflow && <S.TextFade />}
-              </S.TeamsHeaderTextMobile>
+                {match?.type === 'Match' && (
+                  <>
+                    <TextColor
+                      secondaryColor={color}
+                      fontWeight="500"
+                      text={(match as Match).team_one}
+                    />
+                    <TextColor secondaryColor={color} fontWeight="500" text="vs" />
+                    <TextColor
+                      secondaryColor={color}
+                      fontWeight="500"
+                      text={(match as Match).team_two}
+                    />
+                  </>
+                )}
 
-              <S.BadgeWrapper>
-                <Badge text={match.format} secondaryColor={color} rotateDeg={0} />
-              </S.BadgeWrapper>
-            </S.TeamsHeaderMobile>
+                {match?.type === 'Segment' && (
+                  <TextColor
+                    secondaryColor={color}
+                    fontWeight="500"
+                    text={(match as Segment).title}
+                  />
+                )}
+
+                {teamsOverflow && <S.TextFade />}
+              </S.TitleHeaderTextMobile>
+
+              {match?.type === 'Match' && (
+                <S.BadgeWrapper>
+                  <Badge text={(match as Match).format} secondaryColor={color} rotateDeg={0} />
+                </S.BadgeWrapper>
+              )}
+            </S.TitleHeaderMobile>
           </BackgroundColor>
 
           <S.MatchDetailsListMobile>

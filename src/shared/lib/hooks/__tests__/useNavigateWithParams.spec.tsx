@@ -3,7 +3,7 @@ import { afterEach, describe, expect, test, vi } from 'vitest';
 
 import { TestProvider } from '@/app/__tests__';
 import { useCustomSearchParams, useNavigateWithParams } from '@/shared/lib';
-import { filterParamsWithUser } from '@/widgets/desktop';
+import { filterParams } from '@/widgets/desktop';
 
 import { UseCustomSearchParams } from '../useCustomSearchParams/useCustomSearchParams.types';
 
@@ -22,7 +22,7 @@ describe('hooks/useNavigateWithParams', () => {
     const spy = vi.fn();
 
     const MockComponent = () => {
-      const navigate = useNavigateWithParams(filterParamsWithUser);
+      const navigate = useNavigateWithParams(filterParams);
 
       return (
         <button

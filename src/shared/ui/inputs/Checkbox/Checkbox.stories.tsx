@@ -4,22 +4,14 @@ import { ChangeEvent, useState } from 'react';
 import { Checkbox } from './Checkbox';
 
 export default {
-  title: 'ui/Checkbox',
+  title: 'shared/inputs/Checkbox',
   component: Checkbox,
   tags: ['autodocs'],
   argTypes: {
-    checked: {
-      control: { type: 'boolean' },
-    },
-    onChange: {
-      control: { type: null },
-    },
-    label: {
-      control: { type: 'text' },
-    },
-    disabled: {
-      control: { type: 'boolean' },
-    },
+    checked: { control: { type: 'boolean' } },
+    onChange: { control: { type: null } },
+    label: { control: { type: 'text' } },
+    disabled: { control: { type: 'boolean' } },
   },
 } as Meta<typeof Checkbox>;
 

@@ -28,8 +28,7 @@ describe('hooks/useWebSocket', () => {
     const MockComponent = () => {
       useWebSocket({
         enabled: true,
-        webSocketURL:
-          (import.meta.env.VITE_WEBSOCKET_BASE_URL as string) ?? 'ws://localhost:3000/cable',
+        webSocketURL: import.meta.env.VITE_WEBSOCKET_BASE_URL ?? 'ws://localhost:3000/cable',
         subscriptionOptions: {
           channel: 'NotifyCalendarChannel',
         },
@@ -62,8 +61,7 @@ describe('hooks/useWebSocket', () => {
     const MockComponent = () => {
       useWebSocket({
         enabled: false,
-        webSocketURL:
-          (import.meta.env.VITE_WEBSOCKET_BASE_URL as string) ?? 'ws://localhost:3000/cable',
+        webSocketURL: import.meta.env.VITE_WEBSOCKET_BASE_URL ?? 'ws://localhost:3000/cable',
         subscriptionOptions: {
           channel: 'NotifyCalendarChannel',
         },

@@ -1,4 +1,4 @@
-import { CSSColor } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type TimeProps = {
   /**
@@ -12,5 +12,5 @@ export type TimeProps = {
   /**
    * Color of time component.
    */
-  color: CSSColor;
+  color: CSSProperties['color'];
 };

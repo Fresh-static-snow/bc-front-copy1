@@ -6,41 +6,22 @@ import { MarkedText, TextColor } from '@/shared/ui/typography';
 import * as S from './InfoText.styles';
 import { InfoTextProps } from './InfoText.types';
 
-export const InfoText: React.FC<InfoTextProps> = ({
-  text,
-  textList,
-  color,
-  isVisible = true,
-  marked = false,
-  markedItems = [],
-}) => {
-  if (textList?.length > 0) {
-    return (
-      <BackgroundColor baseColor={color} stripes={!isVisible} borderWrapper={marked}>
-        <S.Root>
-          {textList.map((item) => (
-            <Fragment key={item}>
-              {markedItems.includes(item) ? (
-                <MarkedText>{item}</MarkedText>
-              ) : (
-                <TextColor text={item} secondaryColor={color} />
-              )}
-            </Fragment>
-          ))}
-        </S.Root>
-      </BackgroundColor>
-    );
-  }
-
-  return (
-    <BackgroundColor baseColor={color} stripes={!isVisible} borderWrapper={marked}>
-      <S.Root>
-        {marked ? (
-          <MarkedText>{text}</MarkedText>
-        ) : (
-          <TextColor text={text} secondaryColor={color} />
-        )}
-      </S.Root>
-    </BackgroundColor>
-  );
-};
+export const InfoText: React.FC<InfoTextProps> = ({ itemList, color, isVisible = true }) => (
+  <BackgroundColor
+    baseColor={color}
+    stripes={!isVisible}
+    borderWrapper={!!itemList.find((item) => item.marked)}
+  >
+    <S.Root>
+      {itemList.map((item, index) => (
+        <Fragment key={item.name ?? index}>
+          {item.marked ? (
+            <MarkedText>{item.name}</MarkedText>
+          ) : (
+            <TextColor text={item.name} secondaryColor={color} />
+          )}
+        </Fragment>
+      ))}
+    </S.Root>
+  </BackgroundColor>
+);

@@ -1,4 +1,4 @@
-import { CSSIndents } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type SimpleEntityItemFormSchema = {
   name?: string;
@@ -9,7 +9,7 @@ type FieldsNames = keyof SimpleEntityItemFormSchema;
 
 export type SimpleEntityItemFormProps = {
   FooterCustomComponent?: React.ReactNode;
-  contentPaddings?: CSSIndents;
+  contentPaddings?: CSSProperties['padding'];
   /**
    * @default 'row'
    */
@@ -34,6 +34,6 @@ export type SimpleEntityItemFormProps = {
 };
 
 export type StyledContentProps = {
-  $padding: CSSIndents;
+  $padding: CSSProperties['padding'];
   $fieldsDirection: 'row' | 'column';
 };

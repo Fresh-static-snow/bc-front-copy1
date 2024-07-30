@@ -5,16 +5,12 @@ import { CorporateInCalendarEntity } from '@/shared/types/entities.types';
 import { CorporateItem } from './CorporateItem';
 
 export default {
-  title: 'modules/ScheduleParts/CorporateItem',
+  title: 'entities/calendar/CorporateItem',
   component: CorporateItem,
   tags: ['autodocs'],
   argTypes: {
-    corporate: {
-      control: { type: null },
-    },
-    onClickCorporate: {
-      control: { type: null },
-    },
+    corporate: { control: { type: null } },
+    onClickCorporate: { control: { type: null } },
   },
 } as Meta<typeof CorporateItem>;
 

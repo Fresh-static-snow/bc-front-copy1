@@ -1,34 +1,15 @@
-import { UseMutateAsyncFunction } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
-
-import { AxiosErrorContent } from '@/shared/types/services.types';
-
 export type UseConfirmationActionsProps<T> = {
-  onDeleteItem?: UseMutateAsyncFunction<
-    void,
-    AxiosError<AxiosErrorContent>,
-    {
-      id: T;
-    },
-    unknown
-  >;
-  onRestoreItem?: UseMutateAsyncFunction<
-    void,
-    AxiosError<AxiosErrorContent>,
-    {
-      id: T;
-    },
-    unknown
-  >;
+  onDeleteItem?: (data: T) => void;
+  onRestoreItem?: (data: T) => void;
 };
 
 export type UseConfirmationActionsReturn<T> = {
-  confirmDeleteId?: T;
-  onOpenDeleteModal: (id: T) => void;
+  confirmDeleteData?: T;
+  onOpenDeleteModal: (data: T) => void;
   onCloseDeleteModal: () => void;
   onDelete: () => void;
-  confirmRestoreId?: T;
-  onOpenRestoreModal: (id: T) => void;
+  confirmRestoreData?: T;
+  onOpenRestoreModal: (data: T) => void;
   onCloseRestoreModal: () => void;
   onRestore: () => void;
 };

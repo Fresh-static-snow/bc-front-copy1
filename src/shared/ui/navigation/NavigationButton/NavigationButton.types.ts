@@ -1,4 +1,4 @@
-import { CSSIndents, CSSSize } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type NavigationButtonProps = {
   children?: React.ReactNode;
@@ -19,15 +19,15 @@ export type NavigationButtonProps = {
   /**
    * @default '16px'
    */
-  padding?: CSSIndents;
+  padding?: CSSProperties['padding'];
   /**
    * @default 'auto'
    */
-  width?: CSSSize;
+  width?: CSSProperties['width'];
   /**
    * @default 'auto'
    */
-  height?: CSSSize;
+  height?: CSSProperties['height'];
   innerBorder?: boolean;
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 };
@@ -35,9 +35,9 @@ export type NavigationButtonProps = {
 export type StyledRootProps = {
   tag: 'button' | 'link';
   $variant: 'base' | 'primary' | 'secondary' | 'colored' | 'avatar';
-  $padding: CSSIndents;
-  $width: CSSSize;
-  $height: CSSSize;
+  $padding: CSSProperties['padding'];
+  $width: CSSProperties['width'];
+  $height: CSSProperties['height'];
   $active: boolean;
   $innerBorder?: boolean;
 };

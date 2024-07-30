@@ -1,15 +1,14 @@
 import dayjs from 'dayjs';
 
 import { PrimarySelectableValue } from '@/shared/types/values.types';
+import { FormDescriptionSection } from '@/shared/ui/forms';
 
 import { TournamentFormSchema } from './TournamentForm.types';
 
-export const descriptionItem = { title: '', description: '' };
-
 export const tournamentFormDefaultValues: TournamentFormSchema = {
   date: [dayjs().format(), undefined],
-  descriptions: [descriptionItem],
-  medias: [descriptionItem],
+  descriptions: [FormDescriptionSection.item],
+  medias: [FormDescriptionSection.item],
   visible: true,
   anotherOne: false,
 };

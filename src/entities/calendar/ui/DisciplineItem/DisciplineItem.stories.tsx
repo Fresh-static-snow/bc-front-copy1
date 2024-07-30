@@ -6,30 +6,18 @@ import { DisciplineTitles } from '../DisciplineTitles/DisciplineTitles';
 import { DisciplineItem } from './DisciplineItem';
 
 export default {
-  title: 'modules/ScheduleParts/DisciplineItem',
+  title: 'entities/calendar/DisciplineItem',
   component: DisciplineItem,
   tags: ['autodocs'],
   argTypes: {
-    discipline: {
-      control: {
-        type: null,
-      },
-    },
-    tournaments: {
-      control: {
-        type: null,
-      },
-    },
-    onClickDiscipline: {
-      control: {
-        type: null,
-      },
-    },
-    onClickTournament: {
-      control: {
-        type: null,
-      },
-    },
+    discipline: { control: { type: null } },
+    tournaments: { control: { type: null } },
+    onClickDiscipline: { control: { type: null } },
+    onClickTournament: { control: { type: null } },
+    corporates: { control: { type: null } },
+    filters: { control: { type: null } },
+    onClickCorporate: { control: { type: null } },
+    onClickMatch: { control: { type: null } },
   },
 } as Meta<typeof DisciplineItem>;
 
@@ -81,6 +69,7 @@ const tournaments: TournamentInCalendarEntity[] = [
         format: 'BO3',
         team_one: 'Thunder Awaken',
         team_two: 'OG',
+        type: 'Match',
         match_casts: [
           {
             id: 1,
@@ -115,8 +104,24 @@ const tournaments: TournamentInCalendarEntity[] = [
                 avatar: { url: '' },
               },
             ],
-            host_analytic: null,
-            backup_commentator: null,
+            host_analytic: {
+              id: 3,
+              display_name: 'Graham Connelly',
+              nick: 'Some_Nick',
+              first_name: 'Graham',
+              last_name: 'Connelly',
+              avatar: { url: '' },
+            },
+            backup_commentators: [
+              {
+                id: 3,
+                display_name: 'Graham Connelly',
+                nick: 'Some_Nick',
+                first_name: 'Graham',
+                last_name: 'Connelly',
+                avatar: { url: '' },
+              },
+            ],
             staff_members: [
               {
                 id: 3,
@@ -136,6 +141,14 @@ const tournaments: TournamentInCalendarEntity[] = [
               id: 1,
               name: 'Cast 9.1',
               keyword: 'cast_9_1',
+            },
+            setup: {
+              id: 1,
+              name: 'Setup 1',
+            },
+            stream: {
+              id: 1,
+              name: 'Stream 1',
             },
           },
         ],
@@ -187,6 +200,7 @@ const tournaments: TournamentInCalendarEntity[] = [
         format: 'BO3',
         team_one: 'Thunder Awaken',
         team_two: 'OG',
+        type: 'Match',
         match_casts: [],
       },
       {
@@ -198,6 +212,7 @@ const tournaments: TournamentInCalendarEntity[] = [
         format: 'BO3',
         team_one: 'Thunder Awaken',
         team_two: 'OG',
+        type: 'Match',
         match_casts: [
           {
             id: 1,
@@ -233,7 +248,7 @@ const tournaments: TournamentInCalendarEntity[] = [
               },
             ],
             host_analytic: null,
-            backup_commentator: null,
+            backup_commentators: [],
             staff_members: [
               {
                 id: 3,
@@ -253,6 +268,14 @@ const tournaments: TournamentInCalendarEntity[] = [
               id: 1,
               name: 'Cast 9.1',
               keyword: 'cast_9_1',
+            },
+            setup: {
+              id: 1,
+              name: 'Setup 1',
+            },
+            stream: {
+              id: 1,
+              name: 'Stream 1',
             },
           },
         ],
@@ -306,6 +329,40 @@ export const Titles: Story = {
   </div>
 
   <DisciplineItem discipline={discipline} tournaments={tournaments} />
+</>
+        `,
+      },
+    },
+  },
+};
+
+export const WithFilters: Story = {
+  render: TitlesTemplate,
+  args: {
+    filters: {
+      staff_members: ['3'],
+      channel: ['1'],
+      commentators: ['2'],
+    },
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+<>
+  <div style={{ padding: '15px 0' }}>
+    <DisciplineTitles />
+  </div>
+
+  <DisciplineItem
+    discipline={discipline}
+    tournaments={tournaments}
+    filters={
+      staff_members: ['3'],
+      channel: ['1'],
+      commentators: ['2'],
+    }
+  />
 </>
         `,
       },

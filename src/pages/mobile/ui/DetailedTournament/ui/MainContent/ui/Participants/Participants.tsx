@@ -10,7 +10,7 @@ export const Participants: React.FC<ParticipantsProps> = ({ peopleTypes = [], co
 
     {peopleTypes?.map(({ type, label }) =>
       type.length > 0 ? (
-        <Accordion summaryLabel={label}>
+        <Accordion key={label} summaryLabel={label}>
           <ParticipantList participants={type} />
         </Accordion>
       ) : null,

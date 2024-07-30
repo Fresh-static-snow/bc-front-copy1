@@ -1,13 +1,8 @@
-import { CSSIndents } from '@/shared/types/styles.types';
-import { PrimarySelectableValue } from '@/shared/types/values.types';
+import { CSSProperties } from 'react';
 
-export type FormDescriptionListSchema = {
-  id?: string;
-  elemId?: string;
-  removed?: boolean;
-  title?: string;
-  description?: string;
-};
+import { PrimarySelectableValue } from '@/shared/types/values.types';
+import { FormDescriptionSection } from '@/shared/ui/forms';
+import { FormDescriptionSectionSchema } from '@/shared/ui/forms/FormDescriptionSection';
 
 export type TournamentFormSchema = {
   discipline?: PrimarySelectableValue;
@@ -21,8 +16,8 @@ export type TournamentFormSchema = {
   sponsors?: PrimarySelectableValue[];
   owner?: PrimarySelectableValue;
   cover?: File | string;
-  descriptions?: FormDescriptionListSchema[];
-  medias?: FormDescriptionListSchema[];
+  descriptions?: FormDescriptionSectionSchema[];
+  medias?: FormDescriptionSectionSchema[];
   visible?: boolean;
   anotherOne?: boolean;
 };
@@ -39,7 +34,7 @@ export type TournamentFormProps = {
   ownersOptions: PrimarySelectableValue[];
 
   FooterCustomComponent?: React.ReactNode;
-  contentPaddings?: CSSIndents;
+  contentPaddings?: CSSProperties['padding'];
   /**
    * @default 'row'
    */
@@ -64,7 +59,7 @@ export type TournamentFormProps = {
 };
 
 export type StyledContentProps = {
-  $padding: CSSIndents;
+  $padding: CSSProperties['padding'];
 };
 
 export type StyledStaticFieldsProps = {

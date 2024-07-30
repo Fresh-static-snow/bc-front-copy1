@@ -1,4 +1,4 @@
-import { CSSIndents } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type BodyProps = {
   children: React.ReactNode;
@@ -6,9 +6,9 @@ export type BodyProps = {
    * @default false
    */
   scrollActive?: boolean;
-  padding?: CSSIndents;
+  padding?: CSSProperties['padding'];
 };
 
 export type StyleRootProps = {
-  $padding?: CSSIndents;
+  $padding?: CSSProperties['padding'];
 };

@@ -11,3 +11,4 @@ export { PrimaryTextarea } from './PrimaryTextarea/PrimaryTextarea';
 export { SortButton } from './SortButton/SortButton';
 export { Switch } from './Switch/Switch';
 export { TimePickerInput } from './TimePickerInput/TimePickerInput';
+export { TiptapEditor } from './TiptapEditor/TiptapEditor';

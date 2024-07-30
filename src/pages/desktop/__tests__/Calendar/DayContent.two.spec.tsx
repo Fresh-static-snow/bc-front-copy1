@@ -112,8 +112,8 @@ describe('pages/desktop/Calendar/DayContent', () => {
       </TestProvider>,
     );
 
-    expect(getByText('Tournament')).toBeVisible();
-    expect(getByText('Match')).toBeVisible();
+    expect(getByText('Event')).toBeVisible();
+    expect(getByText('Segment')).toBeVisible();
     expect(getByText('Staff')).toBeVisible();
     expect(getByText('Channel')).toBeVisible();
   });

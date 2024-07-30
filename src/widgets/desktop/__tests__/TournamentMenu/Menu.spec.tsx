@@ -68,6 +68,9 @@ describe('widgets/desktop/TournamentMenu', () => {
     );
 
     expect(getByText('Main')).toBeVisible();
+    expect(getByText('Media')).toBeVisible();
+    expect(getByText('Schedule')).toBeVisible();
+    expect(getByText('Comments')).toBeVisible();
     fireEvent.click(getByText('Main'));
     expect(queryByText('Main')).toBeNull();
   });

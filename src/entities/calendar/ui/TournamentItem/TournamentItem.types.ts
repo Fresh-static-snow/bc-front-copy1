@@ -1,11 +1,17 @@
-import { GameDiscipline, Match, TournamentInCalendarEntity } from '@/shared/types/entities.types';
+import {
+  GameDiscipline,
+  Match,
+  SegmentInCalendarEntity,
+  TournamentInCalendarEntity,
+} from '@/shared/types/entities.types';
 import { HEX } from '@/shared/types/styles.types';
 
 export type TournamentItemProps = {
+  discipline?: GameDiscipline;
   tournament: TournamentInCalendarEntity;
   filters?: Record<string, string[]>;
   onClickTournament?: (tournament: TournamentInCalendarEntity) => void;
-  onClickMatch?: (match: Match) => void;
+  onClickMatch?: (match: Match | SegmentInCalendarEntity) => void;
 };
 
 export type TournamentItemMobileProps = TournamentItemProps & {

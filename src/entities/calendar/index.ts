@@ -19,6 +19,7 @@ export { MatchTitles } from './ui/MatchTitles/MatchTitles';
 export { QuarterRangeItem } from './ui/QuarterRangeItem/QuarterRangeItem';
 export { QuarterRangeTitles } from './ui/QuarterRangeTitles/QuarterRangeTitles';
 export { RangeBackgroundTable } from './ui/RangeBackgroundTable/RangeBackgroundTable';
+export { SegmentItem } from './ui/SegmentItem/SegmentItem';
 export { TournamentItem } from './ui/TournamentItem/TournamentItem';
 export { TournamentItemMobile } from './ui/TournamentItem/TournamentItem.mobile';
 export { TournamentRangeItem } from './ui/TournamentRangeItem/TournamentRangeItem';

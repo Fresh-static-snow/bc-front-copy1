@@ -30,7 +30,7 @@ export const useCreateTournament = () => {
       calendarKeys.forEach((queryKey) => {
         queryClient.invalidateQueries([queryKey]);
       });
-      enqueueSnackbar('Tournament created successfully', { variant: 'success' });
+      enqueueSnackbar('Event created successfully', { variant: 'success' });
     },
   });
 };
@@ -63,7 +63,7 @@ export const useUpdateTournament = () => {
       tournamentKeys.forEach((queryKey) => {
         queryClient.invalidateQueries([queryKey]);
       });
-      enqueueSnackbar('Tournament updated successfully', { variant: 'success' });
+      enqueueSnackbar('Event updated successfully', { variant: 'success' });
     },
   });
 };
@@ -89,7 +89,7 @@ export const useRestorePreDeletedTournament = () => {
       managementKeys.forEach((queryKey) => {
         queryClient.invalidateQueries([queryKey]);
       });
-      enqueueSnackbar('Tournament restored successfully.', { variant: 'success' });
+      enqueueSnackbar('Event restored successfully.', { variant: 'success' });
     },
   });
 };
@@ -115,7 +115,7 @@ export const usePreDeleteTournament = () => {
       tournamentKeys.forEach((queryKey) => {
         queryClient.invalidateQueries([queryKey]);
       });
-      enqueueSnackbar('Tournament pre deleted successfully.', { variant: 'success' });
+      enqueueSnackbar('Event pre deleted successfully.', { variant: 'success' });
     },
   });
 };
@@ -141,7 +141,7 @@ export const useDeleteTournament = () => {
       managementKeys.forEach((queryKey) => {
         queryClient.invalidateQueries([queryKey]);
       });
-      enqueueSnackbar('Tournament deleted successfully.', { variant: 'success' });
+      enqueueSnackbar('Event deleted successfully.', { variant: 'success' });
     },
   });
 };

@@ -12,13 +12,15 @@ import { BodyProps } from './Body.types';
 export const Body: React.FC<BodyProps> = ({ activeTemplate }) => {
   const setEditingRequestType = useManagementMenuStore((state) => state.setEditingRequestType);
 
-  const { data } = activeTemplate.useGetItems();
+  const { data: activeTemplateData } = activeTemplate.useGetItems();
 
   const { mutateAsync: onDeleteItem, isLoading: isDeleteLoading } = activeTemplate.useDelete();
 
-  const { confirmDeleteId, onOpenDeleteModal, onCloseDeleteModal, onDelete } =
+  const { confirmDeleteData, onOpenDeleteModal, onCloseDeleteModal, onDelete } =
     useConfirmationActions<string | number>({
-      onDeleteItem,
+      onDeleteItem: (data) => {
+        onDeleteItem({ id: data });
+      },
     });
 
   const onEdit = useCallback(
@@ -35,7 +37,7 @@ export const Body: React.FC<BodyProps> = ({ activeTemplate }) => {
   return (
     <>
       <ConfirmationModal
-        isOpen={!!confirmDeleteId}
+        isOpen={!!confirmDeleteData}
         isLoading={isDeleteLoading}
         onClose={onCloseDeleteModal}
         onConfirm={onDelete}
@@ -44,8 +46,8 @@ export const Body: React.FC<BodyProps> = ({ activeTemplate }) => {
         maxWidth="400px"
         additionalContent={
           <RelatedEventsContentById
-            entityId={confirmDeleteId}
-            data={data}
+            entityId={confirmDeleteData}
+            data={activeTemplateData}
             withoutBackMessage={activeTemplate.type === 'simple'}
           />
         }
@@ -54,7 +56,7 @@ export const Body: React.FC<BodyProps> = ({ activeTemplate }) => {
       <SlicedContentLayout.Section width="608px" borderRight>
         <EditEntityList
           mainKey={activeTemplate.mainKey}
-          dataList={data}
+          dataList={activeTemplateData}
           onEdit={onEdit}
           onDelete={onOpenDeleteModal}
           isLoading={isDeleteLoading}

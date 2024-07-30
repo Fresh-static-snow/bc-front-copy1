@@ -221,7 +221,7 @@ export const UpdateTournament: React.FC<UpdateTournamentProps> = ({
         onConfirm={onDelete}
         icon={<IconTriangleAlertSvg />}
         title="Are you sure?"
-        message="Would you like to remove this event from the calendar? If you delete this tournament, matches associated with it will be deleted."
+        message="Would you like to remove this event from the calendar? If you delete this event, segments associated with it will be deleted."
       />
 
       {!isFetchingTournamentData && isSuccessTournamentData ? (

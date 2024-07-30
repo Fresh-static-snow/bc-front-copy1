@@ -1,4 +1,9 @@
-import { GameDiscipline, Match, TournamentInCalendarEntity } from '@/shared/types/entities.types';
+import {
+  GameDiscipline,
+  Match,
+  SegmentInCalendarEntity,
+  TournamentInCalendarEntity,
+} from '@/shared/types/entities.types';
 import { HEX } from '@/shared/types/styles.types';
 
 export type MatchItemProps = {
@@ -8,7 +13,11 @@ export type MatchItemProps = {
   onClickMatch?: (match: Match) => void;
 };
 
-export type MatchItemMobileProps = MatchItemProps & {
+export type MatchItemMobileProps = {
+  match: Match | SegmentInCalendarEntity;
+  filters?: Record<string, string[]>;
+  color: HEX;
+  onClickMatch?: (match: Match | SegmentInCalendarEntity) => void;
   discipline: GameDiscipline;
   tournament: Partial<TournamentInCalendarEntity>;
 };

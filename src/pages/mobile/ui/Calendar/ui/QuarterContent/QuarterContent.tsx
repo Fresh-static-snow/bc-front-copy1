@@ -2,12 +2,13 @@ import dayjs from 'dayjs';
 import { useMemo } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
+import { useGetAccountSettings } from '@/entities/account-setting';
 import { RangeBackgroundTable, useGetCalendarQuarter } from '@/entities/calendar';
 import { QuarterRangeItemMobile } from '@/entities/calendar/ui/QuarterRangeItem/QuarterRangeItem.mobile';
 import { QuarterRangeTitlesMobile } from '@/entities/calendar/ui/QuarterRangeTitles/QuarterRangeTitles.mobile';
 import { useCustomSearchParams } from '@/shared/lib';
 import { CircularLoader } from '@/shared/ui/feedback';
-import { filterParamsWithUser } from '@/widgets/desktop';
+import { filterParams } from '@/widgets/mobile';
 
 import { CalendarOutletContext } from '../../types';
 import { EmptyContent } from '../EmptyContent/EmptyContent';
@@ -19,7 +20,8 @@ const QuarterContent: React.FC = () => {
   const { onClickTournament, onClickDiscipline, onClickCorporate } =
     useOutletContext<CalendarOutletContext>();
   const { params } = useCustomSearchParams(['start_at']);
-  const { arrayParams } = useCustomSearchParams(filterParamsWithUser);
+  const { arrayParams } = useCustomSearchParams(filterParams);
+  const { data: accountSettings, isLoading: isLoadingGetAccountSettings } = useGetAccountSettings();
 
   const formattedQuarter = useMemo(() => {
     const date = dayjs(params.start_at);
@@ -34,7 +36,14 @@ const QuarterContent: React.FC = () => {
     data: calendarData,
     isFetching: isFetchingCalendarData,
     isSuccess: isCalendarDataSuccess,
-  } = useGetCalendarQuarter(formattedQuarter, arrayParams);
+  } = useGetCalendarQuarter(
+    formattedQuarter,
+    {
+      ...arrayParams,
+      current_user: [String(accountSettings?.current_user_filter_enabled ?? false)],
+    },
+    !!formattedQuarter && !isLoadingGetAccountSettings,
+  );
 
   return (
     <S.Root>

@@ -2,10 +2,11 @@ import dayjs from 'dayjs';
 import { Fragment, useMemo } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
+import { useGetAccountSettings } from '@/entities/account-setting';
 import { DisciplineItem, DisciplineTitles, useGetCalendarMonth } from '@/entities/calendar';
 import { useCustomSearchParams } from '@/shared/lib';
 import { CircularLoader } from '@/shared/ui/feedback';
-import { filterParamsWithUser } from '@/widgets/desktop';
+import { filterParams } from '@/widgets/desktop';
 
 import { CalendarOutletContext } from '../../types';
 import { ContentWrapper } from '../ContentWrapper/ContentWrapper';
@@ -18,7 +19,8 @@ const MonthContent: React.FC = () => {
   const { onClickTournament, onClickDiscipline, onClickMatch, onClickCorporate } =
     useOutletContext<CalendarOutletContext>();
   const { params } = useCustomSearchParams(['start_at']);
-  const { arrayParams } = useCustomSearchParams(filterParamsWithUser);
+  const { arrayParams } = useCustomSearchParams(filterParams);
+  const { data: accountSettings, isLoading: isLoadingGetAccountSettings } = useGetAccountSettings();
 
   const formattedMonth = useMemo(() => {
     const date = dayjs(params.start_at);
@@ -33,7 +35,14 @@ const MonthContent: React.FC = () => {
     data: calendarData,
     isFetching: isFetchingCalendarData,
     isSuccess: isCalendarDataSuccess,
-  } = useGetCalendarMonth(formattedMonth, arrayParams);
+  } = useGetCalendarMonth(
+    formattedMonth,
+    {
+      ...arrayParams,
+      current_user: [String(accountSettings?.current_user_filter_enabled ?? false)],
+    },
+    !!formattedMonth && !isLoadingGetAccountSettings,
+  );
 
   return (
     <>

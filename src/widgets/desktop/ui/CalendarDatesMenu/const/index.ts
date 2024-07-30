@@ -10,8 +10,9 @@ export const formatButtons: SelectableValue[] = [
 
 export const requestButtons: SelectableValue[] = [
   { value: 'discipline', label: 'Discipline' },
-  { value: 'tournament', label: 'Tournament' },
+  { value: 'tournament', label: 'Event' },
   { value: 'match', label: 'Match' },
+  { value: 'segment', label: 'Segment' },
   { value: 'corporate', label: 'Corporate' },
 ];
 
@@ -19,12 +20,12 @@ export const filterParams = [
   'game_discipline',
   'analytic_studio',
   'studio',
+  'setup',
   'channel',
+  'stream',
   'main_participants',
   'media_representatives',
   'commentators',
   'analytics',
   'staff_members',
 ];
-
-export const filterParamsWithUser = [...filterParams, 'current_user'];

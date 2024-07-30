@@ -3,30 +3,14 @@ import { Meta, StoryFn, StoryObj } from '@storybook/react';
 import { Scrollbar } from './Scrollbar';
 
 export default {
-  title: 'components/Scrollbar',
+  title: 'shared/layouts/Scrollbar',
   component: Scrollbar,
   tags: ['autodocs'],
   argTypes: {
-    children: {
-      control: {
-        type: null,
-      },
-    },
-    active: {
-      control: {
-        type: 'boolean',
-      },
-    },
-    noScrollX: {
-      control: {
-        type: 'boolean',
-      },
-    },
-    noScrollY: {
-      control: {
-        type: 'boolean',
-      },
-    },
+    children: { control: { type: null } },
+    active: { control: { type: 'boolean' } },
+    noScrollX: { control: { type: 'boolean' } },
+    noScrollY: { control: { type: 'boolean' } },
   },
 } as Meta<typeof Scrollbar>;
 
@@ -59,17 +43,17 @@ export const Simple: Story = {
   },
 };
 
-export const NoScrollX: Story = {
+export const ScrollX: Story = {
   render: Template,
   args: {
-    noScrollX: true,
+    noScrollX: false,
   },
   parameters: {
     docs: {
       source: {
         code: `
 <div style={{ width: '300px', height: '300px' }}>
-  <Scrollbar noScrollX>
+  <Scrollbar noScrollX={false}>
     <div style={{ background: '#eeeeee', width: '600px', height: '600px' }} />
   </Scrollbar>
 </div>

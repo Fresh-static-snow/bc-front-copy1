@@ -16,8 +16,8 @@ const UsersSubContentDeletedUsers: React.FC = () => {
   const { mutateAsync: onRestoreUser, isLoading: isRestoreLoading } = useRestorePreDeletedUser();
 
   const {
-    confirmDeleteId,
-    confirmRestoreId,
+    confirmDeleteData,
+    confirmRestoreData,
     onOpenDeleteModal,
     onCloseDeleteModal,
     onOpenRestoreModal,
@@ -25,14 +25,18 @@ const UsersSubContentDeletedUsers: React.FC = () => {
     onDelete,
     onRestore,
   } = useConfirmationActions<string | number>({
-    onDeleteItem: onDeleteUser,
-    onRestoreItem: onRestoreUser,
+    onDeleteItem: (data) => {
+      onDeleteUser({ id: data });
+    },
+    onRestoreItem: (data) => {
+      onRestoreUser({ id: data });
+    },
   });
 
   return (
     <>
       <ConfirmationModal
-        isOpen={!!confirmDeleteId}
+        isOpen={!!confirmDeleteData}
         isLoading={isDeleteLoading}
         onClose={onCloseDeleteModal}
         onConfirm={onDelete}
@@ -43,14 +47,14 @@ const UsersSubContentDeletedUsers: React.FC = () => {
         additionalContent={
           <RelatedEventsContentById
             title="User"
-            entityId={confirmDeleteId}
+            entityId={confirmDeleteData}
             data={preDeletedUsersData}
           />
         }
       />
 
       <ConfirmationModal
-        isOpen={!!confirmRestoreId}
+        isOpen={!!confirmRestoreData}
         isLoading={isRestoreLoading}
         onClose={onCloseRestoreModal}
         onConfirm={onRestore}
@@ -60,7 +64,7 @@ const UsersSubContentDeletedUsers: React.FC = () => {
         additionalContent={
           <RelatedEventsContentById
             title="User"
-            entityId={confirmRestoreId}
+            entityId={confirmRestoreData}
             data={preDeletedUsersData}
           />
         }

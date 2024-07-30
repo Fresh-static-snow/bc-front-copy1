@@ -9,7 +9,9 @@ import { PrimarySelectableValue } from '@/shared/types/values.types';
 export type DeletedEntityTemplatesKeys =
   | 'studio'
   | 'analytic_studio'
+  | 'setup'
   | 'channel'
+  | 'stream'
   | 'team'
   | 'sponsor'
   | 'language'

@@ -1,7 +1,5 @@
 import { CSSProperties } from 'react';
 
-import { CSSColor, CSSSize, CSSWeight } from '@/shared/types/styles.types';
-
 export type AvatarProps = {
   name?: string;
   image?: string;
@@ -9,16 +7,16 @@ export type AvatarProps = {
    * Width and height of the component.
    * @default '20px'
    */
-  size?: CSSSize;
+  size?: CSSProperties['width'] | CSSProperties['height'];
   /**
    * @default '10px'
    */
-  fontSize?: CSSSize;
+  fontSize?: CSSProperties['fontSize'];
   /**
    * @default '600'
    */
-  fontWeight?: CSSWeight;
-  borderColor?: CSSColor;
+  fontWeight?: CSSProperties['fontWeight'];
+  borderColor?: CSSProperties['borderColor'];
   additionalBorder?: CSSProperties['border'];
   crownIcon?: boolean;
   crownInnerStrokeColor?: CSSProperties['stroke'];
@@ -26,12 +24,12 @@ export type AvatarProps = {
   /**
    * @default 'transparent'
    */
-  backgroundColor?: CSSColor;
+  backgroundColor?: CSSProperties['backgroundColor'];
   /**
    * @default primary_05
    * @description `primary_05` is the color of the active theme.
    */
-  textColor?: CSSColor;
+  textColor?: CSSProperties['color'];
   /**
    * @default false
    */
@@ -40,22 +38,22 @@ export type AvatarProps = {
    * @default secondary_12
    * @description `secondary_12` is the color of the active theme.
    */
-  shadowColor?: CSSColor;
+  shadowColor?: CSSProperties['color'];
 };
 
 export type StyledRootProps = {
-  $size: CSSSize;
+  $size: CSSProperties['width'] | CSSProperties['height'];
 };
 
 export type StyledAvatarProps = {
-  $size: CSSSize;
-  $borderColor: CSSColor;
-  $backgroundColor: CSSColor;
-  $fontSize: CSSSize;
-  $fontWeight: CSSWeight;
-  $textColor: CSSColor;
+  $size: CSSProperties['width'] | CSSProperties['height'];
+  $borderColor: CSSProperties['borderColor'];
+  $backgroundColor: CSSProperties['backgroundColor'];
+  $fontSize: CSSProperties['fontSize'];
+  $fontWeight: CSSProperties['fontWeight'];
+  $textColor: CSSProperties['color'];
   $withShadow: boolean;
-  $shadowColor: CSSColor;
+  $shadowColor: CSSProperties['color'];
 };
 
 export type StyledAdditionalBorderProps = {

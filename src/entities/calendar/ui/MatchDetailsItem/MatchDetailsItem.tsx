@@ -16,21 +16,20 @@ export const MatchDetailsItem: React.FC<MatchCastsItemProps> = memo(
     const commentators: CalendarPerson[] = useMemo(() => {
       const filteredCommentators =
         matchDetails.commentators?.filter(
-          (commentator) => commentator.id !== matchDetails.backup_commentator?.id,
+          (commentator) =>
+            !matchDetails?.backup_commentators?.find((backup) => backup.id === commentator.id),
         ) || [];
 
-      const backupCommentator = matchDetails.backup_commentator
-        ? {
-            ...matchDetails.backup_commentator,
-            additionalBorder: true,
-            additionalText: '[backup]',
-          }
-        : null;
+      const backupCommentators = matchDetails.backup_commentators?.map((backupCommentator) => ({
+        ...backupCommentator,
+        additionalBorder: true,
+        additionalText: '[backup]',
+      }));
 
-      return backupCommentator
-        ? [...filteredCommentators, backupCommentator]
+      return backupCommentators?.length > 0
+        ? [...filteredCommentators, ...backupCommentators]
         : filteredCommentators;
-    }, [matchDetails.backup_commentator, matchDetails.commentators]);
+    }, [matchDetails.backup_commentators, matchDetails.commentators]);
 
     const analytics: CalendarPerson[] = useMemo(() => {
       const filteredAnalytics =
@@ -53,7 +52,7 @@ export const MatchDetailsItem: React.FC<MatchCastsItemProps> = memo(
       const commentatorList =
         commentators?.length > 0
           ? {
-              category: 'Commentators',
+              category: 'Casters',
               people: commentators,
               filter: filters?.commentators,
             }
@@ -61,7 +60,7 @@ export const MatchDetailsItem: React.FC<MatchCastsItemProps> = memo(
       const analyticList =
         analytics?.length > 0
           ? {
-              category: 'Analytics',
+              category: 'Analysts',
               people: analytics,
               filter: filters?.analytics,
             }
@@ -70,28 +69,50 @@ export const MatchDetailsItem: React.FC<MatchCastsItemProps> = memo(
       return [commentatorList, analyticList];
     }, [commentators, filters?.commentators, filters?.analytics, analytics]);
 
-    const channelList = useMemo(
-      () => matchDetails?.channels?.map((channel) => channel.name),
-      [matchDetails?.channels],
-    );
+    const channelList = useMemo(() => {
+      const channels = matchDetails?.channels?.map((channel) =>
+        filters?.channel?.includes(String(channel.id)) ? { ...channel, marked: true } : channel,
+      );
+      const stream = {
+        ...matchDetails?.stream,
+        marked: filters?.stream?.includes(String(matchDetails?.stream?.id)),
+      };
 
-    const markedChannels = useMemo(
-      () => filters?.channel?.map((channel) => channel),
-      [filters?.channel],
+      return stream.name ? [...channels, stream] : channels;
+    }, [filters?.channel, filters?.stream, matchDetails?.channels, matchDetails?.stream]);
+
+    const studioRows = useMemo(
+      () => [
+        {
+          text: matchDetails?.studio?.name,
+          filter: filters?.studio?.includes(String(matchDetails?.studio?.id)),
+        },
+        {
+          text: matchDetails?.analytic_studio?.name,
+          filter: filters?.analytic_studio?.includes(String(matchDetails?.analytic_studio?.id)),
+        },
+        {
+          text: matchDetails?.setup?.name,
+          filter: filters?.setup?.includes(String(matchDetails?.setup?.id)),
+        },
+      ],
+      [
+        matchDetails?.studio,
+        matchDetails?.analytic_studio,
+        matchDetails?.setup,
+        filters?.studio,
+        filters?.analytic_studio,
+        filters?.setup,
+      ],
     );
 
     return (
       <S.Root>
         <InfoTextWithBadge
-          firstText={matchDetails?.studio?.name}
-          secondText={matchDetails?.analytic_studio?.name}
+          rows={studioRows}
           badgeText={matchDetails?.language?.keyword}
           color={color}
           isVisible={isVisible}
-          firstTextFilter={filters?.studio?.includes(String(matchDetails?.studio?.id))}
-          secondTextFilter={filters?.analytic_studio?.includes(
-            String(matchDetails?.analytic_studio?.id),
-          )}
         />
 
         <InfoTipLayout
@@ -135,12 +156,7 @@ export const MatchDetailsItem: React.FC<MatchCastsItemProps> = memo(
           </div>
         </InfoTipLayout>
 
-        <InfoText
-          textList={channelList}
-          color={color}
-          isVisible={isVisible}
-          markedItems={markedChannels}
-        />
+        <InfoText itemList={channelList} color={color} isVisible={isVisible} />
       </S.Root>
     );
   },

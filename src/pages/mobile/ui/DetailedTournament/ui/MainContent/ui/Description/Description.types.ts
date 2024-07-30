@@ -1,9 +1,9 @@
 type DescriptionItem = {
   id: string | number;
   title: string;
-  description: string;
+  description: React.ReactNode;
 };
 
 export type DescriptionProps = {
-  descriptionItem: DescriptionItem[];
+  descriptionItems: DescriptionItem[];
 };

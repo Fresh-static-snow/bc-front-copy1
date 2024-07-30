@@ -1,4 +1,4 @@
-import { CSSIndents } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type ChangePasswordFormSchema = {
   oldPassword?: string;
@@ -8,7 +8,7 @@ export type ChangePasswordFormSchema = {
 
 export type ChangePasswordFormProps = {
   FooterCustomComponent?: React.ReactNode;
-  contentPaddings?: CSSIndents;
+  contentPaddings?: CSSProperties['padding'];
   /**
    * @default 'row'
    */
@@ -26,6 +26,6 @@ export type ChangePasswordFormProps = {
 };
 
 export type StyledContentProps = {
-  $padding: CSSIndents;
+  $padding: CSSProperties['padding'];
   $fieldsDirection: 'row' | 'column';
 };

@@ -1,11 +1,11 @@
 import * as S from './Description.styles';
 import { DescriptionProps } from './Description.types';
 
-export const Description: React.FC<DescriptionProps> = ({ descriptionItem }) => (
+export const Description: React.FC<DescriptionProps> = ({ descriptionItems }) => (
   <S.Root id="description">
     <S.DescriptionTitle>Description</S.DescriptionTitle>
 
-    {descriptionItem?.map(({ id, title, description }) => (
+    {descriptionItems?.map(({ id, title, description }) => (
       <S.DescriptionItem key={id}>
         <S.DescriptionItemLabel>{title}:</S.DescriptionItemLabel>
 

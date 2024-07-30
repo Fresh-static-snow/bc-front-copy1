@@ -1,10 +1,10 @@
-import { CSSIndents } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type HeaderProps = {
-  padding?: CSSIndents;
+  padding?: CSSProperties['padding'];
   onReadAllUserNotifications: () => void;
 };
 
 export type StyledHeaderProps = {
-  $padding?: CSSIndents;
+  $padding?: CSSProperties['padding'];
 };

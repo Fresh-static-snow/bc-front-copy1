@@ -9,35 +9,35 @@ export const useConfirmationActions = <T>({
   onDeleteItem,
   onRestoreItem,
 }: UseConfirmationActionsProps<T>): UseConfirmationActionsReturn<T> => {
-  const [confirmDeleteId, setConfirmDeleteId] = useState<T>();
-  const [confirmRestoreId, setConfirmRestoreId] = useState<T>();
+  const [confirmDeleteData, setConfirmDeleteData] = useState<T>();
+  const [confirmRestoreData, setConfirmRestoreData] = useState<T>();
 
-  const onOpenDeleteModal = useCallback((id: T) => {
-    setConfirmDeleteId(id);
+  const onOpenDeleteModal = useCallback((data: T) => {
+    setConfirmDeleteData(data);
   }, []);
   const onCloseDeleteModal = useCallback(() => {
-    setConfirmDeleteId(undefined);
+    setConfirmDeleteData(undefined);
   }, []);
 
-  const onOpenRestoreModal = useCallback((id: T) => {
-    setConfirmRestoreId(id);
+  const onOpenRestoreModal = useCallback((data: T) => {
+    setConfirmRestoreData(data);
   }, []);
   const onCloseRestoreModal = useCallback(() => {
-    setConfirmRestoreId(undefined);
+    setConfirmRestoreData(undefined);
   }, []);
 
   const onDelete = useCallback(() => {
-    onDeleteItem?.({ id: confirmDeleteId });
-    setConfirmDeleteId(undefined);
-  }, [confirmDeleteId, onDeleteItem]);
+    onDeleteItem?.(confirmDeleteData);
+    setConfirmDeleteData(undefined);
+  }, [confirmDeleteData, onDeleteItem]);
   const onRestore = useCallback(() => {
-    onRestoreItem?.({ id: confirmRestoreId });
-    setConfirmRestoreId(undefined);
-  }, [confirmRestoreId, onRestoreItem]);
+    onRestoreItem?.(confirmRestoreData);
+    setConfirmRestoreData(undefined);
+  }, [confirmRestoreData, onRestoreItem]);
 
   return {
-    confirmDeleteId,
-    confirmRestoreId,
+    confirmDeleteData,
+    confirmRestoreData,
     onOpenDeleteModal,
     onCloseDeleteModal,
     onOpenRestoreModal,

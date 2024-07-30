@@ -5,29 +5,34 @@ import {
 } from '@/entities/match';
 import { DeletedTournamentList } from '@/entities/tournament';
 import { useConfirmationActions } from '@/shared/lib';
+import { PreDeletedMatch, PreDeletedSegment } from '@/shared/types/entities.types';
 import { ConfirmationModal } from '@/shared/ui/feedback';
 
 import * as S from './BodyDeletedMatchItems.styles';
 
 export const BodyDeletedMatchItems: React.FC = () => {
-  const { data } = useGetPreDeletedMatchItems();
+  const { data: tournaments } = useGetPreDeletedMatchItems();
 
   const { mutateAsync: onRestoreMatchesItem, isLoading: isRestoreLoading } =
     useRestorePreDeletedMatchList();
   const { mutateAsync: onDeleteMatchesItem, isLoading: isDeleteLoading } = useDeleteMatchList();
 
   const {
-    confirmDeleteId: confirmDeleteMatchesIds,
-    confirmRestoreId: confirmRestoreMatchesIds,
+    confirmDeleteData: confirmDeleteMatchesIds,
+    confirmRestoreData: confirmRestoreMatchesIds,
     onOpenDeleteModal: onOpenDeleteMatchesModal,
     onCloseDeleteModal: onCloseDeleteMatchesModal,
     onOpenRestoreModal: onOpenRestoreMatchesModal,
     onCloseRestoreModal: onCloseRestoreMatchesModal,
     onDelete: onDeleteMatches,
     onRestore: onRestoreMatches,
-  } = useConfirmationActions<(string | number)[]>({
-    onDeleteItem: onDeleteMatchesItem,
-    onRestoreItem: onRestoreMatchesItem,
+  } = useConfirmationActions<(PreDeletedMatch | PreDeletedSegment)[]>({
+    onDeleteItem: (data) => {
+      onDeleteMatchesItem({ ids: data.map((item) => item.id) });
+    },
+    onRestoreItem: (data) => {
+      onRestoreMatchesItem({ ids: data.map((item) => item.id) });
+    },
   });
 
   return (
@@ -55,7 +60,7 @@ export const BodyDeletedMatchItems: React.FC = () => {
       <S.TournamentListWrapper>
         <DeletedTournamentList
           mainKey="pre-deleted-tournaments"
-          tournaments={data}
+          tournaments={tournaments}
           onDeleteMatches={onOpenDeleteMatchesModal}
           onRestoreMatches={onOpenRestoreMatchesModal}
           isLoading={isDeleteLoading || isRestoreLoading}

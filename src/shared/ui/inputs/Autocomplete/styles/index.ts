@@ -17,6 +17,7 @@ export const Autocomplete = styled(AutocompleteMui, {
 })<StyledAutocompleteProps>(
   ({ theme, $error, $disablePopupIconRotation, $popupIconColor }) => css`
     width: 100%;
+    background: ${theme.appColors.primary_05};
 
     & * {
       transition: all ${theme.appTransitions.primary}ms !important;

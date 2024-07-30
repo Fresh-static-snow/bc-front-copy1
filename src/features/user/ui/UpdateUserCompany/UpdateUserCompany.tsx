@@ -1,3 +1,4 @@
+import { useTheme } from '@emotion/react';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,6 +11,7 @@ import {
 } from '@/entities/user-company';
 import { IconTriangleAlertSvg } from '@/shared/assets';
 import { appendFormData, useCheckAccess, useToggle } from '@/shared/lib';
+import { Avatar } from '@/shared/ui/data-display';
 import { CircularLoader, ConfirmationModal } from '@/shared/ui/feedback';
 import { CollapsibleFormHeader } from '@/shared/ui/forms';
 import { Checkbox } from '@/shared/ui/inputs';
@@ -22,6 +24,7 @@ export const UpdateUserCompany: React.FC<UpdateUserCompanyProps> = ({
   sendBackPath,
   deleteBackPath,
 }) => {
+  const theme = useTheme();
   const [openConfirmationModal, setOpenConfirmationModal] = useToggle(false);
   const [extendedStatus, setExtendedStatus] = useToggle(false);
   const [allTeamStatus, setAllTeamStatus] = useToggle(false);
@@ -102,8 +105,17 @@ export const UpdateUserCompany: React.FC<UpdateUserCompanyProps> = ({
       {!isFetchingUserCompanyData && isSuccessUserCompanyData ? (
         <S.FormWrapper $withGap={allTeamStatus || extendedStatus}>
           <CollapsibleFormHeader
-            avatarName={userCompanyData?.title}
-            avatarImage={userCompanyData?.cover?.url}
+            AvatarComponent={
+              <Avatar
+                name={userCompanyData?.title}
+                image={userCompanyData?.cover?.url}
+                size="100px"
+                backgroundColor={theme.appColors.primary_04}
+                textColor={theme.appColors.secondary_04}
+                fontSize="40px"
+                fontWeight="400"
+              />
+            }
             title={userCompanyData?.title}
             subtitle={
               <Checkbox

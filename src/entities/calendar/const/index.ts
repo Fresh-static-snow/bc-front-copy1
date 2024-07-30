@@ -8,11 +8,11 @@ const nanoid = customAlphabet('1234567890', 10);
 
 export const scheduleTitles: ScheduleTitles = {
   discipline: 'Discipline',
-  tournament: 'Tournament',
+  tournament: 'Event',
   time: '',
-  match: 'Match',
+  match: 'Segment',
   studio: 'Studio',
-  analytics: 'Commentators & Analytics',
+  analytics: 'Casters & Analysts',
   staff: 'Staff',
   channel: 'Channel',
   media: 'Main & Media',
@@ -30,6 +30,14 @@ export const matchDetailsItemEmpty: MatchCast = {
     name: '',
     keyword: '',
   },
+  setup: {
+    id: +nanoid(),
+    name: '',
+  },
+  stream: {
+    id: +nanoid(),
+    name: '',
+  },
   analytic_studio: {
     id: +nanoid(),
     name: '',
@@ -44,7 +52,7 @@ export const matchDetailsItemEmpty: MatchCast = {
   commentators: [],
   analytics: [],
   host_analytic: null,
-  backup_commentator: null,
+  backup_commentators: [],
   staff_members: [],
 };
 

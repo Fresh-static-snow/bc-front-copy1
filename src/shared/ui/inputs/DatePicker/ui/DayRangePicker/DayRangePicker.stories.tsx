@@ -8,20 +8,12 @@ import { DayRangePicker } from './DayRangePicker';
 dayjs.extend(isBetween);
 
 export default {
-  title: 'modules/DatePickers/DayRangePicker',
+  title: 'shared/inputs/DatePicker.DayRange',
   component: DayRangePicker,
   tags: ['autodocs'],
   argTypes: {
-    activeDate: {
-      control: {
-        type: null,
-      },
-    },
-    onChangeActiveDate: {
-      control: {
-        type: null,
-      },
-    },
+    activeDate: { control: { type: null } },
+    onChangeActiveDate: { control: { type: null } },
   },
 } as Meta<typeof DayRangePicker>;
 

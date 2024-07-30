@@ -1,4 +1,4 @@
-import { HEX } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type CounterProps = {
   count: string | number;
@@ -6,11 +6,11 @@ export type CounterProps = {
    * @default 99
    */
   maxCount?: string | number;
-  color?: HEX;
-  bgColor?: HEX;
+  color?: CSSProperties['color'];
+  bgColor?: CSSProperties['backgroundColor'];
 };
 
 export type StyledRootProps = {
-  $bgColor: HEX;
-  $color: HEX;
+  $color: CSSProperties['color'];
+  $bgColor: CSSProperties['backgroundColor'];
 };

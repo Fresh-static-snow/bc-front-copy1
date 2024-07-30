@@ -25,6 +25,20 @@ import {
   useRestorePreDeletedCastLanguage,
 } from '@/entities/cast-language';
 import {
+  useDeleteCastSetup,
+  useGetCastSetupItemsWithHistory,
+  useGetPreDeletedCastSetupItems,
+  usePreDeleteCastSetup,
+  useRestorePreDeletedCastSetup,
+} from '@/entities/cast-setup';
+import {
+  useDeleteCastStream,
+  useGetCastStreamItemsWithHistory,
+  useGetPreDeletedCastStreamItems,
+  usePreDeleteCastStream,
+  useRestorePreDeletedCastStream,
+} from '@/entities/cast-stream';
+import {
   useDeleteCastStudio,
   useGetCastStudioItemsWithHistory,
   useGetPreDeletedCastStudioItems,
@@ -67,9 +81,16 @@ export const entityContentTemplates: EntityContentTemplateList = {
   analytic_studio: {
     mainKey: 'entity_content_analytic_studio',
     type: 'withHistory',
-    requestType: { value: 'analytic_studio', label: 'Analytic Studio' },
+    requestType: { value: 'analytic_studio', label: 'Analyst Studio' },
     useGetItems: useGetCastAnalyticStudioItemsWithHistory,
     useDelete: usePreDeleteCastAnalyticStudio,
+  },
+  setup: {
+    mainKey: 'entity_content_setup',
+    type: 'withHistory',
+    requestType: { value: 'setup', label: 'Setup' },
+    useGetItems: useGetCastSetupItemsWithHistory,
+    useDelete: usePreDeleteCastSetup,
   },
   channel: {
     mainKey: 'entity_content_channel',
@@ -77,6 +98,13 @@ export const entityContentTemplates: EntityContentTemplateList = {
     requestType: { value: 'channel', label: 'Channel' },
     useGetItems: useGetCastChannelItemsWithHistory,
     useDelete: usePreDeleteCastChannel,
+  },
+  stream: {
+    mainKey: 'entity_content_stream',
+    type: 'withHistory',
+    requestType: { value: 'stream', label: 'Stream' },
+    useGetItems: useGetCastStreamItemsWithHistory,
+    useDelete: usePreDeleteCastStream,
   },
   team: {
     mainKey: 'entity_content_team',
@@ -116,12 +144,26 @@ export const deletedEntityContentTemplates: DeletedEntityContentTemplateList = {
     useRestore: useRestorePreDeletedCastAnalyticStudio,
     useDelete: useDeleteCastAnalyticStudio,
   },
+  setup: {
+    mainKey: 'deleted_entity_content_setup',
+    type: 'withHistory',
+    useGetItems: useGetPreDeletedCastSetupItems,
+    useRestore: useRestorePreDeletedCastSetup,
+    useDelete: useDeleteCastSetup,
+  },
   channel: {
     mainKey: 'deleted_entity_content_channel',
     type: 'withHistory',
     useGetItems: useGetPreDeletedCastChannelItems,
     useRestore: useRestorePreDeletedCastChannel,
     useDelete: useDeleteCastChannel,
+  },
+  stream: {
+    mainKey: 'deleted_entity_content_stream',
+    type: 'withHistory',
+    useGetItems: useGetPreDeletedCastStreamItems,
+    useRestore: useRestorePreDeletedCastStream,
+    useDelete: useDeleteCastStream,
   },
   team: {
     mainKey: 'deleted_entity_content_team',

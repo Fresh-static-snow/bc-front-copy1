@@ -87,7 +87,7 @@ export const useCreateCastAnalyticStudio = () => {
       managementKeys.forEach((queryKey) => {
         queryClient.invalidateQueries([queryKey]);
       });
-      enqueueSnackbar('Analytic studio created successfully', { variant: 'success' });
+      enqueueSnackbar('Analyst studio created successfully', { variant: 'success' });
     },
   });
 };
@@ -110,7 +110,7 @@ export const useUpdateCastAnalyticStudio = () => {
       managementKeys.forEach((queryKey) => {
         queryClient.invalidateQueries([queryKey]);
       });
-      enqueueSnackbar('Analytic studio updated successfully', { variant: 'success' });
+      enqueueSnackbar('Analyst studio updated successfully', { variant: 'success' });
     },
   });
 };
@@ -133,7 +133,7 @@ export const useRestorePreDeletedCastAnalyticStudio = () => {
       managementKeys.forEach((queryKey) => {
         queryClient.invalidateQueries([queryKey]);
       });
-      enqueueSnackbar('Analytic studio restored successfully.', { variant: 'success' });
+      enqueueSnackbar('Analyst studio restored successfully.', { variant: 'success' });
     },
   });
 };
@@ -156,7 +156,7 @@ export const usePreDeleteCastAnalyticStudio = () => {
       managementKeys.forEach((queryKey) => {
         queryClient.invalidateQueries([queryKey]);
       });
-      enqueueSnackbar('Analytic studio pre deleted successfully.', { variant: 'success' });
+      enqueueSnackbar('Analyst studio pre deleted successfully.', { variant: 'success' });
     },
   });
 };
@@ -179,7 +179,7 @@ export const useDeleteCastAnalyticStudio = () => {
       managementKeys.forEach((queryKey) => {
         queryClient.invalidateQueries([queryKey]);
       });
-      enqueueSnackbar('Analytic studio deleted successfully', { variant: 'success' });
+      enqueueSnackbar('Analyst studio deleted successfully', { variant: 'success' });
     },
   });
 };

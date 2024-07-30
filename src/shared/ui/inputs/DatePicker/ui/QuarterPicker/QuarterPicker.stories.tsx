@@ -10,20 +10,12 @@ dayjs.extend(isBetween);
 dayjs.extend(quarterOfYear);
 
 export default {
-  title: 'modules/DatePickers/QuarterPicker',
+  title: 'shared/inputs/DatePicker.Quarter',
   component: QuarterPicker,
   tags: ['autodocs'],
   argTypes: {
-    activeDate: {
-      control: {
-        type: null,
-      },
-    },
-    onChangeActiveDate: {
-      control: {
-        type: null,
-      },
-    },
+    activeDate: { control: { type: null } },
+    onChangeActiveDate: { control: { type: null } },
   },
 } as Meta<typeof QuarterPicker>;
 

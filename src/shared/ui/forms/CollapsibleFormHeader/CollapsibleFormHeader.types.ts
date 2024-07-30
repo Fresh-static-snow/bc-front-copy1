@@ -1,6 +1,5 @@
 export type CollapsibleFormHeaderProps = {
-  avatarName: string;
-  avatarImage: string;
+  AvatarComponent?: React.ReactNode;
   title: string;
   subtitle: React.ReactNode;
   extendedStatus: boolean;

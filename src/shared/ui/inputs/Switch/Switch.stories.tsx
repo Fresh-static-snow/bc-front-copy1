@@ -4,22 +4,14 @@ import { ChangeEvent, useState } from 'react';
 import { Switch } from './Switch';
 
 export default {
-  title: 'ui/Switch',
+  title: 'shared/inputs/Switch',
   component: Switch,
   tags: ['autodocs'],
   argTypes: {
-    checked: {
-      control: { type: 'boolean' },
-    },
-    onChange: {
-      control: { type: null },
-    },
-    label: {
-      control: { type: 'text' },
-    },
-    disabled: {
-      control: { type: 'boolean' },
-    },
+    checked: { control: { type: 'boolean' } },
+    onChange: { control: { type: null } },
+    label: { control: { type: 'text' } },
+    disabled: { control: { type: 'boolean' } },
   },
 } as Meta<typeof Switch>;
 

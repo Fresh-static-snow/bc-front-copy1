@@ -1,4 +1,4 @@
-import { CSSIndents } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
 
 export type FormPermissionListSchema = {
   id?: string;
@@ -19,7 +19,7 @@ type FieldsNames = keyof RoleFormSchema;
 
 export type RoleFormProps = {
   FooterCustomComponent?: React.ReactNode;
-  contentPaddings?: CSSIndents;
+  contentPaddings?: CSSProperties['padding'];
   /**
    * @default 'row'
    */
@@ -44,7 +44,7 @@ export type RoleFormProps = {
 };
 
 export type StyledContentProps = {
-  $padding: CSSIndents;
+  $padding: CSSProperties['padding'];
 };
 
 export type StyledStaticFieldsProps = {

@@ -6,13 +6,11 @@ import { Counter } from '@/shared/ui/data-display';
 import { PrimaryButton } from './PrimaryButton';
 
 export default {
-  title: 'ui/PrimaryButton',
+  title: 'shared/inputs/PrimaryButton',
   component: PrimaryButton,
   tags: ['autodocs'],
   argTypes: {
-    onClick: {
-      control: { type: null },
-    },
+    onClick: { control: { type: null } },
     variant: {
       control: {
         type: 'select',
@@ -20,36 +18,16 @@ export default {
       },
       table: { defaultValue: { summary: "'base'" } },
     },
-    AdditionalComponent: {
-      control: { type: null },
-    },
-    IconComponent: {
-      control: { type: null },
-    },
-    customStyles: {
-      control: { type: null },
-    },
-    disabled: {
-      control: { type: 'boolean' },
-    },
-    isLoading: {
-      control: { type: 'boolean' },
-    },
-    iconHeight: {
-      control: { type: 'text' },
-    },
-    iconWidth: {
-      control: { type: 'text' },
-    },
-    label: {
-      control: { type: 'text' },
-    },
-    padding: {
-      control: { type: 'text' },
-    },
-    width: {
-      control: { type: 'text' },
-    },
+    AdditionalComponent: { control: { type: null } },
+    IconComponent: { control: { type: null } },
+    customStyles: { control: { type: null } },
+    disabled: { control: { type: 'boolean' } },
+    isLoading: { control: { type: 'boolean' } },
+    iconHeight: { control: { type: 'text' } },
+    iconWidth: { control: { type: 'text' } },
+    label: { control: { type: 'text' } },
+    padding: { control: { type: 'text' } },
+    width: { control: { type: 'text' } },
     contentPosition: {
       control: {
         type: 'select',

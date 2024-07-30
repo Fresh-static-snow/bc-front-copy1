@@ -1,8 +1,8 @@
 import {
+  MediaObject,
   PreDeletedTournament,
   TournamentById,
   TournamentInTournamentForm,
-  TournamentMedia,
   TournamentSchedule,
   TournamentShort,
   TournamentType,
@@ -69,7 +69,7 @@ export type GetSearchTournamentResponse<T extends Scope> = T extends 'only_delet
   ? PreDeletedTournament[]
   : TournamentShort[];
 
-export type GetTournamentMediasResponse = TournamentMedia[];
+export type GetTournamentMediasResponse = MediaObject[];
 
 export type GetTournamentScheduleResponse = TournamentSchedule;
 

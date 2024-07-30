@@ -257,7 +257,7 @@ export const Root = styled('button')<StyledRootProps>(
                 ? `background: ${$customStyles?.backgroundColorDisabled};`
                 : ''}
               ${$customStyles?.colorDisabled ? `color: ${$customStyles?.colorDisabled};` : ''}
-              ${$customStyles?.disabledOpacity ? `opacity: ${$customStyles?.disabledOpacity}` : ''};
+              ${$customStyles?.disabledOpacity ? `opacity: ${$customStyles?.disabledOpacity};` : ''}
 
               & g {
                 ${$customStyles?.iconColorDisabled

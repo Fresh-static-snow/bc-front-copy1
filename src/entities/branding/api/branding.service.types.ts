@@ -26,7 +26,7 @@ export type RestorePreDeletedBrandingParams = {
 
 export type PreDeleteBrandingParams = {
   id: number | string;
-  hide_history: boolean;
+  hide_history?: boolean;
 };
 
 export type DeleteBrandingParams = {

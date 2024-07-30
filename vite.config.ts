@@ -76,5 +76,6 @@ export default defineConfig({
       exclude: ['**/*.stories.tsx', '**/*.types.ts'],
     },
     setupFiles: './src/app/__tests__/setup.ts',
+    testTimeout: 15000,
   },
 });

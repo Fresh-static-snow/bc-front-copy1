@@ -27,6 +27,7 @@ export const InfoDrawer: React.FC<InfoDrawerProps> = ({
   color,
   discipline,
   eventName,
+  title,
   teamOne,
   teamTwo,
   format,
@@ -34,18 +35,12 @@ export const InfoDrawer: React.FC<InfoDrawerProps> = ({
   time,
   location,
   channels,
+  streams,
   commentators,
   analytics,
   staff,
   mainParticipant,
   mediaRepresentative,
-  disciplineFilterList,
-  channelFilterList,
-  commentatorsFilterList,
-  analyticsFilterList,
-  staffFilterList,
-  mainParticipantFilterList,
-  mediaRepresentativeFilterList,
   onClickEdit,
 }) => {
   const theme = useTheme();
@@ -77,30 +72,47 @@ export const InfoDrawer: React.FC<InfoDrawerProps> = ({
       });
     }
 
-    if (channels?.length > 0) {
+    if (channels?.items?.length > 0 || streams?.items?.length > 0) {
       rows.push({
         id: nanoid(),
         icon: <IconMonitorsSvg />,
-        content: channels?.map((channel, index) => (
-          <Fragment key={channel?.id}>
-            {channelFilterList?.includes(String(channel?.id)) ? (
-              <MarkedText>{channel?.name}</MarkedText>
-            ) : (
-              <span>{channel?.name}</span>
-            )}
-            {index !== analytics.length - 1 && ', '}
-          </Fragment>
-        )),
+        content: (
+          <>
+            {channels?.items?.map((channel, index) => (
+              <Fragment key={channel?.id}>
+                {channels?.filterList?.includes(String(channel?.id)) ? (
+                  <MarkedText>{channel?.name}</MarkedText>
+                ) : (
+                  <span>{channel?.name}</span>
+                )}
+                {index !== (channels?.items?.length ?? 0) - 1 && ', '}
+              </Fragment>
+            ))}
+
+            {channels?.items?.length > 0 && streams?.items?.length > 0 && ', '}
+
+            {streams?.items?.map((stream, index) => (
+              <Fragment key={stream?.id}>
+                {streams?.filterList?.includes(String(stream?.id)) ? (
+                  <MarkedText>{stream?.name}</MarkedText>
+                ) : (
+                  <span>{stream?.name}</span>
+                )}
+                {index !== (streams?.items?.length ?? 0) - 1 && ', '}
+              </Fragment>
+            ))}
+          </>
+        ),
       });
     }
 
-    if (commentators?.length > 0) {
+    if (commentators?.items?.length > 0) {
       rows.push({
         id: nanoid(),
         icon: <IconMicSvg />,
-        content: commentators?.map((person, index) => (
+        content: commentators?.items?.map((person, index) => (
           <Fragment key={person?.id}>
-            {commentatorsFilterList?.includes(String(person?.id)) ? (
+            {commentators?.filterList?.includes(String(person?.id)) ? (
               <MarkedText>
                 <S.Bold>{person?.nick}</S.Bold> {person?.firstName} {person?.lastName}
               </MarkedText>
@@ -112,19 +124,19 @@ export const InfoDrawer: React.FC<InfoDrawerProps> = ({
             {person?.additionalText && (
               <S.CategoryStatus>{` ${person?.additionalText}`}</S.CategoryStatus>
             )}
-            {index !== commentators.length - 1 && ', '}
+            {index !== (commentators?.items?.length ?? 0) - 1 && ', '}
           </Fragment>
         )),
       });
     }
 
-    if (analytics?.length > 0) {
+    if (analytics?.items?.length > 0) {
       rows.push({
         id: nanoid(),
         icon: <IconCoffeeSvg />,
-        content: analytics?.map((person, index) => (
+        content: analytics?.items?.map((person, index) => (
           <Fragment key={person?.id}>
-            {analyticsFilterList?.includes(String(person?.id)) ? (
+            {analytics?.filterList?.includes(String(person?.id)) ? (
               <MarkedText>
                 <S.Bold>{person?.nick}</S.Bold> {person?.firstName} {person?.lastName}
               </MarkedText>
@@ -136,25 +148,14 @@ export const InfoDrawer: React.FC<InfoDrawerProps> = ({
             {person?.additionalText && (
               <S.CategoryStatus>{` ${person?.additionalText}`}</S.CategoryStatus>
             )}
-            {index !== analytics.length - 1 && ', '}
+            {index !== (analytics?.items?.length ?? 0) - 1 && ', '}
           </Fragment>
         )),
       });
     }
 
     return rows;
-  }, [
-    format,
-    date,
-    time,
-    location,
-    channels,
-    commentators,
-    analytics,
-    channelFilterList,
-    commentatorsFilterList,
-    analyticsFilterList,
-  ]);
+  }, [channels, streams, commentators, analytics, date, format, location, time]);
 
   const onClose = () => setOpen(false);
 
@@ -174,40 +175,46 @@ export const InfoDrawer: React.FC<InfoDrawerProps> = ({
 
         <S.Content>
           <S.InfoDrawerHeader>
-            {discipline && (
+            {discipline?.item && (
               <S.DisciplineName>
-                {disciplineFilterList?.includes(String(discipline?.id)) ? (
-                  <MarkedText>{discipline?.title}</MarkedText>
+                {discipline?.filterList?.includes(String(discipline?.item?.id)) ? (
+                  <MarkedText>{discipline?.item?.title}</MarkedText>
                 ) : (
-                  discipline?.title
+                  discipline?.item?.title
                 )}
               </S.DisciplineName>
             )}
             {eventName && <S.EventName>{eventName}</S.EventName>}
           </S.InfoDrawerHeader>
 
-          {(teamOne || teamTwo) && (
-            <S.InfoDrawerMatch>
-              <S.InfoDrawerTeams>
+          <S.InfoDrawerMatch>
+            {(teamOne || teamTwo) && (
+              <S.InfoDrawerTitle>
                 <S.Bold>{teamOne}</S.Bold> vs <S.Bold>{teamTwo}</S.Bold>
-              </S.InfoDrawerTeams>
+              </S.InfoDrawerTitle>
+            )}
 
-              {!!onClickEdit && (
-                <PrimaryButton
-                  label="Edit"
-                  onClick={onClickEdit}
-                  IconComponent={IconEditSvg}
-                  width="max-content"
-                  variant="custom"
-                  customStyles={{
-                    backgroundColor: color ?? theme.appColors.primary_01,
-                    color: theme.appColors.primary_05,
-                    iconColor: theme.appColors.primary_05,
-                  }}
-                />
-              )}
-            </S.InfoDrawerMatch>
-          )}
+            {title && (
+              <S.InfoDrawerTitle>
+                <S.Bold>{title}</S.Bold>
+              </S.InfoDrawerTitle>
+            )}
+
+            {!!onClickEdit && (
+              <PrimaryButton
+                label="Edit"
+                onClick={onClickEdit}
+                IconComponent={IconEditSvg}
+                width="max-content"
+                variant="custom"
+                customStyles={{
+                  backgroundColor: color ?? theme.appColors.primary_01,
+                  color: theme.appColors.primary_05,
+                  iconColor: theme.appColors.primary_05,
+                }}
+              />
+            )}
+          </S.InfoDrawerMatch>
 
           <S.InfoDrawerBody>
             {contentRows?.map(({ id, icon, content }) => (
@@ -218,49 +225,53 @@ export const InfoDrawer: React.FC<InfoDrawerProps> = ({
             ))}
           </S.InfoDrawerBody>
 
-          {(mainParticipant || mediaRepresentative) && (
+          {(mainParticipant?.item || mediaRepresentative?.item) && (
             <S.Category>
               <S.CategoryTitle>Main & media</S.CategoryTitle>
               <S.CategoryList>
-                {mainParticipant && (
+                {mainParticipant?.item && (
                   <S.CategoryItem>
                     <Avatar
-                      image={mainParticipant.avatar?.url}
-                      name={mainParticipant.display_name}
+                      image={mainParticipant?.item?.avatar?.url}
+                      name={mainParticipant?.item?.display_name}
                       backgroundColor={color}
                       size="32px"
                     />
-                    {mainParticipantFilterList?.includes(String(mainParticipant?.id)) ? (
+                    {mainParticipant?.filterList?.includes(String(mainParticipant?.item?.id)) ? (
                       <MarkedText>
-                        <S.Bold>{mainParticipant?.nick}</S.Bold> {mainParticipant?.first_name}{' '}
-                        {mainParticipant?.last_name}
+                        <S.Bold>{mainParticipant?.item?.nick}</S.Bold>{' '}
+                        {mainParticipant?.item?.first_name} {mainParticipant?.item?.last_name}
                       </MarkedText>
                     ) : (
                       <span>
-                        <S.Bold>{mainParticipant?.nick}</S.Bold> {mainParticipant?.first_name}{' '}
-                        {mainParticipant?.last_name}
+                        <S.Bold>{mainParticipant?.item?.nick}</S.Bold>{' '}
+                        {mainParticipant?.item?.first_name} {mainParticipant?.item?.last_name}
                       </span>
                     )}
                   </S.CategoryItem>
                 )}
 
-                {mediaRepresentative && (
+                {mediaRepresentative?.item && (
                   <S.CategoryItem>
                     <Avatar
-                      image={mediaRepresentative.avatar?.url}
-                      name={mediaRepresentative.display_name}
+                      image={mediaRepresentative?.item?.avatar?.url}
+                      name={mediaRepresentative?.item?.display_name}
                       backgroundColor={color}
                       size="32px"
                     />
-                    {mediaRepresentativeFilterList?.includes(String(mediaRepresentative?.id)) ? (
+                    {mediaRepresentative?.filterList?.includes(
+                      String(mediaRepresentative?.item?.id),
+                    ) ? (
                       <MarkedText>
-                        <S.Bold>{mediaRepresentative?.nick}</S.Bold>{' '}
-                        {mediaRepresentative?.first_name} {mediaRepresentative?.last_name}
+                        <S.Bold>{mediaRepresentative?.item?.nick}</S.Bold>{' '}
+                        {mediaRepresentative?.item?.first_name}{' '}
+                        {mediaRepresentative?.item?.last_name}
                       </MarkedText>
                     ) : (
                       <span>
-                        <S.Bold>{mediaRepresentative?.nick}</S.Bold>{' '}
-                        {mediaRepresentative?.first_name} {mediaRepresentative?.last_name}
+                        <S.Bold>{mediaRepresentative?.item?.nick}</S.Bold>{' '}
+                        {mediaRepresentative?.item?.first_name}{' '}
+                        {mediaRepresentative?.item?.last_name}
                       </span>
                     )}
                   </S.CategoryItem>
@@ -269,11 +280,11 @@ export const InfoDrawer: React.FC<InfoDrawerProps> = ({
             </S.Category>
           )}
 
-          {staff?.length > 0 && (
+          {staff?.items?.length > 0 && (
             <S.Category>
               <S.CategoryTitle>Staff</S.CategoryTitle>
               <S.CategoryList>
-                {staff?.map(({ id, display_name, avatar, nick, first_name, last_name }) => (
+                {staff?.items?.map(({ id, display_name, avatar, nick, first_name, last_name }) => (
                   <S.CategoryItem key={id}>
                     <Avatar
                       image={avatar?.url}
@@ -282,7 +293,7 @@ export const InfoDrawer: React.FC<InfoDrawerProps> = ({
                       backgroundColor={color}
                     />
 
-                    {staffFilterList?.includes(String(id)) ? (
+                    {staff?.filterList?.includes(String(id)) ? (
                       <MarkedText>
                         <S.Bold>{nick}</S.Bold> {first_name} {last_name}
                       </MarkedText>

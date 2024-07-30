@@ -1,3 +1,4 @@
+import parse from 'html-react-parser';
 import { useParams } from 'react-router-dom';
 
 import { useGetTournamentMedia } from '@/entities/tournament';
@@ -25,7 +26,7 @@ const MediaContent: React.FC = () => {
                     <S.Date>Last update {updated_at}</S.Date>
                   </S.MediaItemHeader>
 
-                  <S.MediaItemText>{description}</S.MediaItemText>
+                  <S.MediaItemText>{parse(description)}</S.MediaItemText>
                 </S.MediaItem>
               ))
             )}

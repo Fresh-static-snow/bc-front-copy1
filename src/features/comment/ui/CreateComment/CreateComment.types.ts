@@ -1,3 +1,3 @@
 export type CreateCommentProps = {
-  entityType: 'Corporate' | 'Tournament';
+  entityType: 'Corporate' | 'Tournament' | 'Segment';
 };

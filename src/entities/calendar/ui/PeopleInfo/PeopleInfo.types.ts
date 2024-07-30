@@ -1,4 +1,6 @@
-import { CSSColor, HEX } from '@/shared/types/styles.types';
+import { CSSProperties } from 'react';
+
+import { HEX } from '@/shared/types/styles.types';
 
 import { CalendarPerson } from '../../types';
 
@@ -13,19 +15,19 @@ export type PeopleInfoProps = {
    * @default secondary_10
    * @description `secondary_10` is the color of the active theme.
    */
-  baseColor?: CSSColor;
+  baseColor?: CSSProperties['color'];
   mainFilterList?: string[];
   secondaryFilterList?: string[];
   staffFilterList?: string[];
 };
 
 export type StyledSeparatorProps = {
-  $baseColor: string;
-  $secondaryColor: string;
+  $baseColor: CSSProperties['color'];
+  $secondaryColor: CSSProperties['color'];
 };
 
 export type PeopleInfoMobileProps = {
-  color: HEX;
+  color: CSSProperties['color'];
   isVisible?: boolean;
   peopleList: CalendarPerson[];
   filterList?: string[];

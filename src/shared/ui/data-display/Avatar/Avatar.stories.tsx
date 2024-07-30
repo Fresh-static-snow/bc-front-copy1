@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import { Avatar } from './Avatar';
 
 export default {
-  title: 'ui/Avatar',
+  title: 'shared/data-display/Avatar',
   component: Avatar,
   tags: ['autodocs'],
   argTypes: {
@@ -15,6 +15,12 @@ export default {
     backgroundColor: { control: 'color' },
     borderColor: { control: 'color' },
     textColor: { control: 'color' },
+    additionalBorder: { control: 'text' },
+    crownIcon: { control: 'boolean' },
+    crownInnerStrokeColor: { control: 'color' },
+    crownOuterStrokeColor: { control: 'color' },
+    withShadow: { control: 'boolean' },
+    shadowColor: { control: 'color' },
   },
 } as Meta<typeof Avatar>;
 
@@ -74,5 +80,54 @@ export const Border: Story = {
     fontSize: '24px',
     fontWeight: '600',
     textColor: '#F4252D',
+  },
+};
+
+export const AdditionalBorder: Story = {
+  args: {
+    name: 'Kathryn Sexton',
+    backgroundColor: '#6E7380',
+    size: '40px',
+    additionalBorder: '2px dashed #F4252D',
+  },
+};
+
+export const CrownIcon: Story = {
+  args: {
+    name: 'Kathryn Sexton',
+    backgroundColor: '#6E7380',
+    size: '40px',
+    crownIcon: true,
+    crownInnerStrokeColor: '#FFD700',
+    crownOuterStrokeColor: '#DAA520',
+  },
+};
+
+export const Shadow: Story = {
+  args: {
+    name: 'Kathryn Sexton',
+    backgroundColor: '#6E7380',
+    size: '40px',
+    withShadow: true,
+    shadowColor: '#000000',
+  },
+};
+
+export const CompleteCustomization: Story = {
+  args: {
+    name: 'Kathryn Sexton',
+    image: 'https://picsum.photos/200',
+    size: '50px',
+    fontSize: '20px',
+    fontWeight: '700',
+    borderColor: '#FF6347',
+    additionalBorder: '2px solid #FFD700',
+    crownIcon: true,
+    crownInnerStrokeColor: '#FFD700',
+    crownOuterStrokeColor: '#DAA520',
+    backgroundColor: '#87CEEB',
+    textColor: '#FFFFFF',
+    withShadow: true,
+    shadowColor: '#696969',
   },
 };
