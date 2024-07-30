@@ -8,7 +8,7 @@ clean:
 	docker-compose down -v --remove-orphans
 	docker-compose down --volumes --remove-orphans
 	docker-compose rm -v
-    docker image prune -af --filter "label=com.docker.compose.project=broadcast-shift-calendar-front"
+  docker image prune -af --filter "label=com.docker.compose.project=broadcast-shift-calendar-front"
 	docker volume prune -f --filter "label=com.docker.compose.project=broadcast-shift-calendar-front"
 	docker network prune -f --filter "label=com.docker.compose.project=broadcast-shift-calendar-front"
 	docker image prune -af --filter "label=com.docker.compose.project=broadcast-shift-calendar-api"
