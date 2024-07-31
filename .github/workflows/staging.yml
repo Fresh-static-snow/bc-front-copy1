@@ -7,12 +7,36 @@ on:
   pull_request:
     branches:
       - staging
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository }}:latest
+          build-args: |
+            VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}
+            VITE_WEBSOCKET_BASE_URL=${{ secrets.VITE_WEBSOCKET_BASE_URL }}
+
+      - name: Log out from GitHub Container Registry
+        run: docker logout ghcr.io
 
       - name: Set up SSH
         run: |
@@ -26,23 +50,13 @@ jobs:
           ssh -T -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} <<-EOF
             eval `ssh-agent -s`
             ssh-add ~/.ssh/${{ secrets.SSH_ID_RSA_NAME}}
-            if [ ! -d "/home/${{ secrets.SSH_USER }}/${{ secrets.SERVER_APP_FOLDER }}" ]; then
-              mkdir /home/${{ secrets.SSH_USER }}/${{ secrets.SERVER_APP_FOLDER }}
-              chown ${{ secrets.SSH_USER }}:${{ secrets.SSH_USER }} /home/${{ secrets.SSH_USER }}/${{ secrets.SERVER_APP_FOLDER }}
-              git clone ${{ secrets.SSH_GITHUB_REPOSITORY}} /home/${{ secrets.SSH_USER }}/${{ secrets.SERVER_APP_FOLDER }}
-            fi
-            cd /home/${{ secrets.SSH_USER }}/${{ secrets.SERVER_APP_FOLDER }}
-            git checkout -f staging
-            git pull origin staging
 
-            export VITE_API_BASE_URL='${{ secrets.VITE_API_BASE_URL }}'
-            export VITE_WEBSOCKET_BASE_URL='${{ secrets.VITE_WEBSOCKET_BASE_URL }}'
-
-            echo "
-            VITE_API_BASE_URL='${{ secrets.VITE_API_BASE_URL }}'
-            VITE_WEBSOCKET_BASE_URL='${{ secrets.VITE_WEBSOCKET_BASE_URL }}'
-            " > /home/${{ secrets.SSH_USER }}/${{ secrets.SERVER_APP_FOLDER }}/.env
-            pnpm install
-            pnpm run build
-
+            docker pull ghcr.io/${{ github.repository }}:latest
+            docker stop maincast-calendar-front || true
+            docker rm maincast-calendar-front || true
+            docker run -d --name maincast-calendar-front \
+              -e VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }} \
+              -e VITE_WEBSOCKET_BASE_URL=${{ secrets.VITE_WEBSOCKET_BASE_URL }} \
+              -p 9000:9000 \
+              ghcr.io/${{ github.repository }}:latest
           EOF
