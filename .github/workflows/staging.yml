@@ -54,10 +54,10 @@ jobs:
       - name: Deploy to server
         run: |
           ssh -T -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} <<-EOF
-            docker pull ghcr.io/${{ steps.extract_repo.outputs.repo_owner }}/${{ steps.extract_repo.outputs.repo_name }}:latest
-            docker stop ${{ steps.extract_repo.outputs.repo_name }} || true
-            docker rm ${{ steps.extract_repo.outputs.repo_name }} || true
-            docker run -d --name ${{ steps.extract_repo.outputs.repo_name }} \
+            sudo docker pull ghcr.io/${{ steps.extract_repo.outputs.repo_owner }}/${{ steps.extract_repo.outputs.repo_name }}:latest
+            sudo docker stop ${{ steps.extract_repo.outputs.repo_name }} || true
+            sudo docker rm ${{ steps.extract_repo.outputs.repo_name }} || true
+            sudo docker run -d --name ${{ steps.extract_repo.outputs.repo_name }} \
               --network host \
               -e VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }} \
               -e VITE_WEBSOCKET_BASE_URL=${{ secrets.VITE_WEBSOCKET_BASE_URL }} \
