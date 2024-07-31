@@ -15,6 +15,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Extract repository name and convert to lowercase
+        id: extract_repo
+        run: echo "::set-output name=repo_name::$(echo ${{ github.repository }} | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')"
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -30,7 +34,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository }}:latest
+          tags: ghcr.io/${{ github.repository_owner }}/$(echo ${{ steps.extract_repo.outputs.repo_name }}):latest
           build-args: |
             VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}
             VITE_WEBSOCKET_BASE_URL=${{ secrets.VITE_WEBSOCKET_BASE_URL }}
@@ -48,15 +52,12 @@ jobs:
       - name: Deploy to server
         run: |
           ssh -T -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} <<-EOF
-            eval `ssh-agent -s`
-            ssh-add ~/.ssh/${{ secrets.SSH_ID_RSA_NAME}}
-
-            docker pull ghcr.io/${{ github.repository }}:latest
-            docker stop maincast-calendar-front || true
-            docker rm maincast-calendar-front || true
-            docker run -d --name maincast-calendar-front \
+            docker pull ghcr.io/${{ github.repository_owner }}/$(echo ${{ steps.extract_repo.outputs.repo_name }}):latest
+            docker stop $(echo ${{ steps.extract_repo.outputs.repo_name }}) || true
+            docker rm $(echo ${{ steps.extract_repo.outputs.repo_name }}) || true
+            docker run -d --name $(echo ${{ steps.extract_repo.outputs.repo_name }}) \
+              --network host \
               -e VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }} \
               -e VITE_WEBSOCKET_BASE_URL=${{ secrets.VITE_WEBSOCKET_BASE_URL }} \
-              -p 9000:9000 \
-              ghcr.io/${{ github.repository }}:latest
+              ghcr.io/${{ github.repository_owner }}/$(echo ${{ steps.extract_repo.outputs.repo_name }}):latest
           EOF
