@@ -1,0 +1,17 @@
+services:
+  maincast-calendar-front:
+    image: ghcr.io/${REPOSITORY_OWNER_LOWERCASE}/${REPOSITORY_NAME_LOWERCASE}:latest
+    container_name: maincast-calendar-front
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+    volumes:
+      - front-node-modules:/app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    env_file:
+      - ./.env
+    network_mode: host
+
+volumes:
+  front-node-modules:
